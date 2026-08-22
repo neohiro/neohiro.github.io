@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>neohiro — Security Hardening & Privacy Tools</title>
+<meta name="description" content="Defense is the best defense. Open-source security hardening and privacy tools for Windows & Linux by neohiro / METAPOD.">
+<style>
+:root{
+  --bg:#04060a; --bg2:#080d14; --card:rgba(16,22,29,.72);
+  --cyan:#00e5ff; --violet:#7c4dff; --green:#66bb6a;
+  --text:#e8eef2; --muted:#8fa3b0; --line:rgba(0,229,255,.14);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  overflow-x:hidden; min-height:100vh;
+}
+/* ---- animated aurora background ---- */
+.aurora{position:fixed;inset:-30%;z-index:-2;filter:blur(90px);opacity:.55;
+  background:
+    radial-gradient(38vw 38vw at 18% 24%, rgba(124,77,255,.35), transparent 60%),
+    radial-gradient(32vw 32vw at 82% 18%, rgba(0,229,255,.28), transparent 60%),
+    radial-gradient(40vw 40vw at 70% 85%, rgba(102,187,106,.20), transparent 62%);
+  animation:drift 26s ease-in-out infinite alternate;}
+@keyframes drift{
+  0%{transform:translate(0,0) scale(1)}
+  50%{transform:translate(-4%,3%) scale(1.08)}
+  100%{transform:translate(3%,-3%) scale(.96)}}
+.grid{position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse at 50% 30%,#000 30%,transparent 75%);
+  animation:gridpan 40s linear infinite;}
+@keyframes gridpan{to{background-position:56px 112px}}
+/* ---- layout ---- */
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+header{padding:90px 0 40px;text-align:center}
+.kicker{display:inline-block;font-size:13px;letter-spacing:.35em;color:var(--cyan);
+  border:1px solid var(--line);padding:8px 18px;border-radius:999px;margin-bottom:28px;
+  backdrop-filter:blur(6px);animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 22px rgba(0,229,255,.25)}}
+h1.glitch{font-size:clamp(52px,9vw,108px);font-weight:800;letter-spacing:-.02em;line-height:1;
+  position:relative;display:inline-block}
+h1.glitch::before,h1.glitch::after{content:attr(data-t);position:absolute;inset:0}
+h1.glitch::before{color:var(--violet);clip-path:inset(12% 0 58% 0);animation:g1 3.4s steps(1) infinite;opacity:.75}
+h1.glitch::after{color:var(--cyan);clip-path:inset(62% 0 8% 0);animation:g2 2.9s steps(1) infinite;opacity:.75}
+@keyframes g1{0%,92%{transform:none}94%{transform:translate(-4px,2px)}96%{transform:translate(3px,-1px)}98%{transform:none}}
+@keyframes g2{0%,90%{transform:none}93%{transform:translate(4px,-2px)}97%{transform:translate(-3px,2px)}100%{transform:none}}
+.tagline{margin-top:22px;font-size:clamp(17px,2.6vw,23px);color:var(--muted)}
+.tagline b{color:var(--text);font-weight:600}
+.caret{display:inline-block;width:10px;background:var(--cyan);margin-left:4px;
+  animation:blink 1s steps(1) infinite;border-radius:2px;height:1em;vertical-align:-.15em}
+@keyframes blink{50%{opacity:0}}
+/* ---- sections ---- */
+section{padding:64px 0}
+.sec-title{font-size:13px;letter-spacing:.35em;text-transform:uppercase;color:var(--cyan);margin-bottom:34px;display:flex;align-items:center;gap:16px}
+.sec-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+/* ---- project cards ---- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+.card{position:relative;border-radius:18px;padding:26px 26px 22px;background:var(--card);
+  border:1px solid rgba(255,255,255,.06);backdrop-filter:blur(10px);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s,box-shadow .35s;
+  opacity:0;transform:translateY(26px);}
+.card.in{opacity:1;transform:none}
+.card::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;
+  background:linear-gradient(130deg,rgba(0,229,255,.5),transparent 32%,transparent 68%,rgba(124,77,255,.45));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .35s}
+.card:hover{transform:translateY(-6px);border-color:rgba(0,229,255,.35);
+  box-shadow:0 18px 44px rgba(0,0,0,.5),0 0 0 1px rgba(0,229,255,.12),0 0 34px rgba(0,229,255,.07)}
+.card:hover::before{opacity:1}
+.card h3{font-size:19px;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.stars{font-size:12px;color:#ffd54f;white-space:nowrap}
+.card p{color:var(--muted);font-size:14.5px;line-height:1.65;margin-bottom:14px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-size:11px;padding:4px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.12);color:var(--muted)}
+.card a.fill{position:absolute;inset:0;border-radius:inherit;z-index:1}
+.card .open{color:var(--cyan);font-size:13px;opacity:0;transition:opacity .3s;position:relative;z-index:2}
+.card:hover .open{opacity:1}
+/* ---- guides ---- */
+.guides{display:flex;gap:18px;flex-wrap:wrap}
+.guide{flex:1;min-width:260px;border-radius:14px;padding:20px 22px;background:rgba(255,255,255,.03);
+  border:1px dashed rgba(255,255,255,.14);transition:.3s}
+.guide:hover{border-color:var(--green);background:rgba(102,187,106,.05)}
+.guide b{display:block;margin-bottom:6px}
+.guide span{color:var(--muted);font-size:14px;line-height:1.6}
+/* ---- support ---- */
+.support{text-align:center}
+.btnrow{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border-radius:999px;
+  font-weight:700;font-size:15px;text-decoration:none;letter-spacing:.02em;
+  transition:transform .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-3px)}
+.btn.sponsor{background:linear-gradient(135deg,#ea4aaa,#c2185b);color:#fff;box-shadow:0 8px 28px rgba(234,74,170,.35)}
+.btn.patreon{background:linear-gradient(135deg,#f96854,#e64c37);color:#fff;box-shadow:0 8px 28px rgba(249,104,84,.32)}
+.btn.linktree{background:rgba(43,226,149,.12);color:#2be295;border:1px solid rgba(43,226,149,.4)}
+footer{padding:46px 0 60px;text-align:center;color:var(--muted);font-size:13.5px}
+footer .heart{color:#ea4aaa}
+footer a{color:var(--cyan);text-decoration:none}
+@media(max-width:640px){header{padding:64px 0 26px}.sec-title{margin-bottom:26px}}
+</style>
+</head>
+<body>
+<div class="aurora"></div><div class="grid"></div>
+
+<header class="wrap">
+  <span class="kicker">👽 METAPOD · FRENZYPENGUIN MEDIA</span>
+  <h1 class="glitch" data-t="neohiro">neohiro</h1>
+  <p class="tagline"><b>Defense is the best defense.</b> Open-source security hardening<br>
+  &amp; privacy tooling for Windows &amp; Linux<span class="caret">&nbsp;</span></p>
+</header>
+
+<section class="wrap">
+  <div class="sec-title">Featured Tools</div>
+  <div class="cards">
+    <div class="card"><a class="fill" href="https://github.com/neohiro/ExploitProtection"></a>
+      <h3>ExploitProtection <span class="stars">★ 85</span></h3>
+      <p>Windows Exploit Protection settings (Ultimate) GUI — a community-maintained mitigation catalog plus a fast manager for bulk hardening.</p>
+      <div class="tags"><span class="tag">Python</span><span class="tag">Windows</span><span class="tag">Hardening</span></div></div>
+    <div class="card"><a class="fill" href="https://github.com/neohiro/Cripple-NetStrip"></a>
+      <h3>Cripple-NetStrip <span class="stars">★ 3</span></h3>
+      <p>Next-gen network hardening suite: DNS sinkhole, firewall, domain filter and debloater across Windows, Linux, macOS and Android.</p>
+      <div class="tags"><span class="tag">Network</span><span class="tag">DNS</span><span class="tag">Firewall</span></div></div>
+    <div class="card"><a class="fill" href="https://github.com/neohiro/dnscrypt-proxy-gui"></a>
+      <h3>dnscrypt-proxy GUI <span class="stars">★ 26</span></h3>
+      <p>Cross-platform graphical front-end for dnscrypt-proxy — encrypted DNS made point-and-click.</p>
+      <div class="tags"><span class="tag">DNS</span><span class="tag">Privacy</span><span class="tag">GUI</span></div></div>
+    <div class="card"><a class="fill" href="https://github.com/neohiro/BlackGlass"></a>
+      <h3>BlackGlass <span class="stars">★ 9</span></h3>
+      <p>Multi-client Second Life chat viewer with live minimap radar, in-session teleporting and a per-user Lists tab.</p>
+      <div class="tags"><span class="tag">Second Life</span><span class="tag">Protocol</span><span class="tag">Tkinter</span></div></div>
+    <div class="card"><a class="fill" href="https://github.com/neohiro/HoneyScan"></a>
+      <h3>HoneyScan <span class="stars">★ 2</span></h3>
+      <p>Passive honeypot for home networks — watch port scanners and snoopers in real time, beginner-friendly.</p>
+      <div class="tags"><span class="tag">Honeypot</span><span class="tag">IDS</span><span class="tag">Learning</span></div></div>
+    <div class="card"><a class="fill" href="https://github.com/neohiro/SystemMonitor"></a>
+      <h3>SystemMonitor <span class="stars">★ 1</span></h3>
+      <p>Futuristic desktop-widget system health monitor: rounded glass tiles, deep sensor chain, true manufacturer metrics.</p>
+      <div class="tags"><span class="tag">psutil</span><span class="tag">Widget</span><span class="tag">Sensors</span></div></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="sec-title">Hardening Guides</div>
+  <div class="guides">
+    <div class="guide"><b>🪟 windows</b><span>STIG-style manual + automated Windows 10/11 new-install hardening checklist.</span></div>
+    <div class="guide"><b>🐧 ubuntu</b><span>Post-install Linux hardening: firewall, encrypted DNS, Tor routing, fail2ban.</span></div>
+  </div>
+</section>
+
+<section class="wrap support">
+  <div class="sec-title" style="justify-content:center">Support The Work</div>
+  <div class="btnrow">
+    <a class="btn sponsor" href="https://github.com/sponsors/neohiro">❤ Sponsor on GitHub</a>
+    <a class="btn patreon" href="https://www.patreon.com/frenzypenguin_media">Patreon</a>
+    <a class="btn linktree" href="https://linktr.ee/frenzypenguin.media">🌐 frenzypenguin.media</a>
+  </div>
+</section>
+
+<footer class="wrap">
+  <p>Made with <span class="heart">♥</span> by <a href="https://github.com/neohiro">neohiro</a> ·
+  <a href="https://github.com/neohiro?tab=repositories">all repositories</a></p>
+</footer>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.card,.guide').forEach((el,i)=>{el.style.transitionDelay=(i%3*70)+'ms';io.observe(el)});
+</script>
+</body>
+</html>
