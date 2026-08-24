@@ -221,25 +221,81 @@ footer a{color:var(--cyan);text-decoration:none}
 </footer>
 
 <script>
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);
-  const el=e.target;setTimeout(()=>{el.style.transitionDelay=''},800)}}),{threshold:.12});
-document.querySelectorAll('.card,.guide').forEach((el,i)=>{el.style.transitionDelay=(i%3*70)+'ms';io.observe(el)});
+/*__CORE_START__*/
+/* Shared site core - SINGLE SOURCE OF TRUTH.
+   Edits belong HERE; build-sites.ps1 injects this into each index.html
+   between __CORE_START__/__CORE_END__ markers. Never edit injected copies. */
+
+/* ---- cached GitHub API (15-min sessionStorage TTL) ---- */
+const TTL = 15 * 60 * 1000;
+function cachedJson(key, url) {
+  try {
+    const c = JSON.parse(sessionStorage.getItem('gh:' + key) || 'null');
+    if (c && Date.now() - c.t < TTL) return Promise.resolve(c.d);
+  } catch (e) {}
+  return fetch(url).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(d => { try { sessionStorage.setItem('gh:' + key, JSON.stringify({ t: Date.now(), d: d })); } catch (e) {} return d; });
+}
+
+/* ---- tiny DOM + number helpers ---- */
+const fmt = n => n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k' : String(n);
+const el = (t, c, txt) => { const n = document.createElement(t); if (c) n.className = c; if (txt != null) n.textContent = txt; return n; };
+
+/* ---- reveal-on-scroll with stagger (clears delay after entry so hover feels instant) ---- */
+function initReveal(sel) {
+  const obs = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      obs.unobserve(e.target);
+      const t = e.target;
+      setTimeout(() => { t.style.transitionDelay = ''; }, 800);
+    }
+  }), { threshold: .12 });
+  document.querySelectorAll(sel).forEach((elm, i) => { elm.style.transitionDelay = (i % 3 * 70) + 'ms'; obs.observe(elm); });
+  return obs;
+}
 
 /* ---- repo select burst: ripple + glitch flash ---- */
-document.querySelectorAll('.card').forEach(card=>{
-  card.addEventListener('pointerdown',e=>{
-    const r=card.getBoundingClientRect(),d=Math.max(r.width,r.height)*2.3;
-    const s=document.createElement('span');s.className='ripple';
-    s.style.cssText=`width:${d}px;height:${d}px;left:${e.clientX-r.left}px;top:${e.clientY-r.top}px`;
-    card.appendChild(s);setTimeout(()=>s.remove(),800);
-    if(card._selT)clearTimeout(card._selT);
-    card.classList.remove('selected');void card.offsetWidth;card.classList.add('selected');
-    card._selT=setTimeout(()=>card.classList.remove('selected'),650);
+function attachSelect(card) {
+  card.addEventListener('pointerdown', e => {
+    const r = card.getBoundingClientRect(), d = Math.max(r.width, r.height) * 2.3;
+    const s = document.createElement('span'); s.className = 'ripple';
+    s.style.cssText = `width:${d}px;height:${d}px;left:${e.clientX - r.left}px;top:${e.clientY - r.top}px`;
+    card.appendChild(s); setTimeout(() => s.remove(), 800);
+    if (card._selT) clearTimeout(card._selT);
+    card.classList.remove('selected'); void card.offsetWidth; card.classList.add('selected');
+    card._selT = setTimeout(() => card.classList.remove('selected'), 650);
   });
-});
+}
+
+/* ---- glitching logo + typewriter tagline ---- */
+const _logo = document.getElementById('logo'), _typed = document.getElementById('typed');
+let gTimer = null;
+function glitchLogo() {
+  if (gTimer) clearTimeout(gTimer);
+  _logo.classList.remove('glitching'); void _logo.offsetWidth; _logo.classList.add('glitching');
+  gTimer = setTimeout(() => _logo.classList.remove('glitching'), 420);
+}
+function startTypewriter(list) {
+  let pi = 0;
+  function typePhrase(txt, i) {
+    _typed.textContent = txt.slice(0, i);
+    if (i < txt.length) { setTimeout(() => typePhrase(txt, i + 1), 16 + Math.random() * 34); }
+    else { setTimeout(() => { glitchLogo(); erase(txt, txt.length); }, 1500); }
+  }
+  function erase(txt, i) {
+    _typed.textContent = txt.slice(0, i);
+    if (i > 0) { setTimeout(() => erase(txt, i - 1), 8 + Math.random() * 14); }
+    else { pi = (pi + 1) % list.length; setTimeout(() => typePhrase(list[pi], 0), 260); }
+  }
+  typePhrase(list[0], 0);
+}
+(function randGlitch(){ glitchLogo(); setTimeout(randGlitch, 2600 + Math.random() * 3400); })();
+/*__CORE_END__*/
+const io = initReveal('.card,.guide');
 
 /* ---- typewriter tagline: type, hold, delete, next ---- */
-const phrases=[
+startTypewriter([
   'Open-source security hardening for Windows & Linux',
   'Exploit mitigations, point-and-click simple',
   'ExploitProtection — the community mitigation catalog',
@@ -253,44 +309,19 @@ const phrases=[
   'Privacy is the foundation, not a feature',
   'BlackGlass — Second Life on radar',
   'Built by neohiro · powered by METAPOD'
-];
-const typed=document.getElementById('typed'),logo=document.getElementById('logo');
-let pi=0,gTimer=null;
-function glitchLogo(){if(gTimer)clearTimeout(gTimer);logo.classList.remove('glitching');void logo.offsetWidth;
-  logo.classList.add('glitching');gTimer=setTimeout(()=>logo.classList.remove('glitching'),420)}
-function typePhrase(txt,i){
-  typed.textContent=txt.slice(0,i);
-  if(i<txt.length){setTimeout(()=>typePhrase(txt,i+1),16+Math.random()*34)}
-  else{setTimeout(()=>{glitchLogo();erasePhrase(txt,txt.length)},1500)}
-}
-function erasePhrase(txt,i){
-  typed.textContent=txt.slice(0,i);
-  if(i>0){setTimeout(()=>erasePhrase(txt,i-1),8+Math.random()*14)}
-  else{pi=(pi+1)%phrases.length;setTimeout(()=>typePhrase(phrases[pi],0),260)}
-}
-typePhrase(phrases[0],0);
-(function randGlitch(){glitchLogo();setTimeout(randGlitch,2600+Math.random()*3400)})();
+]);
 
 /* ---- live star counts (hardcoded values remain as fallback) ---- */
-const TTL=15*60*1000;
-function cachedJson(key,url){
-  try{
-    const c=JSON.parse(sessionStorage.getItem('gh:'+key)||'null');
-    if(c&&Date.now()-c.t<TTL)return Promise.resolve(c.d);
-  }catch(e){}
-  return fetch(url).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
-    .then(d=>{try{sessionStorage.setItem('gh:'+key,JSON.stringify({t:Date.now(),d:d}))}catch(e){}return d});
-}
-cachedJson('neo-repos','https://api.github.com/users/neohiro/repos?per_page=100')
-  .then(repos=>{
-    const map={};repos.forEach(r=>{map[r.name.toLowerCase()]=r.stargazers_count});
-    document.querySelectorAll('.card').forEach(card=>{
-      const a=card.querySelector('a.fill');if(!a)return;
-      const m=a.href.match(/github\.com\/neohiro\/([^\/#?]+)/);if(!m)return;
-      const n=map[decodeURIComponent(m[1]).toLowerCase()],el=card.querySelector('.stars');
-      if(el&&typeof n==='number')el.textContent='★ '+(n>=1000?(n/1000).toFixed(1).replace(/\.0$/,'')+'k':n);
+cachedJson('neo-repos', 'https://api.github.com/users/neohiro/repos?per_page=100')
+  .then(repos => {
+    const map = {}; repos.forEach(r => { map[r.name.toLowerCase()] = r.stargazers_count; });
+    document.querySelectorAll('.card').forEach(card => {
+      const a = card.querySelector('a.fill'); if (!a) return;
+      const m = a.href.match(/github\.com\/neohiro\/([^\/#?]+)/); if (!m) return;
+      const n = map[decodeURIComponent(m[1]).toLowerCase()], el2 = card.querySelector('.stars');
+      if (el2 && typeof n === 'number') el2.textContent = '★ ' + (n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k' : n);
     });
-  }).catch(()=>{});
+  }).catch(() => {});
 </script>
 </body>
 </html>
