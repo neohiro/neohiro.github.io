@@ -261,6 +261,19 @@ function erasePhrase(txt,i){
 }
 typePhrase(phrases[0],0);
 (function randGlitch(){glitchLogo();setTimeout(randGlitch,2600+Math.random()*3400)})();
+
+/* ---- live star counts (hardcoded values remain as fallback) ---- */
+fetch('https://api.github.com/users/neohiro/repos?per_page=100')
+  .then(r=>{if(!r.ok)throw new Error(r.status);return r.json()})
+  .then(repos=>{
+    const map={};repos.forEach(r=>{map[r.name.toLowerCase()]=r.stargazers_count});
+    document.querySelectorAll('.card').forEach(card=>{
+      const a=card.querySelector('a.fill');if(!a)return;
+      const m=a.href.match(/github\.com\/neohiro\/([^\/#?]+)/);if(!m)return;
+      const n=map[decodeURIComponent(m[1]).toLowerCase()],el=card.querySelector('.stars');
+      if(el&&typeof n==='number')el.textContent='â˜… '+(n>=1000?(n/1000).toFixed(1).replace(/\.0$/,'')+'k':n);
+    });
+  }).catch(()=>{});
 </script>
 </body>
 </html>
