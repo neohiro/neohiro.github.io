@@ -263,8 +263,16 @@ typePhrase(phrases[0],0);
 (function randGlitch(){glitchLogo();setTimeout(randGlitch,2600+Math.random()*3400)})();
 
 /* ---- live star counts (hardcoded values remain as fallback) ---- */
-fetch('https://api.github.com/users/neohiro/repos?per_page=100')
-  .then(r=>{if(!r.ok)throw new Error(r.status);return r.json()})
+const TTL=15*60*1000;
+function cachedJson(key,url){
+  try{
+    const c=JSON.parse(sessionStorage.getItem('gh:'+key)||'null');
+    if(c&&Date.now()-c.t<TTL)return Promise.resolve(c.d);
+  }catch(e){}
+  return fetch(url).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
+    .then(d=>{try{sessionStorage.setItem('gh:'+key,JSON.stringify({t:Date.now(),d:d}))}catch(e){}return d});
+}
+cachedJson('neo-repos','https://api.github.com/users/neohiro/repos?per_page=100')
   .then(repos=>{
     const map={};repos.forEach(r=>{map[r.name.toLowerCase()]=r.stargazers_count});
     document.querySelectorAll('.card').forEach(card=>{
