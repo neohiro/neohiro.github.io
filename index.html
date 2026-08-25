@@ -134,7 +134,9 @@ section{padding:64px 0}
 /* ---- guides ---- */
 .guides{display:flex;gap:18px;flex-wrap:wrap}
 .guide{flex:1;min-width:260px;border-radius:14px;padding:20px 22px;background:rgba(255,255,255,.03);
-  border:1px dashed rgba(255,255,255,.14);transition:.3s}
+  border:1px dashed rgba(255,255,255,.14);transition:.3s;position:relative}
+.guide a.fill{position:absolute;inset:0;border-radius:14px;z-index:1}
+.guide:hover b{color:var(--green)}
 .guide:hover{border-color:var(--green);background:rgba(102,187,106,.05)}
 .guide b{display:block;margin-bottom:6px}
 .guide span{color:var(--muted);font-size:14px;line-height:1.6}
@@ -201,8 +203,8 @@ footer a{color:var(--cyan);text-decoration:none}
 <section class="wrap">
   <div class="sec-title">Hardening Guides</div>
   <div class="guides">
-    <div class="guide"><b>🪟 windows</b><span>STIG-style manual + automated Windows 10/11 new-install hardening checklist.</span></div>
-    <div class="guide"><b>🐧 ubuntu</b><span>Post-install Linux hardening: firewall, encrypted DNS, Tor routing, fail2ban.</span></div>
+    <div class="guide"><a class="fill" href="https://github.com/neohiro/windows" aria-label="Windows hardening guide"></a><b>🪟 windows</b><span>STIG-style manual + automated Windows 10/11 new-install hardening checklist.</span></div>
+    <div class="guide"><a class="fill" href="https://github.com/neohiro/ubuntu" aria-label="Ubuntu hardening guide"></a><b>🐧 ubuntu</b><span>Post-install Linux hardening: firewall, encrypted DNS, Tor routing, fail2ban.</span></div>
   </div>
 </section>
 
