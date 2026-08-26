@@ -320,7 +320,7 @@ cachedJson('neo-repos', 'https://api.github.com/users/neohiro/repos?per_page=100
     const map = {}; repos.forEach(r => { map[r.name.toLowerCase()] = r.stargazers_count; });
     document.querySelectorAll('.card[data-repo]').forEach(card => {
       const n = map[card.dataset.repo.toLowerCase()], el2 = card.querySelector('.stars');
-      if (el2 && typeof n === 'number') el2.textContent = '★ ' + (n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k' : n);
+      if (el2 && typeof n === 'number') el2.textContent = '★ ' + fmt(n);
     });
   }).catch(() => {});
 </script>
