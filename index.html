@@ -173,28 +173,28 @@ footer a{color:var(--cyan);text-decoration:none}
 <section class="wrap">
   <div class="sec-title">Featured Tools</div>
   <div class="cards">
-    <div class="card"><a class="fill" href="https://github.com/neohiro/ExploitProtection"></a>
+    <div class="card" data-repo="ExploitProtection"><a class="fill" href="ExploitProtection.html" aria-label="ExploitProtection details"></a>
       <h3>ExploitProtection <span class="stars">★ 85</span></h3>
       <p>Windows Exploit Protection settings (Ultimate) GUI — a community-maintained mitigation catalog plus a fast manager for bulk hardening.</p>
       <div class="tags"><span class="tag">Python</span><span class="tag">Windows</span><span class="tag">Hardening</span></div></div>
-    <div class="card"><a class="fill" href="https://github.com/neohiro/Cripple-NetStrip"></a>
+    <div class="card" data-repo="Cripple-NetStrip"><a class="fill" href="Cripple-NetStrip.html" aria-label="Cripple-NetStrip details"></a>
       <h3>Cripple-NetStrip <span class="stars">★ 3</span></h3>
       <p>Next-gen network hardening suite: DNS sinkhole, firewall, domain filter and debloater across Windows, Linux, macOS and Android.</p>
       <div class="tags"><span class="tag">Network</span><span class="tag">DNS</span><span class="tag">Firewall</span></div></div>
-    <div class="card"><a class="fill" href="https://github.com/neohiro/dnscrypt-proxy-gui"></a>
-      <h3>dnscrypt-proxy GUI <span class="stars">★ 26</span></h3>
+    <div class="card" data-repo="dnscrypt-proxy-gui"><a class="fill" href="dnscrypt-proxy-gui.html" aria-label="dnscrypt-proxy GUI details"></a>
+      <h3>dnscrypt-proxy GUI <span class="stars">★ 27</span></h3>
       <p>Cross-platform graphical front-end for dnscrypt-proxy — encrypted DNS made point-and-click.</p>
       <div class="tags"><span class="tag">DNS</span><span class="tag">Privacy</span><span class="tag">GUI</span></div></div>
-    <div class="card"><a class="fill" href="https://github.com/neohiro/BlackGlass"></a>
+    <div class="card" data-repo="BlackGlass"><a class="fill" href="BlackGlass.html" aria-label="BlackGlass details"></a>
       <h3>BlackGlass <span class="stars">★ 9</span></h3>
       <p>Multi-client Second Life chat viewer with live minimap radar, in-session teleporting and a per-user Lists tab.</p>
       <div class="tags"><span class="tag">Second Life</span><span class="tag">Protocol</span><span class="tag">Tkinter</span></div></div>
-    <div class="card"><a class="fill" href="https://github.com/neohiro/HoneyScan"></a>
+    <div class="card" data-repo="HoneyScan"><a class="fill" href="HoneyScan.html" aria-label="HoneyScan details"></a>
       <h3>HoneyScan <span class="stars">★ 2</span></h3>
       <p>Passive honeypot for home networks — watch port scanners and snoopers in real time, beginner-friendly.</p>
       <div class="tags"><span class="tag">Honeypot</span><span class="tag">IDS</span><span class="tag">Learning</span></div></div>
-    <div class="card"><a class="fill" href="https://github.com/neohiro/SystemMonitor"></a>
-      <h3>SystemMonitor <span class="stars">★ 1</span></h3>
+    <div class="card" data-repo="SystemMonitor"><a class="fill" href="SystemMonitor.html" aria-label="SystemMonitor details"></a>
+      <h3>SystemMonitor <span class="stars">★ 0</span></h3>
       <p>Futuristic desktop-widget system health monitor: rounded glass tiles, deep sensor chain, true manufacturer metrics.</p>
       <div class="tags"><span class="tag">psutil</span><span class="tag">Widget</span><span class="tag">Sensors</span></div></div>
   </div>
@@ -203,8 +203,8 @@ footer a{color:var(--cyan);text-decoration:none}
 <section class="wrap">
   <div class="sec-title">Hardening Guides</div>
   <div class="guides">
-    <div class="guide"><a class="fill" href="https://github.com/neohiro/windows" aria-label="Windows hardening guide"></a><b>🪟 windows</b><span>STIG-style manual + automated Windows 10/11 new-install hardening checklist.</span></div>
-    <div class="guide"><a class="fill" href="https://github.com/neohiro/ubuntu" aria-label="Ubuntu hardening guide"></a><b>🐧 ubuntu</b><span>Post-install Linux hardening: firewall, encrypted DNS, Tor routing, fail2ban.</span></div>
+    <div class="guide"><a class="fill" href="windows.html" aria-label="Windows hardening guide"></a><b>🪟 windows</b><span>STIG-style manual + automated Windows 10/11 new-install hardening checklist.</span></div>
+    <div class="guide"><a class="fill" href="ubuntu.html" aria-label="Ubuntu hardening guide"></a><b>🐧 ubuntu</b><span>Post-install Linux hardening: firewall, encrypted DNS, Tor routing, fail2ban.</span></div>
   </div>
 </section>
 
@@ -313,14 +313,13 @@ startTypewriter([
   'Built by neohiro · powered by METAPOD'
 ]);
 
-/* ---- live star counts (hardcoded values remain as fallback) ---- */
+/* ---- live star counts (hardcoded values remain as fallback; repo name comes
+   from each card's data-repo attribute since cards link to local subpages) ---- */
 cachedJson('neo-repos', 'https://api.github.com/users/neohiro/repos?per_page=100')
   .then(repos => {
     const map = {}; repos.forEach(r => { map[r.name.toLowerCase()] = r.stargazers_count; });
-    document.querySelectorAll('.card').forEach(card => {
-      const a = card.querySelector('a.fill'); if (!a) return;
-      const m = a.href.match(/github\.com\/neohiro\/([^\/#?]+)/); if (!m) return;
-      const n = map[decodeURIComponent(m[1]).toLowerCase()], el2 = card.querySelector('.stars');
+    document.querySelectorAll('.card[data-repo]').forEach(card => {
+      const n = map[card.dataset.repo.toLowerCase()], el2 = card.querySelector('.stars');
       if (el2 && typeof n === 'number') el2.textContent = '★ ' + (n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k' : n);
     });
   }).catch(() => {});
