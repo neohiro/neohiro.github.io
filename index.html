@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👽</text></svg>">
-<link rel="preconnect" href="https://api.github.com" crossorigin>
 <title>neohiro — Security Hardening & Privacy Tools</title>
 <meta name="description" content="Defense is the best defense. Open-source security hardening and privacy tools for Windows & Linux by neohiro / METAPOD.">
 <style>
@@ -211,9 +210,9 @@ footer a{color:var(--cyan);text-decoration:none}
 <section class="wrap support">
   <div class="sec-title" style="justify-content:center">Support The Work</div>
   <div class="btnrow">
-    <a class="btn sponsor" href="https://github.com/sponsors/neohiro">❤ Sponsor on GitHub</a>
-    <a class="btn patreon" href="https://www.patreon.com/frenzypenguin_media">Patreon</a>
-    <a class="btn linktree" href="https://linktr.ee/frenzypenguin.media">🌐 frenzypenguin.media</a>
+    <a class="btn sponsor" rel="noopener noreferrer nofollow no-referrer" href="https://github.com/sponsors/neohiro">❤ Sponsor on GitHub</a>
+    <a class="btn patreon" rel="noopener noreferrer nofollow no-referrer" href="https://www.patreon.com/frenzypenguin_media">Patreon</a>
+    <a class="btn linktree" rel="noopener noreferrer nofollow no-referrer" href="https://linktr.ee/frenzypenguin.media">🌐 frenzypenguin.media</a>
   </div>
 </section>
 
@@ -228,15 +227,9 @@ footer a{color:var(--cyan);text-decoration:none}
    Edits belong HERE; build-sites.ps1 injects this into each index.html
    between __CORE_START__/__CORE_END__ markers. Never edit injected copies. */
 
-/* ---- cached GitHub API (15-min sessionStorage TTL) ---- */
-const TTL = 15 * 60 * 1000;
+/* ---- fetch helper (no client-side cache) ---- */
 function cachedJson(key, url) {
-  try {
-    const c = JSON.parse(sessionStorage.getItem('gh:' + key) || 'null');
-    if (c && Date.now() - c.t < TTL) return Promise.resolve(c.d);
-  } catch (e) {}
-  return fetch(url).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-    .then(d => { try { sessionStorage.setItem('gh:' + key, JSON.stringify({ t: Date.now(), d: d })); } catch (e) {} return d; });
+  return fetch(url).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
 }
 
 /* ---- tiny DOM + number helpers ---- */
@@ -313,16 +306,7 @@ startTypewriter([
   'Built by neohiro · powered by METAPOD'
 ]);
 
-/* ---- live star counts (hardcoded values remain as fallback; repo name comes
-   from each card's data-repo attribute since cards link to local subpages) ---- */
-cachedJson('neo-repos', 'https://api.github.com/users/neohiro/repos?per_page=100')
-  .then(repos => {
-    const map = {}; repos.forEach(r => { map[r.name.toLowerCase()] = r.stargazers_count; });
-    document.querySelectorAll('.card[data-repo]').forEach(card => {
-      const n = map[card.dataset.repo.toLowerCase()], el2 = card.querySelector('.stars');
-      if (el2 && typeof n === 'number') el2.textContent = '★ ' + fmt(n);
-    });
-  }).catch(() => {});
+/* live star counts: removed - site uses committed snapshot only */
 </script>
 </body>
 </html>
