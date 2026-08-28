@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <title>{{ page.title | default: site.title }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicon.svg' | relative_url }}">
+  {% seo %}
+  {% feed_meta %}
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="site-header" role="banner">
+      <div class="container">
+        <a class="site-brand" href="{{ '/' | relative_url }}" aria-label="neohiro - Home">
+          <svg class="logo-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <ellipse cx="16" cy="20" rx="10.8" ry="13.4" fill="currentColor" opacity="0.15"/>
+            <ellipse cx="11" cy="15" rx="3.2" ry="5.4" fill="#080a0d"/>
+            <ellipse cx="11" cy="15" rx="1.6" ry="2.8" fill="currentColor" opacity="0.25"/>
+            <ellipse cx="21" cy="15" rx="3.2" ry="5.4" fill="#080a0d"/>
+            <ellipse cx="21" cy="15" rx="1.6" ry="2.8" fill="currentColor" opacity="0.25"/>
+            <path d="M16 28c-3.5 0-6-2.5-6-5.5 0-1.8 1.5-3.5 3.5-3.5s3.5 1.7 3.5 3.5c0 3-2.5 5.5-6 5.5z" fill="currentColor" opacity="0.15"/>
+          </svg>
+          <span class="logo-text">neohiro</span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+          <a href="#featured-tools" class="nav-link">Tools</a>
+          <a href="#hardening-guides" class="nav-link">Guides</a>
+          <a href="https://github.com/neohiro?tab=repositories" class="nav-link" target="_blank" rel="noopener">All Repos</a>
+          <a href="https://github.com/sponsors/neohiro" class="nav-link nav-sponsor" target="_blank" rel="noopener">Sponsor</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="site-main" role="main">
+      {{ content }}
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="container">
+        <p class="footer-tagline">Made with <span class="heart" aria-hidden="true">♥</span> by neohiro</p>
+        <p class="footer-links">
+          <a href="https://github.com/neohiro" target="_blank" rel="noopener">GitHub</a>
+          <span aria-hidden="true">·</span>
+          <a href="https://github.com/sponsors/neohiro" target="_blank" rel="noopener">Sponsor</a>
+          <span aria-hidden="true">·</span>
+          <a href="https://linktr.ee/frenzypenguin.media" target="_blank" rel="noopener">Links</a>
+        </p>
+        <p class="footer-copyright">All repositories under <a href="https://github.com/neohiro" target="_blank" rel="noopener">github.com/neohiro</a></p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="{{ '/assets/js/typing.js' | relative_url }}"></script>
+</body>
+</html>
