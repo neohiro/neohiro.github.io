@@ -27,16 +27,7 @@ jobs:
         with:
           ruby-version: '3.3'
           bundler-cache: true
-
-      - name: Debug JSON bytes
-        run: |
-          ruby -e "
-            content = File.read('_data/repos.json', :encoding => 'ASCII-8BIT')
-            puts 'First 20 bytes: ' + content.bytes[0..19].map{|b| '0x%02X' % b}.join(' ')
-            puts 'Size: ' + content.bytesize.to_s
-            puts 'First char ord: ' + content.ord.to_s
-            puts 'Has BOM: ' + (content.start_with?(\"\xEF\xBB\xBF\")).to_s
-          "
+          cache-version: v2
 
       - name: Build Jekyll Site
         run: bundle exec jekyll build
