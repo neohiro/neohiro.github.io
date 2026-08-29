@@ -6,6 +6,7 @@ language: PowerShell
 repo_url: https://github.com/neohiro/windows
 featured: true
 weight: 1
+category: System Hardening
 icon: |
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
     <rect x="2" y="4" width="20" height="16" rx="2"/>
