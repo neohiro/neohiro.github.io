@@ -8,6 +8,6 @@ gem "kramdown-parser-gfm"
 gem "webrick", "~> 1.8"
 
 group :jekyll_plugins do
-  gem "jekyll-seo-tag"
-  gem "jekyll-sitemap"
+  # jekyll-feed, jekyll-seo-tag, jekyll-sitemap are already loaded by Jekyll
+  # when listed in _config.yml plugins. Keeping them here for explicitness.
 end
