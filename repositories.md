@@ -54,13 +54,13 @@ permalink: /repositories/
     </div>
 
     <div class="repos-stats" aria-live="polite">
-      <span class="stat"><strong id="count-all">{{ site.tools | size }}</strong> repositories</span>
-      <span class="stat"><strong id="count-featured">{{ site.tools | where: "featured", true | size }}</strong> featured</span>
-      <span class="stat"><strong id="count-stars">—</strong> total stars</span>
+      <span class="stat"><strong id="count-all">{{ site.data.repos.repos | size }}</strong> repositories</span>
+      <span class="stat"><strong id="count-featured">{{ site.data.repos.repos | where: "featured", true | size }}</strong> featured</span>
+      <span class="stat"><strong id="count-stars">— total stars</strong></span>
     </div>
 
     <div class="repos-grid" id="repos-grid">
-      {% assign sorted_tools = site.tools | sort: "weight" %}
+      {% assign sorted_tools = site.data.repos.repos | sort: "weight" %}
       {% for tool in sorted_tools %}
         {% assign categories = tool.category | split: ", " %}
         <article class="repo-card visible"
@@ -75,13 +75,20 @@ permalink: /repositories/
                  data-created="{{ tool.created_at }}"
                  itemscope itemtype="https://schema.org/SoftwareApplication">
           <div class="repo-card-icon" aria-hidden="true">
-            {% if tool.icon %}
-              {{ tool.icon }}
+            {% if tool.category contains 'Security' or tool.category contains 'Network' %}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            {% elsif tool.category contains 'Games' %}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01"/><path d="M17 12h.01"/><path d="M7 12h.01"/></svg>
+            {% elsif tool.category contains 'Developer' %}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+            {% elsif tool.category contains 'Network' %}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="6" height="6" rx="1"/><rect x="16" y="2" width="6" height="6" rx="1"/><rect x="9" y="16" width="6" height="6" rx="1"/><path d="M5 8v4h14V8"/><path d="M12 14v4"/></svg>
+            {% elsif tool.category contains 'Guides' %}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            {% elsif tool.category contains 'Pages' %}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
             {% else %}
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <rect x="3" y="3" width="18" height="18" rx="3"/>
-                <path d="M9 12h6M12 9v6"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 12h6M12 9v6"/></svg>
             {% endif %}
           </div>
           <h3 class="repo-card-name" itemprop="name">
@@ -110,7 +117,7 @@ permalink: /repositories/
           </div>
           {% endif %}
           <div class="repo-card-links">
-            <a href="{{ tool.permalink | relative_url }}" class="repo-link" itemprop="url">
+            <a href="{{ tool.repo_url }}" class="repo-link" itemprop="url">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               Details
             </a>
