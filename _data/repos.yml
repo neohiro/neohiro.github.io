@@ -1,0 +1,212 @@
+generated_at: 2026-08-29T20:49:13
+repos:
+  - name: BlackGlass
+    title: BlackGlass
+    tagline: "Multi-client chat viewer for Second Life â€” unified IM, local chat, group chat with history search"
+    platform: Windows / Linux / macOS
+    language: Python (PySide6/Qt)
+    category: Communication
+    featured: false
+    weight: 14
+    repo_url: "https://github.com/neohiro/BlackGlass"
+    stars: 9
+    forks: 2
+    open_issues: 0
+    created_at: "2025-12-13T22:07:22Z"
+    pushed_at: "2026-08-25T20:37:51Z"
+  - name: HoneyScan
+    title: HoneyScan
+    tagline: "Passive honeypot for home networks â€” detects scans, brute-force, IoT malware with zero config"
+    platform: Linux (Raspberry Pi, VM, bare metal)
+    language: Python / Shell
+    category: Network Security
+    featured: false
+    weight: 15
+    repo_url: "https://github.com/neohiro/HoneyScan"
+    stars: 2
+    forks: 0
+    open_issues: 0
+    created_at: "2025-08-06T16:17:54Z"
+    pushed_at: "2026-08-22T20:29:03Z"
+  - name: NewsAggregator
+    title: NewsAggregator
+    tagline: "Global news feed with search â€” RSS/Atom/JSON Feed aggregation, offline reading, cross-platform"
+    platform: Windows / Linux / macOS
+    language: Python (PySide6/Qt)
+    category: Information
+    featured: false
+    weight: 16
+    repo_url: "https://github.com/neohiro/NewsAggregator"
+    stars: 0
+    forks: 0
+    open_issues: 0
+    created_at: "2025-08-14T23:25:13Z"
+    pushed_at: "2026-08-22T20:38:25Z"
+  - name: SystemMonitor
+    title: SystemMonitor
+    tagline: Live system health on your desktop â€” CPU, RAM, disk, network, GPU, sensors with alerts
+    platform: Windows / Linux
+    language: Python (PySide6/Qt) / C++
+    category: System Utilities
+    featured: true
+    weight: 7
+    repo_url: "https://github.com/neohiro/SystemMonitor"
+    stars: 0
+    forks: 0
+    open_issues: 0
+    created_at: "2025-08-06T18:10:44Z"
+    pushed_at: "2026-08-22T20:28:50Z"
+  - name: Tetris
+    title: Tetris
+    tagline: "Classic Tetris â€” guideline-compliant, T-spin detection, replay system, vs AI"
+    platform: Windows / Linux / macOS / Web
+    language: Rust (macroquad) / TypeScript
+    category: Games
+    featured: false
+    weight: 19
+    repo_url: "https://github.com/neohiro/Tetris"
+    stars: 0
+    forks: 1
+    open_issues: 0
+    created_at: "2025-08-27T01:09:44Z"
+    pushed_at: "2026-08-22T20:29:52Z"
+  - name: TristarMania
+    title: TristarMania
+    tagline: Addictive space shooter â€” procedural waves, ship customization, online leaderboards
+    platform: Windows / Linux / macOS
+    language: Rust (Bevy) / WebAssembly
+    category: Games
+    featured: false
+    weight: 18
+    repo_url: "https://github.com/neohiro/TristarMania"
+    stars: 0
+    forks: 0
+    open_issues: 0
+    created_at: "2025-08-20T18:19:08Z"
+    pushed_at: "2026-08-22T20:29:56Z"
+  - name: ZombieShoot
+    title: ZombieShoot
+    tagline: "Top-down zombie shooter â€” procedural levels, permadeath, moddable (Windows/Linux)"
+    platform: Windows / Linux
+    language: Python (PyGame) / C++
+    category: Games
+    featured: false
+    weight: 17
+    repo_url: "https://github.com/neohiro/ZombieShoot"
+    stars: 0
+    forks: 0
+    open_issues: 0
+    created_at: "2025-08-21T02:31:28Z"
+    pushed_at: "2026-08-22T20:29:59Z"
+  - name: "auto-resume"
+    title: "auto-resume"
+    tagline: "Self-healing OpenCode sessions â€” automatic retries, model rotation on quota/outages, permission autopilot & walk-away task autonomy"
+    platform: "Cross-platform (Node.js)"
+    language: TypeScript
+    category: Developer Tools
+    featured: true
+    weight: 6
+    repo_url: "https://github.com/neohiro/auto-resume"
+    stars: 0
+    forks: 0
+    open_issues: 0
+    created_at: "2026-08-24T13:51:39Z"
+    pushed_at: "2026-08-29T12:06:49Z"
+  - name: "cripple-netstrip"
+    title: "Cripple-NetStrip"
+    tagline: Network hardening Â· DNS sinkhole Â· Encrypted DNS Â· Firewall Â· Traffic classification
+    platform: Windows / Linux
+    language: Python
+    category: Network Security
+    featured: true
+    weight: 2
+    repo_url: "https://github.com/neohiro/Cripple-NetStrip"
+    stars: 3
+    forks: 0
+    open_issues: 1
+    created_at: "2026-07-22T01:33:11Z"
+    pushed_at: "2026-08-29T08:53:49Z"
+  - name: "dnscrypt-proxy-gui"
+    title: "dnscrypt-proxy-gui"
+    tagline: "Cross-platform GUI for dnscrypt-proxy â€” encrypted DNS management made simple"
+    platform: Windows / Linux / macOS
+    language: Python (PySide6/Qt)
+    category: Privacy Tools
+    featured: false
+    weight: 13
+    repo_url: "https://github.com/neohiro/dnscrypt-proxy-gui"
+    stars: 27
+    forks: 1
+    open_issues: 8
+    created_at: "2025-09-11T10:22:19Z"
+    pushed_at: "2026-08-25T19:40:51Z"
+  - name: exploitprotection
+    title: ExploitProtection
+    tagline: Windows Exploit Protection (Ultimate) GUI â€” ASR rules, CFG, DEP, SEHOP, arbitrary code guard
+    platform: Windows 10/11
+    language: "PowerShell / C#"
+    category: "Security & Exploit Mitigation"
+    featured: true
+    weight: 3
+    repo_url: "https://github.com/neohiro/ExploitProtection"
+    stars: 85
+    forks: 11
+    open_issues: 2
+    created_at: "2023-09-29T03:50:13Z"
+    pushed_at: "2026-08-29T00:11:35Z"
+  - name: "harden-windows"
+    title: "Harden-Windows"
+    tagline: "One-command Windows 10/11 hardening with 18 modules, 4 profiles, allow-lists, rollback & dry-run"
+    platform: Windows 10/11
+    language: PowerShell
+    category: System Hardening
+    featured: true
+    weight: 1
+    repo_url: "https://github.com/neohiro/windows"
+    stars: 1
+    forks: 0
+    open_issues: 3
+    created_at: "2025-04-04T18:32:39Z"
+    pushed_at: "2026-08-29T12:26:30Z"
+  - name: linux
+    title: linux
+    tagline: "Cross-distro Linux hardening guide â€” UFW firewall, DNSCrypt, Tor routing, fail2ban, AppArmor/SELinux, sysctl, SSH hardening"
+    platform: Linux (Debian/Ubuntu/RHEL/Fedora/SUSE/Arch/Manjaro)
+    language: Shell / Bash
+    category: Security Guides
+    featured: false
+    weight: 10
+    repo_url: "https://github.com/neohiro/linux"
+    stars: 0
+    forks: 0
+    open_issues: 0
+    created_at: "2026-08-28T14:32:01Z"
+    pushed_at: "2026-08-29T10:16:03Z"
+  - name: "mobile-sync"
+    title: "mobile-sync"
+    tagline: OpenCode plugin â€” makes your desktop or CLI server accessible via Tailscale Funnel for mobile sync
+    platform: "Cross-platform (Node.js)"
+    language: TypeScript
+    category: Developer Tools
+    featured: false
+    weight: 12
+    repo_url: "https://github.com/neohiro/mobile-sync"
+    stars: 0
+    forks: 0
+    open_issues: 1
+    created_at: "2026-08-26T21:50:03Z"
+    pushed_at: "2026-08-28T21:55:17Z"
+  - name: ubuntu
+    title: ubuntu
+    tagline: "Ubuntu post-install hardening â€” firewall, encrypted DNS, Tor, AppArmor, snap/flatpak control, GNOME privacy"
+    platform: Ubuntu 20.04 / 22.04 / 24.04
+    language: Shell / Python
+    category: Security Guides
+    featured: false
+    weight: 11
+    repo_url: "https://github.com/neohiro/ubuntu"
+    stars: 1
+    forks: 0
+    open_issues: 1
+    created_at: "2025-03-30T06:55:22Z"
+    pushed_at: "2026-08-29T10:16:06Z"

@@ -15,7 +15,7 @@ permalink: /repositories/
 
     <header class="repos-header">
       <h1>All Repositories</h1>
-      <p class="repos-subtitle">{{ site.tools | size }} public projects — security, privacy, games, and developer tools</p>
+      <p class="repos-subtitle">{{ site.data.repos.repos | size }} public projects — security, privacy, games, and developer tools</p>
     </header>
 
     <div class="repos-toolbar">

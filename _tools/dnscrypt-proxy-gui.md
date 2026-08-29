@@ -1,4 +1,4 @@
-﻿---
+---
 stars: 27
 forks: 1
 open_issues: 8

@@ -68,7 +68,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
     </header>
 
     <div class="tools-grid">
-      {% assign featured = site.tools | where_exp: "tool", "tool.featured == true" | sort: "weight" %}
+      {% assign featured = site.data.repos.repos | where_exp: "tool", "tool.featured == true" | sort: "weight" %}
       {% for tool in featured %}
         <article class="tool-card" itemscope itemtype="https://schema.org/SoftwareApplication">
           <div class="tool-icon" aria-hidden="true">
