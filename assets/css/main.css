@@ -119,7 +119,7 @@ p { color: var(--fg-muted); }
 
 .site-brand:hover { color: var(--accent); }
 
-.logo-mark { width: 36px; height: 36px; flex-shrink: 0; color: var(--accent); }
+.logo-mark { font-size: 1.75rem; line-height: 1; flex-shrink: 0; }
 
 .site-nav { display: flex; align-items: center; gap: 8px; }
 
@@ -496,24 +496,38 @@ p { color: var(--fg-muted); }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   transition: all var(--transition);
+  cursor: pointer;
+  user-select: none;
 }
 
 .community-card:hover {
   border-color: var(--accent);
   transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.community-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .community-card h3 { margin-bottom: 10px; font-size: 1rem; }
 
 .community-card p { font-size: 0.875rem; margin-bottom: 16px; }
 
-.community-card a {
+.card-action {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--accent);
+  opacity: 0.8;
+  transition: opacity var(--transition);
+}
+
+.community-card:hover .card-action {
+  opacity: 1;
 }
 
 /* Footer */
