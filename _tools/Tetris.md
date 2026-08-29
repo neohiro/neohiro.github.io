@@ -1,6 +1,11 @@
----
+﻿---
+stars: 0
+forks: 1
+open_issues: 0
+pushed_at: 2026-08-22T20:29:52Z
+created_at: 2025-08-27T01:09:44Z
 title: Tetris
-tagline: "Classic Tetris — guideline-compliant, T-spin detection, replay system, vs AI"
+tagline: "Classic Tetris â€” guideline-compliant, T-spin detection, replay system, vs AI"
 platform: Windows / Linux / macOS / Web
 language: Rust (macroquad) / TypeScript
 category: Games
@@ -18,13 +23,13 @@ icon: |
 
 ## Features
 
-- **Guideline Compliant** — SRS rotation, 7-bag randomizer, hold, ghost piece, 3+ next
-- **T-Spin Detection** — Mini, regular, double, triple with bonus scoring
-- **Replay System** — Full input recording; frame-perfect playback; export .tetris-replay
-- **AI Opponent** — Configurable difficulty (beginner to TGM master); learns from your play
-- **Multiplayer** — Local VS, LAN, online (WebRTC); spectator mode
-- **Web Version** — Play instantly at [tetris.neohiro.dev](https://tetris.neohiro.dev)
-- **Statistics** — APM, PPS, VS%, survival time, T-spin rate, B2B chains
+- **Guideline Compliant** â€” SRS rotation, 7-bag randomizer, hold, ghost piece, 3+ next
+- **T-Spin Detection** â€” Mini, regular, double, triple with bonus scoring
+- **Replay System** â€” Full input recording; frame-perfect playback; export .tetris-replay
+- **AI Opponent** â€” Configurable difficulty (beginner to TGM master); learns from your play
+- **Multiplayer** â€” Local VS, LAN, online (WebRTC); spectator mode
+- **Web Version** â€” Play instantly at [tetris.neohiro.dev](https://tetris.neohiro.dev)
+- **Statistics** â€” APM, PPS, VS%, survival time, T-spin rate, B2B chains
 
 ## Play Now
 
@@ -39,16 +44,16 @@ icon: |
 
 | Action | Points |
 |--------|--------|
-| Single | 100 × level |
-| Double | 300 × level |
-| Triple | 500 × level |
-| Tetris | 800 × level |
-| T-Spin Mini | 100 × level |
-| T-Spin | 400 × level |
-| T-Spin Double | 1200 × level |
-| T-Spin Triple | 1600 × level |
-| Back-to-Back | ×1.5 |
-| Perfect Clear | 2000 × level (single), 3600 (Tetris) |
+| Single | 100 Ã— level |
+| Double | 300 Ã— level |
+| Triple | 500 Ã— level |
+| Tetris | 800 Ã— level |
+| T-Spin Mini | 100 Ã— level |
+| T-Spin | 400 Ã— level |
+| T-Spin Double | 1200 Ã— level |
+| T-Spin Triple | 1600 Ã— level |
+| Back-to-Back | Ã—1.5 |
+| Perfect Clear | 2000 Ã— level (single), 3600 (Tetris) |
 
 ## Modes
 
@@ -65,12 +70,12 @@ icon: |
 
 | Action | Keyboard | Gamepad |
 |--------|----------|---------|
-| Move | ←/→ | D-Pad / Left Stick |
-| Soft Drop | ↓ | Down / A |
-| Hard Drop | Space / ↑ | Up / Y |
+| Move | â†/â†’ | D-Pad / Left Stick |
+| Soft Drop | â†“ | Down / A |
+| Hard Drop | Space / â†‘ | Up / Y |
 | Rotate CW | Z / X | LB / RB |
 | Rotate CCW | Shift / C | LT / RT |
-| 180° | A | Back / Select |
+| 180Â° | A | Back / Select |
 | Hold | C / Ctrl | Left Stick Press |
 
 ## Replay Format
@@ -97,5 +102,5 @@ icon: |
 
 ## Related
 
-- [TristarMania](https://github.com/neohiro/TristarMania) — Space shooter
-- [GhostMaze](https://github.com/neohiro/GhostMaze) — 2D RPG
+- [TristarMania](https://github.com/neohiro/TristarMania) â€” Space shooter
+- [GhostMaze](https://github.com/neohiro/GhostMaze) â€” 2D RPG

@@ -1,6 +1,11 @@
----
+﻿---
+stars: 1
+forks: 0
+open_issues: 1
+pushed_at: 2026-08-29T10:16:06Z
+created_at: 2025-03-30T06:55:22Z
 title: ubuntu
-tagline: "Ubuntu post-install hardening — firewall, encrypted DNS, Tor, AppArmor, snap/flatpak control, GNOME privacy"
+tagline: "Ubuntu post-install hardening â€” firewall, encrypted DNS, Tor, AppArmor, snap/flatpak control, GNOME privacy"
 platform: Ubuntu 20.04 / 22.04 / 24.04
 language: Shell / Python
 category: Security Guides
@@ -18,13 +23,13 @@ icon: |
 
 ## Features
 
-- **Guided Installer** — Interactive TUI walks through profile selection
-- **Profiles** — `minimal` (server), `desktop` (workstation), `paranoid` (max security)
-- **GNOME Privacy** — Telemetry, location, usage stats, crash reports disabled
-- **Snap/Flatpak Control** — Disable auto-refresh, remove telemetry snaps
-- **AppArmor** — Enforce profiles for Firefox, Thunderbird, containers
-- **Encrypted DNS** — systemd-resolved + DNSCrypt-proxy integration
-- **Automatic Updates** — Unattended-upgrades with security-only option
+- **Guided Installer** â€” Interactive TUI walks through profile selection
+- **Profiles** â€” `minimal` (server), `desktop` (workstation), `paranoid` (max security)
+- **GNOME Privacy** â€” Telemetry, location, usage stats, crash reports disabled
+- **Snap/Flatpak Control** â€” Disable auto-refresh, remove telemetry snaps
+- **AppArmor** â€” Enforce profiles for Firefox, Thunderbird, containers
+- **Encrypted DNS** â€” systemd-resolved + DNSCrypt-proxy integration
+- **Automatic Updates** â€” Unattended-upgrades with security-only option
 
 ## Quick Start
 
@@ -47,5 +52,5 @@ Run `ubuntu-hardening --rollback` to revert last changes.
 
 ## Related
 
-- [linux](https://github.com/neohiro/linux) — Cross-distro version
-- [windows](https://github.com/neohiro/windows) — Windows equivalent
+- [linux](https://github.com/neohiro/linux) â€” Cross-distro version
+- [windows](https://github.com/neohiro/windows) â€” Windows equivalent

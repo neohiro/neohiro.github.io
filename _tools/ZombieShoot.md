@@ -1,6 +1,11 @@
----
+﻿---
+stars: 0
+forks: 0
+open_issues: 0
+pushed_at: 2026-08-22T20:29:59Z
+created_at: 2025-08-21T02:31:28Z
 title: ZombieShoot
-tagline: "Top-down zombie shooter — procedural levels, permadeath, moddable (Windows/Linux)"
+tagline: "Top-down zombie shooter â€” procedural levels, permadeath, moddable (Windows/Linux)"
 platform: Windows / Linux
 language: Python (PyGame) / C++
 category: Games
@@ -18,13 +23,13 @@ icon: |
 
 ## Features
 
-- **Procedural Levels** — Infinite city blocks, sewers, malls, forests
-- **Permadeath** — One life; death = new run (legacy items unlock)
-- **Weapon Crafting** — Combine parts: barrel + stock + receiver + mod
-- **Enemy Types** — 20+ zombie variants with unique behaviors
-- **Mod Support** — JSON data files for weapons, enemies, levels, items
-- **Replay System** — Full run recording with ghost playback
-- **Local Co-op** — 2-player split-screen (keyboard + gamepad)
+- **Procedural Levels** â€” Infinite city blocks, sewers, malls, forests
+- **Permadeath** â€” One life; death = new run (legacy items unlock)
+- **Weapon Crafting** â€” Combine parts: barrel + stock + receiver + mod
+- **Enemy Types** â€” 20+ zombie variants with unique behaviors
+- **Mod Support** â€” JSON data files for weapons, enemies, levels, items
+- **Replay System** â€” Full run recording with ghost playback
+- **Local Co-op** â€” 2-player split-screen (keyboard + gamepad)
 
 ## Installation
 
@@ -63,26 +68,26 @@ Create `mods/my_mod/` with:
 
 ```
 mods/my_mod/
-├── mod.json           # Metadata, dependencies
-├── weapons/
-│   └── railgun.json   # New weapon definition
-├── enemies/
-│   └── boss_tyrant.json
-├── levels/
-│   └── military_base.json
-└── items/
-    └── stimpack.json
+â”œâ”€â”€ mod.json           # Metadata, dependencies
+â”œâ”€â”€ weapons/
+â”‚   â””â”€â”€ railgun.json   # New weapon definition
+â”œâ”€â”€ enemies/
+â”‚   â””â”€â”€ boss_tyrant.json
+â”œâ”€â”€ levels/
+â”‚   â””â”€â”€ military_base.json
+â””â”€â”€ items/
+    â””â”€â”€ stimpack.json
 ```
 
-Load via Main Menu → Mods → Enable.
+Load via Main Menu â†’ Mods â†’ Enable.
 
 ## Legacy System
 
 Complete runs to unlock:
-- **Starting weapons** — Pistol, SMG, Shotgun variants
-- **Perks** — Faster reload, more health, ammo finder
-- **Cosmetics** — Character skins, weapon skins, UI themes
-- **Difficulty modifiers** — Hardcore, speedrun, pacifist modes
+- **Starting weapons** â€” Pistol, SMG, Shotgun variants
+- **Perks** â€” Faster reload, more health, ammo finder
+- **Cosmetics** â€” Character skins, weapon skins, UI themes
+- **Difficulty modifiers** â€” Hardcore, speedrun, pacifist modes
 
 ## Requirements
 
@@ -93,5 +98,5 @@ Complete runs to unlock:
 
 ## Related
 
-- [TristarMania](https://github.com/neohiro/TristarMania) — Space shooter
-- [GhostMaze](https://github.com/neohiro/GhostMaze) — 2D RPG
+- [TristarMania](https://github.com/neohiro/TristarMania) â€” Space shooter
+- [GhostMaze](https://github.com/neohiro/GhostMaze) â€” 2D RPG

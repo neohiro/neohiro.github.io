@@ -748,8 +748,16 @@
     open(url, trigger) {
       this.lastTrigger = trigger;
       this.lastUrl = url;
-      const info = this.describe(url);
-      const u = new URL(url);
+      let info, u;
+      try {
+        info = this.describe(url);
+        u = new URL(url);
+      } catch (e) {
+        // Malformed URL — bypass modal and open directly
+        this.close();
+        if (url) window.open(url, '_blank', 'noopener,noreferrer');
+        return;
+      }
 
       // Title + sub
       this.overlay.querySelector('#link-guard-title').textContent =
@@ -772,7 +780,7 @@
       // URL display
       this.overlay.querySelector('#link-guard-url').textContent = u.href;
 
-      // Iframe preview (github.com allows X-Frame-Options only for embed, but many paths are still embeddable)
+      // Iframe preview (blocked for github.com and youtube.com)
       const frame = this.overlay.querySelector('#link-guard-frame');
       const tryIframe = this.isEmbeddable(u);
       if (tryIframe) {
@@ -783,7 +791,7 @@
         this.iframe.src = 'about:blank';
       }
 
-      // Quick jump: only for github.com/<owner>/<repo> base paths (or issues/security/discussions)
+      // Quick jump: only for github.com/<owner>/<repo> base paths
       const tabsEl = this.overlay.querySelector('#link-guard-tabs');
       const repoSel = this.overlay.querySelector('#link-guard-repo');
       const tabSel = this.overlay.querySelector('#link-guard-tab');
@@ -803,9 +811,9 @@
     }
 
     isEmbeddable(u) {
-      // github.com sets X-Frame-Options for some pages; we still try for code/wiki and let it fail
-      if (u.hostname.includes('github.com')) return false; // github sends X-Frame-Options: deny
-      if (u.hostname.includes('youtube.com')) return false; // CSP frame-ancestors
+      if (u.hostname.includes('github.com')) return false;
+      if (u.hostname.includes('youtube.com')) return false;
+      if (u.protocol !== 'https:') return false;
       return true;
     }
 
@@ -841,7 +849,7 @@
   function init() {
     // Initialize all components
     new MatrixRain();
-    new GlitchTransition();
+    const glitch = new GlitchTransition();
     new ParallaxBackground();
     new CardEffects();
     new ScrollAnimations();

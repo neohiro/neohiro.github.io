@@ -1,6 +1,11 @@
----
+﻿---
+stars: 0
+forks: 0
+open_issues: 0
+pushed_at: 2026-08-29T10:16:03Z
+created_at: 2026-08-28T14:32:01Z
 title: linux
-tagline: "Cross-distro Linux hardening guide — UFW firewall, DNSCrypt, Tor routing, fail2ban, AppArmor/SELinux, sysctl, SSH hardening"
+tagline: "Cross-distro Linux hardening guide â€” UFW firewall, DNSCrypt, Tor routing, fail2ban, AppArmor/SELinux, sysctl, SSH hardening"
 platform: Linux (Debian/Ubuntu/RHEL/Fedora/SUSE/Arch/Manjaro)
 language: Shell / Bash
 category: Security Guides
@@ -18,14 +23,14 @@ icon: |
 
 ## Features
 
-- **Auto-detection** — Identifies Debian/Ubuntu, RHEL/Fedora, SUSE, Arch/Manjaro automatically
-- **Firewall** — UFW with default-deny incoming, allow outgoing; IPv6 support
-- **Encrypted DNS** — DNSCrypt-proxy with DoH/DoT support, automatic fallback
-- **Tor Routing** — Optional transparent Tor proxy for all traffic
-- **Intrusion Prevention** — fail2ban with SSH, HTTP, mail jail configs
-- **Mandatory Access Control** — AppArmor (Debian/Ubuntu) or SELinux (RHEL/Fedora) profiles
-- **Kernel Hardening** — sysctl.conf with network, memory, and filesystem protections
-- **SSH Hardening** — Key-only auth, port randomization, connection rate limiting
+- **Auto-detection** â€” Identifies Debian/Ubuntu, RHEL/Fedora, SUSE, Arch/Manjaro automatically
+- **Firewall** â€” UFW with default-deny incoming, allow outgoing; IPv6 support
+- **Encrypted DNS** â€” DNSCrypt-proxy with DoH/DoT support, automatic fallback
+- **Tor Routing** â€” Optional transparent Tor proxy for all traffic
+- **Intrusion Prevention** â€” fail2ban with SSH, HTTP, mail jail configs
+- **Mandatory Access Control** â€” AppArmor (Debian/Ubuntu) or SELinux (RHEL/Fedora) profiles
+- **Kernel Hardening** â€” sysctl.conf with network, memory, and filesystem protections
+- **SSH Hardening** â€” Key-only auth, port randomization, connection rate limiting
 
 ## Quick Start
 
@@ -71,6 +76,6 @@ Edit `config.local` before running to:
 
 ## Related
 
-- [ubuntu](https://github.com/neohiro/ubuntu) — Ubuntu-specific hardening with GUI options
-- [windows](https://github.com/neohiro/windows) — Windows equivalent
-- [Cripple-NetStrip](https://github.com/neohiro/Cripple-NetStrip) — Network-level hardening
+- [ubuntu](https://github.com/neohiro/ubuntu) â€” Ubuntu-specific hardening with GUI options
+- [windows](https://github.com/neohiro/windows) â€” Windows equivalent
+- [Cripple-NetStrip](https://github.com/neohiro/Cripple-NetStrip) â€” Network-level hardening

@@ -1,4 +1,9 @@
----
+﻿---
+stars: 1
+forks: 0
+open_issues: 3
+pushed_at: 2026-08-29T12:26:30Z
+created_at: 2025-04-04T18:32:39Z
 title: Harden-Windows
 tagline: "One-command Windows 10/11 hardening with 18 modules, 4 profiles, allow-lists, rollback & dry-run"
 platform: Windows 10/11

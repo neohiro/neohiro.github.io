@@ -22,13 +22,35 @@ permalink: /repositories/
       <div class="repos-filters" role="group" aria-label="Filter repositories">
         <button class="filter-btn active" data-filter="all">All</button>
         <button class="filter-btn" data-filter="security">Security & Privacy</button>
+        <button class="filter-btn" data-filter="network">Network Tools</button>
         <button class="filter-btn" data-filter="developer">Developer Tools</button>
         <button class="filter-btn" data-filter="games">Games</button>
         <button class="filter-btn" data-filter="utilities">Utilities</button>
         <button class="filter-btn" data-filter="guides">Guides</button>
+        <button class="filter-btn" data-filter="pages">GitHub Pages</button>
       </div>
-      
-      <input type="search" class="repo-search" placeholder="Search repositories..." aria-label="Search repositories">
+
+      <div class="repos-controls">
+        <select class="repo-sort" id="repo-sort" aria-label="Sort repositories">
+          <option value="default">Default order</option>
+          <option value="stars-desc">Most stars ↓</option>
+          <option value="stars-asc">Fewest stars ↑</option>
+          <option value="forks-desc">Most forks ↓</option>
+          <option value="forks-asc">Fewest forks ↑</option>
+          <option value="issues-desc">Most open issues ↓</option>
+          <option value="updated-desc">Recently updated</option>
+          <option value="updated-asc">Least recently updated</option>
+          <option value="created-desc">Recently created</option>
+          <option value="created-asc">Oldest created</option>
+          <option value="name-asc">Name A → Z</option>
+          <option value="name-desc">Name Z → A</option>
+          <option value="year-2026">Created 2026</option>
+          <option value="year-2025">Created 2025</option>
+          <option value="year-2024">Created 2024 or earlier</option>
+        </select>
+
+        <input type="search" class="repo-search" id="repo-search" placeholder="Search repositories..." aria-label="Search repositories">
+      </div>
     </div>
 
     <div class="repos-stats" aria-live="polite">
@@ -41,10 +63,16 @@ permalink: /repositories/
       {% assign sorted_tools = site.tools | sort: "weight" %}
       {% for tool in sorted_tools %}
         {% assign categories = tool.category | split: ", " %}
-        <article class="repo-card" 
+        <article class="repo-card visible"
                  data-category="{{ categories | join: ' ' }}"
                  data-name="{{ tool.title | downcase }}"
                  data-language="{{ tool.language | downcase }}"
+                 data-repo="{{ tool.repo_url | split: '/' | last }}"
+                 data-stars="{{ tool.stars | default: 0 }}"
+                 data-forks="{{ tool.forks | default: 0 }}"
+                 data-issues="{{ tool.open_issues | default: 0 }}"
+                 data-pushed="{{ tool.pushed_at }}"
+                 data-created="{{ tool.created_at }}"
                  itemscope itemtype="https://schema.org/SoftwareApplication">
           <div class="repo-card-icon" aria-hidden="true">
             {% if tool.icon %}
@@ -72,6 +100,15 @@ permalink: /repositories/
               <span class="repo-category">{{ tool.category }}</span>
             {% endif %}
           </div>
+          {% if tool.stars %}
+          <div class="repo-card-stats">
+            <span class="stat-item" title="Stars"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg> {{ tool.stars }}</span>
+            <span class="stat-item" title="Forks"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z"/></svg> {{ tool.forks }}</span>
+            {% if tool.open_issues > 0 %}
+            <span class="stat-item" title="Open Issues"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/></svg> {{ tool.open_issues }}</span>
+            {% endif %}
+          </div>
+          {% endif %}
           <div class="repo-card-links">
             <a href="{{ tool.permalink | relative_url }}" class="repo-link" itemprop="url">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -107,73 +144,133 @@ permalink: /repositories/
   </div>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const grid = document.getElementById('repos-grid');
-  const cards = grid.querySelectorAll('.repo-card');
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const searchInput = document.querySelector('.repo-search');
-  const countAll = document.getElementById('count-all');
-  const countFeatured = document.getElementById('count-featured');
-  
-  // Update counts
-  if (countAll) countAll.textContent = cards.length;
-  if (countFeatured) {
-    const featured = document.querySelectorAll('.repo-card .featured-badge').length;
-    countFeatured.textContent = featured;
-  }
+ <script>
+(function() {
+  'use strict';
+  document.addEventListener('DOMContentLoaded', function() {
+    var grid = document.getElementById('repos-grid');
+    if (!grid) return;
+    var cards = Array.from(grid.querySelectorAll('.repo-card'));
+    var filterBtns = document.querySelectorAll('.filter-btn');
+    var searchInput = document.getElementById('repo-search');
+    var sortSelect = document.getElementById('repo-sort');
+    var countAll = document.getElementById('count-all');
+    var countFeatured = document.getElementById('count-featured');
+    var countStars = document.getElementById('count-stars');
 
-  // Filter functionality
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const filter = this.dataset.filter;
-      
-      filterBtns.forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      
-      cards.forEach(card => {
-        const categories = card.dataset.category || '';
-        const show = filter === 'all' || categories.includes(filter);
-        card.style.display = show ? 'flex' : 'none';
-        if (show) card.style.animation = 'fadeInUp 0.4s ease forwards';
+    // ── Make all cards visible immediately ──────────────────────────────────
+    cards.forEach(function(c) { c.classList.add('visible'); });
+
+    // ── Stats ────────────────────────────────────────────────────────────────
+    if (countAll) countAll.textContent = cards.length;
+    if (countFeatured) {
+      countFeatured.textContent = grid.querySelectorAll('.featured-badge').length;
+    }
+    if (countStars) {
+      var totalStars = cards.reduce(function(s, c) {
+        return s + (parseInt(c.dataset.stars || '0', 10) || 0);
+      }, 0);
+      countStars.textContent = totalStars;
+    }
+
+    // ── State ────────────────────────────────────────────────────────────
+    var activeFilter = 'all';
+    var activeQuery = '';
+    var activeSort = 'default';
+
+    function applyFilters() {
+      cards.forEach(function(card) {
+        var cats = (card.dataset.category || '').toLowerCase();
+        var name = (card.dataset.name || '').toLowerCase();
+        var desc = (card.querySelector('.repo-card-desc') || {}).textContent || '';
+        var lang = (card.dataset.language || '').toLowerCase();
+        var repo = (card.dataset.repo || '').toLowerCase();
+        desc = desc.toLowerCase();
+        var q = activeQuery.toLowerCase().trim();
+
+        var show = true;
+        if (activeFilter !== 'all') {
+          show = cats.includes(activeFilter);
+        }
+        if (show && q) {
+          show = name.includes(q) || desc.includes(q) || lang.includes(q) || cats.includes(q) || repo.includes(q);
+        }
+        card.style.display = show ? '' : 'none';
+        if (show) {
+          card.style.animation = '';
+          void card.offsetWidth;
+          card.style.animation = 'fadeInUp 0.35s ease forwards';
+        }
       });
-      
-      const visible = document.querySelectorAll('.repo-card[style*="flex"], .repo-card:not([style*="none"])').length;
-      if (countAll) countAll.textContent = visible;
-    });
-  });
 
-  // Search functionality
-  if (searchInput) {
-    let debounce;
-    searchInput.addEventListener('input', function() {
-      clearTimeout(debounce);
-      debounce = setTimeout(() => {
-        const query = this.value.toLowerCase().trim();
-        cards.forEach(card => {
-          const name = card.dataset.name || '';
-          const desc = card.querySelector('.repo-card-desc')?.textContent.toLowerCase() || '';
-          const lang = card.dataset.language || '';
-          const category = card.dataset.category || '';
-          
-          const match = !query || 
-            name.includes(query) || 
-            desc.includes(query) || 
-            lang.includes(query) || 
-            category.includes(query);
-          
-          const currentlyHidden = card.style.display === 'none';
-          if (match && !currentlyHidden) {
-            card.style.display = 'flex';
-            card.style.animation = 'fadeInUp 0.3s ease forwards';
-          } else if (!match) {
-            card.style.display = 'none';
-          }
-        });
-      }, 150);
+      // Update count
+      var visibleCount = cards.filter(function(c) { return c.style.display !== 'none'; }).length;
+      if (countAll) countAll.textContent = visibleCount;
+
+      // Apply sort to visible cards
+      applySort();
+    }
+
+    function applySort() {
+      var visible = cards.filter(function(c) { return c.style.display !== 'none'; });
+      if (activeSort === 'default') return;
+      visible.sort(function(a, b) {
+        var va = 0, vb = 0;
+        switch (activeSort) {
+          case 'stars-desc':   va = parseInt(a.dataset.stars||'0',10); vb = parseInt(b.dataset.stars||'0',10); return vb - va;
+          case 'stars-asc':   va = parseInt(a.dataset.stars||'0',10); vb = parseInt(b.dataset.stars||'0',10); return va - vb;
+          case 'forks-desc':  va = parseInt(a.dataset.forks||'0',10);  vb = parseInt(b.dataset.forks||'0',10);  return vb - va;
+          case 'forks-asc':   va = parseInt(a.dataset.forks||'0',10);  vb = parseInt(b.dataset.forks||'0',10);  return va - vb;
+          case 'issues-desc': va = parseInt(a.dataset.issues||'0',10); vb = parseInt(b.dataset.issues||'0',10); return vb - va;
+          case 'updated-desc':va = a.dataset.pushed || ''; vb = b.dataset.pushed || ''; return vb.localeCompare(va);
+          case 'updated-asc': va = a.dataset.pushed || ''; vb = b.dataset.pushed || ''; return va.localeCompare(vb);
+          case 'created-desc':va = a.dataset.created || ''; vb = b.dataset.created || ''; return vb.localeCompare(va);
+          case 'created-asc': va = a.dataset.created || ''; vb = b.dataset.created || ''; return va.localeCompare(vb);
+          case 'name-asc':   va = a.dataset.name || ''; vb = b.dataset.name || ''; return va.localeCompare(vb);
+          case 'name-desc':  va = a.dataset.name || ''; vb = b.dataset.name || ''; return vb.localeCompare(va);
+          case 'year-2026': va = (a.dataset.created||'').startsWith('2026'); vb = (b.dataset.created||'').startsWith('2026'); return vb - va;
+          case 'year-2025': va = (a.dataset.created||'').startsWith('2025'); vb = (b.dataset.created||'').startsWith('2025'); return vb - va;
+          case 'year-2024': va = !(a.dataset.created||'').startsWith('2025') && !(a.dataset.created||'').startsWith('2026'); vb = !(b.dataset.created||'').startsWith('2025') && !(b.dataset.created||'').startsWith('2026'); return vb - va;
+        }
+        return 0;
+      });
+      visible.forEach(function(c) { grid.appendChild(c); });
+    }
+
+    // ── Filter buttons ─────────────────────────────────────────────────
+    filterBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        activeFilter = this.dataset.filter;
+        filterBtns.forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        applyFilters();
+      });
     });
-  }
-});
+
+    // ── Search ──────────────────────────────────────────────────────
+    var searchDebounce;
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        clearTimeout(searchDebounce);
+        searchDebounce = setTimeout(function() {
+          activeQuery = searchInput.value;
+          applyFilters();
+        }, 200);
+      });
+    }
+
+    // ── Sort ────────────────────────────────────────────────────────
+    if (sortSelect) {
+      sortSelect.addEventListener('change', function() {
+        activeSort = sortSelect.value;
+        applyFilters();
+      });
+    }
+
+    // ── Initial render ───────────────────────────────────────────────
+    applyFilters();
+  });
+})();
 </script>
 
 <style>
@@ -196,6 +293,11 @@ document.addEventListener('DOMContentLoaded', function() {
 .repo-search { padding: 10px 16px; font-size: 0.875rem; color: var(--fg); background: var(--bg-card); border: 1px solid var(--border); border-radius: 999px; min-width: 240px; }
 .repo-search:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
 .repo-search::placeholder { color: var(--fg-subtle); }
+
+.repos-controls { display: flex; gap: 10px; flex-wrap: wrap; }
+.repo-sort { padding: 9px 14px; font-size: 0.85rem; color: var(--fg); background: var(--bg-card); border: 1px solid var(--border); border-radius: 999px; cursor: pointer; appearance: none; -webkit-appearance: none; min-width: 200px; font-family: var(--font-ui); transition: border-color var(--transition); }
+.repo-sort:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+.repo-sort:hover { border-color: var(--border-hover); }
 
 .repos-stats { display: flex; justify-content: center; gap: 32px; margin-bottom: 32px; font-size: 0.875rem; color: var(--fg-subtle); flex-wrap: wrap; }
 .repos-stats .stat { display: flex; align-items: center; gap: 6px; }
@@ -221,6 +323,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 .repo-card-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; font-size: 0.75rem; font-family: var(--font-mono); }
 .repo-platform, .repo-lang, .repo-category { padding: 3px 8px; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--fg-subtle); }
+
+.repo-card-stats { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
+.stat-item { display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; font-family: var(--font-mono); color: var(--fg-muted); }
+.stat-item svg { opacity: 0.7; }
 
 .repo-card-links { display: flex; gap: 10px; margin-top: auto; }
 .repo-link { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; font-size: 0.8125rem; font-weight: 600; border-radius: var(--radius-sm); background: var(--accent-dim); color: var(--accent); border: 1px solid transparent; transition: all var(--transition); text-decoration: none; }

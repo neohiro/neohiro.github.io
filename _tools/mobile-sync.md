@@ -1,6 +1,11 @@
----
+﻿---
+stars: 0
+forks: 0
+open_issues: 1
+pushed_at: 2026-08-28T21:55:17Z
+created_at: 2026-08-26T21:50:03Z
 title: mobile-sync
-tagline: "OpenCode plugin — makes your desktop or CLI server accessible via Tailscale Funnel for mobile sync"
+tagline: "OpenCode plugin â€” makes your desktop or CLI server accessible via Tailscale Funnel for mobile sync"
 platform: Cross-platform (Node.js)
 language: TypeScript
 category: Developer Tools
@@ -14,15 +19,15 @@ icon: |
     <line x1="12" y1="8" x2="12" y2="16" stroke="var(--purple)" stroke-width="1.5"/>
   </svg>
 ---
-**mobile-sync** bridges your OpenCode desktop session to mobile devices via Tailscale Funnel — no port forwarding, no public IPs.
+**mobile-sync** bridges your OpenCode desktop session to mobile devices via Tailscale Funnel â€” no port forwarding, no public IPs.
 
 ## Features
 
-- **Zero-Config Tunneling** — Uses Tailscale Funnel for HTTPS exposure
-- **Mobile-Optimized UI** — Responsive web interface for phone/tablet
-- **Session Sync** — Continue coding sessions across devices
-- **Offline Queue** — Commands queued locally when mobile is offline
-- **E2E Encrypted** — All traffic encrypted via Tailscale WireGuard
+- **Zero-Config Tunneling** â€” Uses Tailscale Funnel for HTTPS exposure
+- **Mobile-Optimized UI** â€” Responsive web interface for phone/tablet
+- **Session Sync** â€” Continue coding sessions across devices
+- **Offline Queue** â€” Commands queued locally when mobile is offline
+- **E2E Encrypted** â€” All traffic encrypted via Tailscale WireGuard
 
 ## Installation
 
@@ -40,7 +45,7 @@ opencode plugin install neohiro/mobile-sync
 ## Architecture
 
 ```
-[Mobile Browser] → [Tailscale Funnel] → [Desktop: mobile-sync daemon] → [OpenCode CLI]
+[Mobile Browser] â†’ [Tailscale Funnel] â†’ [Desktop: mobile-sync daemon] â†’ [OpenCode CLI]
 ```
 
 The daemon exposes a local WebSocket server that OpenCode connects to, proxied through Tailscale's mesh.
@@ -54,5 +59,5 @@ The daemon exposes a local WebSocket server that OpenCode connects to, proxied t
 
 ## Related
 
-- [auto-resume](https://github.com/neohiro/auto-resume) — Pair for resilient mobile sessions
+- [auto-resume](https://github.com/neohiro/auto-resume) â€” Pair for resilient mobile sessions
 - [Tailscale Funnel Docs](https://tailscale.com/kb/1223/funnel)

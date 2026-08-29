@@ -1,6 +1,11 @@
----
+﻿---
+stars: 27
+forks: 1
+open_issues: 8
+pushed_at: 2026-08-25T19:40:51Z
+created_at: 2025-09-11T10:22:19Z
 title: dnscrypt-proxy-gui
-tagline: "Cross-platform GUI for dnscrypt-proxy — encrypted DNS management made simple"
+tagline: "Cross-platform GUI for dnscrypt-proxy â€” encrypted DNS management made simple"
 platform: Windows / Linux / macOS
 language: Python (PySide6/Qt)
 category: Privacy Tools
@@ -15,16 +20,16 @@ icon: |
     <path d="M12 14v4" stroke="var(--blue)" stroke-width="2"/>
   </svg>
 ---
-**dnscrypt-proxy-gui** provides a clean, native desktop interface for managing dnscrypt-proxy — no config file editing required.
+**dnscrypt-proxy-gui** provides a clean, native desktop interface for managing dnscrypt-proxy â€” no config file editing required.
 
 ## Features
 
-- **Visual Server List** — Browse, filter, and select from 100+ public DoH/DoT servers
-- **Real-time Latency** — Live ping measurements with color-coded health
-- **Profile Management** — Save/switch between Home, Work, Travel, Custom profiles
-- **System Integration** — One-click system DNS update (requires admin/root)
-- **Log Viewer** — Live query log with filtering by domain, type, status
-- **Auto-update** — Server list refreshes weekly; binary auto-updates
+- **Visual Server List** â€” Browse, filter, and select from 100+ public DoH/DoT servers
+- **Real-time Latency** â€” Live ping measurements with color-coded health
+- **Profile Management** â€” Save/switch between Home, Work, Travel, Custom profiles
+- **System Integration** â€” One-click system DNS update (requires admin/root)
+- **Log Viewer** â€” Live query log with filtering by domain, type, status
+- **Auto-update** â€” Server list refreshes weekly; binary auto-updates
 
 ## Screenshots
 
@@ -74,6 +79,6 @@ Settings stored in `~/.config/dnscrypt-proxy-gui/settings.json`:
 
 ## Related
 
-- [dnscrypt-proxy](https://github.com/DNSCrypt/dnscrypt-proxy) — Core daemon
-- [Cripple-NetStrip](https://github.com/neohiro/Cripple-NetStrip) — Network hardening with DNS sinkhole
-- [linux](https://github.com/neohiro/linux) — Includes DNSCrypt setup
+- [dnscrypt-proxy](https://github.com/DNSCrypt/dnscrypt-proxy) â€” Core daemon
+- [Cripple-NetStrip](https://github.com/neohiro/Cripple-NetStrip) â€” Network hardening with DNS sinkhole
+- [linux](https://github.com/neohiro/linux) â€” Includes DNSCrypt setup

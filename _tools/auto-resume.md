@@ -1,6 +1,11 @@
----
+﻿---
+stars: 0
+forks: 0
+open_issues: 0
+pushed_at: 2026-08-29T12:06:49Z
+created_at: 2026-08-24T13:51:39Z
 title: auto-resume
-tagline: "Self-healing OpenCode sessions — automatic retries, model rotation on quota/outages, permission autopilot & walk-away task autonomy"
+tagline: "Self-healing OpenCode sessions â€” automatic retries, model rotation on quota/outages, permission autopilot & walk-away task autonomy"
 platform: Cross-platform (Node.js)
 language: TypeScript
 category: Developer Tools
@@ -18,10 +23,10 @@ icon: |
 
 ## Features
 
-- **Automatic Retries** — Detects rate limits, quota exhaustion, network errors, and model outages; retries with exponential backoff
-- **Model Rotation** — Seamlessly switches between models (GPT-4, Claude, etc.) when one hits limits
-- **Permission Autopilot** — Handles permission prompts automatically for safe operations
-- **Walk-Away Autonomy** — Long-running tasks continue unattended; recovers from crashes automatically
+- **Automatic Retries** â€” Detects rate limits, quota exhaustion, network errors, and model outages; retries with exponential backoff
+- **Model Rotation** â€” Seamlessly switches between models (GPT-4, Claude, etc.) when one hits limits
+- **Permission Autopilot** â€” Handles permission prompts automatically for safe operations
+- **Walk-Away Autonomy** â€” Long-running tasks continue unattended; recovers from crashes automatically
 
 ## Installation
 
@@ -34,10 +39,10 @@ opencode plugin install neohiro/auto-resume
 
 The plugin wraps OpenCode's execution pipeline with a resilience layer:
 
-1. **Error Classification** — Categorizes failures as retryable (rate limits, timeouts) vs. non-retryable (syntax errors, logic bugs)
-2. **State Persistence** — Checkpoints conversation state every N turns to survive restarts
-3. **Model Pool** — Maintains a prioritized list of fallback models with capability matching
-4. **Permission Profiles** — Pre-approves safe operations (file reads, searches) while prompting for risky ones
+1. **Error Classification** â€” Categorizes failures as retryable (rate limits, timeouts) vs. non-retryable (syntax errors, logic bugs)
+2. **State Persistence** â€” Checkpoints conversation state every N turns to survive restarts
+3. **Model Pool** â€” Maintains a prioritized list of fallback models with capability matching
+4. **Permission Profiles** â€” Pre-approves safe operations (file reads, searches) while prompting for risky ones
 
 ## Configuration
 
@@ -55,10 +60,10 @@ The plugin wraps OpenCode's execution pipeline with a resilience layer:
 
 ## Use Cases
 
-- **Overnight refactoring** — Start a large refactor before bed, wake up to completed work
-- **CI/CD pipelines** — Run OpenCode in automated pipelines without manual intervention
-- **Unreliable networks** — Mobile/hotspot development where connections drop
-- **Multi-model workflows** — Use best model per task, auto-fallback on limits
+- **Overnight refactoring** â€” Start a large refactor before bed, wake up to completed work
+- **CI/CD pipelines** â€” Run OpenCode in automated pipelines without manual intervention
+- **Unreliable networks** â€” Mobile/hotspot development where connections drop
+- **Multi-model workflows** â€” Use best model per task, auto-fallback on limits
 
 ## Requirements
 
