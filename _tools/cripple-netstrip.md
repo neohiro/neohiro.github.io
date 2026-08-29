@@ -5,7 +5,7 @@ open_issues: 1
 pushed_at: 2026-08-29T08:53:49Z
 created_at: 2026-07-22T01:33:11Z
 title: Cripple-NetStrip
-tagline: "Network hardening Â· DNS sinkhole Â· Encrypted DNS Â· Firewall Â· Traffic classification"
+tagline: "Network hardening · DNS sinkhole · Encrypted DNS · Firewall · Traffic classification"
 platform: Windows / Linux
 language: Python
 repo_url: https://github.com/neohiro/Cripple-NetStrip

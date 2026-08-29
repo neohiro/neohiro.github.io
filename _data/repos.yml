@@ -2,7 +2,7 @@ generated_at: 2026-08-29T20:49:13
 repos:
   - name: BlackGlass
     title: BlackGlass
-    tagline: "Multi-client chat viewer for Second Life â€” unified IM, local chat, group chat with history search"
+    tagline: "Multi-client chat viewer for Second Life —” unified IM, local chat, group chat with history search"
     platform: Windows / Linux / macOS
     language: Python (PySide6/Qt)
     category: Communication
@@ -16,7 +16,7 @@ repos:
     pushed_at: "2026-08-25T20:37:51Z"
   - name: HoneyScan
     title: HoneyScan
-    tagline: "Passive honeypot for home networks â€” detects scans, brute-force, IoT malware with zero config"
+    tagline: "Passive honeypot for home networks —” detects scans, brute-force, IoT malware with zero config"
     platform: Linux (Raspberry Pi, VM, bare metal)
     language: Python / Shell
     category: Network Security
@@ -30,7 +30,7 @@ repos:
     pushed_at: "2026-08-22T20:29:03Z"
   - name: NewsAggregator
     title: NewsAggregator
-    tagline: "Global news feed with search â€” RSS/Atom/JSON Feed aggregation, offline reading, cross-platform"
+    tagline: "Global news feed with search —” RSS/Atom/JSON Feed aggregation, offline reading, cross-platform"
     platform: Windows / Linux / macOS
     language: Python (PySide6/Qt)
     category: Information
@@ -44,7 +44,7 @@ repos:
     pushed_at: "2026-08-22T20:38:25Z"
   - name: SystemMonitor
     title: SystemMonitor
-    tagline: Live system health on your desktop â€” CPU, RAM, disk, network, GPU, sensors with alerts
+    tagline: Live system health on your desktop —” CPU, RAM, disk, network, GPU, sensors with alerts
     platform: Windows / Linux
     language: Python (PySide6/Qt) / C++
     category: System Utilities
@@ -58,7 +58,7 @@ repos:
     pushed_at: "2026-08-22T20:28:50Z"
   - name: Tetris
     title: Tetris
-    tagline: "Classic Tetris â€” guideline-compliant, T-spin detection, replay system, vs AI"
+    tagline: "Classic Tetris —” guideline-compliant, T-spin detection, replay system, vs AI"
     platform: Windows / Linux / macOS / Web
     language: Rust (macroquad) / TypeScript
     category: Games
@@ -72,7 +72,7 @@ repos:
     pushed_at: "2026-08-22T20:29:52Z"
   - name: TristarMania
     title: TristarMania
-    tagline: Addictive space shooter â€” procedural waves, ship customization, online leaderboards
+    tagline: Addictive space shooter —” procedural waves, ship customization, online leaderboards
     platform: Windows / Linux / macOS
     language: Rust (Bevy) / WebAssembly
     category: Games
@@ -86,7 +86,7 @@ repos:
     pushed_at: "2026-08-22T20:29:56Z"
   - name: ZombieShoot
     title: ZombieShoot
-    tagline: "Top-down zombie shooter â€” procedural levels, permadeath, moddable (Windows/Linux)"
+    tagline: "Top-down zombie shooter —” procedural levels, permadeath, moddable (Windows/Linux)"
     platform: Windows / Linux
     language: Python (PyGame) / C++
     category: Games
@@ -100,7 +100,7 @@ repos:
     pushed_at: "2026-08-22T20:29:59Z"
   - name: "auto-resume"
     title: "auto-resume"
-    tagline: "Self-healing OpenCode sessions â€” automatic retries, model rotation on quota/outages, permission autopilot & walk-away task autonomy"
+    tagline: "Self-healing OpenCode sessions —” automatic retries, model rotation on quota/outages, permission autopilot & walk-away task autonomy"
     platform: "Cross-platform (Node.js)"
     language: TypeScript
     category: Developer Tools
@@ -114,7 +114,7 @@ repos:
     pushed_at: "2026-08-29T12:06:49Z"
   - name: "cripple-netstrip"
     title: "Cripple-NetStrip"
-    tagline: Network hardening Â· DNS sinkhole Â· Encrypted DNS Â· Firewall Â· Traffic classification
+    tagline: Network hardening · DNS sinkhole · Encrypted DNS · Firewall · Traffic classification
     platform: Windows / Linux
     language: Python
     category: Network Security
@@ -128,7 +128,7 @@ repos:
     pushed_at: "2026-08-29T08:53:49Z"
   - name: "dnscrypt-proxy-gui"
     title: "dnscrypt-proxy-gui"
-    tagline: "Cross-platform GUI for dnscrypt-proxy â€” encrypted DNS management made simple"
+    tagline: "Cross-platform GUI for dnscrypt-proxy —” encrypted DNS management made simple"
     platform: Windows / Linux / macOS
     language: Python (PySide6/Qt)
     category: Privacy Tools
@@ -142,7 +142,7 @@ repos:
     pushed_at: "2026-08-25T19:40:51Z"
   - name: exploitprotection
     title: ExploitProtection
-    tagline: Windows Exploit Protection (Ultimate) GUI â€” ASR rules, CFG, DEP, SEHOP, arbitrary code guard
+    tagline: Windows Exploit Protection (Ultimate) GUI —” ASR rules, CFG, DEP, SEHOP, arbitrary code guard
     platform: Windows 10/11
     language: "PowerShell / C#"
     category: "Security & Exploit Mitigation"
@@ -170,7 +170,7 @@ repos:
     pushed_at: "2026-08-29T12:26:30Z"
   - name: linux
     title: linux
-    tagline: "Cross-distro Linux hardening guide â€” UFW firewall, DNSCrypt, Tor routing, fail2ban, AppArmor/SELinux, sysctl, SSH hardening"
+    tagline: "Cross-distro Linux hardening guide —” UFW firewall, DNSCrypt, Tor routing, fail2ban, AppArmor/SELinux, sysctl, SSH hardening"
     platform: Linux (Debian/Ubuntu/RHEL/Fedora/SUSE/Arch/Manjaro)
     language: Shell / Bash
     category: Security Guides
@@ -184,7 +184,7 @@ repos:
     pushed_at: "2026-08-29T10:16:03Z"
   - name: "mobile-sync"
     title: "mobile-sync"
-    tagline: OpenCode plugin â€” makes your desktop or CLI server accessible via Tailscale Funnel for mobile sync
+    tagline: OpenCode plugin —” makes your desktop or CLI server accessible via Tailscale Funnel for mobile sync
     platform: "Cross-platform (Node.js)"
     language: TypeScript
     category: Developer Tools
@@ -198,7 +198,7 @@ repos:
     pushed_at: "2026-08-28T21:55:17Z"
   - name: ubuntu
     title: ubuntu
-    tagline: "Ubuntu post-install hardening â€” firewall, encrypted DNS, Tor, AppArmor, snap/flatpak control, GNOME privacy"
+    tagline: "Ubuntu post-install hardening —” firewall, encrypted DNS, Tor, AppArmor, snap/flatpak control, GNOME privacy"
     platform: Ubuntu 20.04 / 22.04 / 24.04
     language: Shell / Python
     category: Security Guides

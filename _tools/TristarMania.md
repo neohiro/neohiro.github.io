@@ -5,7 +5,7 @@ open_issues: 0
 pushed_at: 2026-08-22T20:29:56Z
 created_at: 2025-08-20T18:19:08Z
 title: TristarMania
-tagline: "Addictive space shooter â€” procedural waves, ship customization, online leaderboards"
+tagline: "Addictive space shooter —” procedural waves, ship customization, online leaderboards"
 platform: Windows / Linux / macOS
 language: Rust (Bevy) / WebAssembly
 category: Games
@@ -22,13 +22,13 @@ icon: |
 
 ## Features
 
-- **Procedural Waves** â€” Infinite combinations of formations, bosses, environmental hazards
-- **Ship Builder** â€” Modular hulls, engines, weapons, shields, utilities; 10,000+ combinations
-- **Roguelite Progression** â€” Per-run upgrades; meta-currency unlocks hulls, weapons, cosmetics
-- **Online Leaderboards** â€” Daily/weekly/all-time with replay verification
-- **Web Version** â€” Play instantly in browser via WebAssembly
-- **Replay System** â€” Watch top runs; learn patterns and strategies
-- **Accessibility** â€” Colorblind modes, screen reader support, one-handed mode
+- **Procedural Waves** —” Infinite combinations of formations, bosses, environmental hazards
+- **Ship Builder** —” Modular hulls, engines, weapons, shields, utilities; 10,000+ combinations
+- **Roguelite Progression** —” Per-run upgrades; meta-currency unlocks hulls, weapons, cosmetics
+- **Online Leaderboards** —” Daily/weekly/all-time with replay verification
+- **Web Version** —” Play instantly in browser via WebAssembly
+- **Replay System** —” Watch top runs; learn patterns and strategies
+- **Accessibility** —” Colorblind modes, screen reader support, one-handed mode
 
 ## Play Now
 
@@ -77,5 +77,5 @@ Hull (frame) â†’ Engine â†’ Weapon Ã— N â†’ Shield â†’ Ut
 
 ## Related
 
-- [ZombieShoot](https://github.com/neohiro/ZombieShoot) â€” Top-down shooter
-- [Tetris](https://github.com/neohiro/Tetris) â€” Classic puzzle
+- [ZombieShoot](https://github.com/neohiro/ZombieShoot) —” Top-down shooter
+- [Tetris](https://github.com/neohiro/Tetris) —” Classic puzzle

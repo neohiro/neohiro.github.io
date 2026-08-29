@@ -5,7 +5,7 @@ open_issues: 0
 pushed_at: 2026-08-22T20:28:50Z
 created_at: 2025-08-06T18:10:44Z
 title: SystemMonitor
-tagline: "Live system health on your desktop â€” CPU, RAM, disk, network, GPU, sensors with alerts"
+tagline: "Live system health on your desktop —” CPU, RAM, disk, network, GPU, sensors with alerts"
 platform: Windows / Linux
 language: Python (PySide6/Qt) / C++
 category: System Utilities
@@ -22,13 +22,13 @@ icon: |
 
 ## Features
 
-- **Always-on-Top Widget** â€” Semi-transparent, click-through optional, multi-monitor
-- **Metric Panels** â€” CPU (per-core), RAM, Disk I/O, Network, GPU, Temperatures, Fans
-- **History Graphs** â€” 1h/6h/24h sparklines for each metric
-- **Alert Rules** â€” "CPU > 90% for 5m â†’ notify", "Disk < 5GB â†’ warn"
-- **Notification Channels** â€” Desktop, sound, webhook, email, Matrix
-- **Remote Monitoring** â€” View metrics from phone via web UI (optional)
-- **Process Top** â€” Click panel to see top consumers for that resource
+- **Always-on-Top Widget** —” Semi-transparent, click-through optional, multi-monitor
+- **Metric Panels** —” CPU (per-core), RAM, Disk I/O, Network, GPU, Temperatures, Fans
+- **History Graphs** —” 1h/6h/24h sparklines for each metric
+- **Alert Rules** —” "CPU > 90% for 5m â†’ notify", "Disk < 5GB â†’ warn"
+- **Notification Channels** —” Desktop, sound, webhook, email, Matrix
+- **Remote Monitoring** —” View metrics from phone via web UI (optional)
+- **Process Top** —” Click panel to see top consumers for that resource
 
 ## Installation
 
@@ -102,9 +102,9 @@ remote:
 ## Remote Web UI
 
 Enable `remote.enabled: true` to access:
-- `https://your-pc:8765` â€” Full dashboard
-- `https://your-pc:8765/api/metrics` â€” JSON API for custom clients
-- `https://your-pc:8765/api/alerts` â€” Alert history
+- `https://your-pc:8765` —” Full dashboard
+- `https://your-pc:8765/api/metrics` —” JSON API for custom clients
+- `https://your-pc:8765/api/alerts` —” Alert history
 
 ## Performance
 
@@ -115,11 +115,11 @@ Enable `remote.enabled: true` to access:
 
 ## Privacy
 
-- **No telemetry** â€” Zero data collection
-- **Local-only** â€” Remote UI requires explicit enable + auth
-- **No cloud** â€” All data stays on your machine
+- **No telemetry** —” Zero data collection
+- **Local-only** —” Remote UI requires explicit enable + auth
+- **No cloud** —” All data stays on your machine
 
 ## Related
 
-- [windows](https://github.com/neohiro/windows) â€” Includes system health checks
-- [linux](https://github.com/neohiro/linux) â€” Sensor setup via lm-sensors
+- [windows](https://github.com/neohiro/windows) —” Includes system health checks
+- [linux](https://github.com/neohiro/linux) —” Sensor setup via lm-sensors

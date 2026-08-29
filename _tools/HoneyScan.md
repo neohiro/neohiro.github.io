@@ -5,7 +5,7 @@ open_issues: 0
 pushed_at: 2026-08-22T20:29:03Z
 created_at: 2025-08-06T16:17:54Z
 title: HoneyScan
-tagline: "Passive honeypot for home networks â€” detects scans, brute-force, IoT malware with zero config"
+tagline: "Passive honeypot for home networks —” detects scans, brute-force, IoT malware with zero config"
 platform: Linux (Raspberry Pi, VM, bare metal)
 language: Python / Shell
 category: Network Security
@@ -23,13 +23,13 @@ icon: |
 
 ## Features
 
-- **Service Emulation** â€” SSH, Telnet, HTTP, HTTPS, RDP, SMB, MQTT, CoAP, Modbus
-- **Credential Capture** â€” Logs usernames/passwords from brute-force attempts (hashed)
-- **IoT Malware Detection** â€” Identifies Mirai, Gafgyt, Hajime, Mozi variants
-- **Network Mapping** â€” Discovers scanning hosts, builds attack timeline
-- **Zero Config** â€” Auto-detects subnet, picks unused IPs, starts emulating
-- **Alerting** â€” Email, webhook, syslog, Matrix, Discord notifications
-- **Dashboard** â€” Web UI with attack map, top attackers, service stats
+- **Service Emulation** —” SSH, Telnet, HTTP, HTTPS, RDP, SMB, MQTT, CoAP, Modbus
+- **Credential Capture** —” Logs usernames/passwords from brute-force attempts (hashed)
+- **IoT Malware Detection** —” Identifies Mirai, Gafgyt, Hajime, Mozi variants
+- **Network Mapping** —” Discovers scanning hosts, builds attack timeline
+- **Zero Config** —” Auto-detects subnet, picks unused IPs, starts emulating
+- **Alerting** —” Email, webhook, syslog, Matrix, Discord notifications
+- **Dashboard** —” Web UI with attack map, top attackers, service stats
 
 ## Quick Start
 
@@ -88,11 +88,11 @@ matrix:
 
 ## Privacy
 
-- **No phone home** â€” All data stays on your device
-- **No external deps** â€” Runs fully offline after install
-- **GDPR-ready** â€” No personal data collected
+- **No phone home** —” All data stays on your device
+- **No external deps** —” Runs fully offline after install
+- **GDPR-ready** —” No personal data collected
 
 ## Related
 
-- [Cripple-NetStrip](https://github.com/neohiro/Cripple-NetStrip) â€” Active network hardening
-- [LANScan](https://github.com/neohiro/LANScan) â€” Active network scanner
+- [Cripple-NetStrip](https://github.com/neohiro/Cripple-NetStrip) —” Active network hardening
+- [LANScan](https://github.com/neohiro/LANScan) —” Active network scanner
