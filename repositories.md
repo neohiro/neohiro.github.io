@@ -18,13 +18,17 @@ permalink: /repositories/
       <p class="repos-subtitle">{{ site.tools | size }} public projects — security, privacy, games, and developer tools</p>
     </header>
 
-    <div class="repos-filters" role="group" aria-label="Filter repositories">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="security">Security & Privacy</button>
-      <button class="filter-btn" data-filter="developer">Developer Tools</button>
-      <button class="filter-btn" data-filter="games">Games</button>
-      <button class="filter-btn" data-filter="utilities">Utilities</button>
-      <button class="filter-btn" data-filter="guides">Guides</button>
+    <div class="repos-toolbar">
+      <div class="repos-filters" role="group" aria-label="Filter repositories">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="security">Security & Privacy</button>
+        <button class="filter-btn" data-filter="developer">Developer Tools</button>
+        <button class="filter-btn" data-filter="games">Games</button>
+        <button class="filter-btn" data-filter="utilities">Utilities</button>
+        <button class="filter-btn" data-filter="guides">Guides</button>
+      </div>
+      
+      <input type="search" class="repo-search" placeholder="Search repositories..." aria-label="Search repositories">
     </div>
 
     <div class="repos-stats" aria-live="polite">
@@ -94,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const grid = document.getElementById('repos-grid');
   const cards = grid.querySelectorAll('.repo-card');
   const filterBtns = document.querySelectorAll('.filter-btn');
+  const searchInput = document.querySelector('.repo-search');
   const countAll = document.getElementById('count-all');
   const countFeatured = document.getElementById('count-featured');
   
@@ -109,85 +114,51 @@ document.addEventListener('DOMContentLoaded', function() {
     btn.addEventListener('click', function() {
       const filter = this.dataset.filter;
       
-      // Update active button
       filterBtns.forEach(b => b.classList.remove('active'));
       this.classList.add('active');
       
-      // Filter cards
       cards.forEach(card => {
         const categories = card.dataset.category || '';
-        const name = card.dataset.name || '';
-        const lang = card.dataset.language || '';
-        
-        let show = false;
-        if (filter === 'all') {
-          show = true;
-        } else if (filter === 'security') {
-          show = categories.includes('security') || categories.includes('privacy') || 
-                 categories.includes('network') || name.includes('hardening') ||
-                 name.includes('protection') || name.includes('netstrip') ||
-                 name.includes('exploit') || name.includes('honeyscan') ||
-                 name.includes('firewall') || name.includes('dns');
-        } else if (filter === 'developer') {
-          show = categories.includes('developer') || name.includes('auto-resume') ||
-                 name.includes('mobile-sync') || name.includes('opencode');
-        } else if (filter === 'games') {
-          show = categories.includes('games') || name.includes('zombie') ||
-                 name.includes('tristar') || name.includes('tetris') ||
-                 name.includes('ghost') || name.includes('maze') ||
-                 name.includes('space') || name.includes('shooter');
-        } else if (filter === 'utilities') {
-          show = categories.includes('utilities') || categories.includes('system') ||
-                 name.includes('monitor') || name.includes('news') ||
-                 name.includes('aggregator') || name.includes('calculator') ||
-                 name.includes('clock') || name.includes('file') ||
-                 name.includes('music') || name.includes('dns') ||
-                 name.includes('lookup') || name.includes('godmode') ||
-                 name.includes('shadowsocks') || name.includes('lan');
-        } else if (filter === 'guides') {
-          show = categories.includes('guides') || name.includes('linux') ||
-                 name.includes('ubuntu') || name.includes('windows');
-        }
-        
+        const show = filter === 'all' || categories.includes(filter);
         card.style.display = show ? 'flex' : 'none';
+        if (show) card.style.animation = 'fadeInUp 0.4s ease forwards';
       });
       
-      // Update visible count
       const visible = document.querySelectorAll('.repo-card[style*="flex"], .repo-card:not([style*="none"])').length;
       if (countAll) countAll.textContent = visible;
     });
   });
 
-  // Search functionality (bonus)
-  const searchInput = document.createElement('input');
-  searchInput.type = 'search';
-  searchInput.placeholder = 'Search repositories...';
-  searchInput.className = 'repo-search';
-  searchInput.setAttribute('aria-label', 'Search repositories');
-  document.querySelector('.repos-filters').appendChild(searchInput);
-
-  searchInput.addEventListener('input', function() {
-    const query = this.value.toLowerCase().trim();
-    cards.forEach(card => {
-      const name = card.dataset.name || '';
-      const desc = card.querySelector('.repo-card-desc')?.textContent.toLowerCase() || '';
-      const lang = card.dataset.language || '';
-      const category = card.dataset.category || '';
-      
-      const match = !query || 
-        name.includes(query) || 
-        desc.includes(query) || 
-        lang.includes(query) || 
-        category.includes(query);
-      
-      const currentlyHidden = card.style.display === 'none';
-      if (match && !currentlyHidden) {
-        card.style.display = 'flex';
-      } else if (!match) {
-        card.style.display = 'none';
-      }
+  // Search functionality
+  if (searchInput) {
+    let debounce;
+    searchInput.addEventListener('input', function() {
+      clearTimeout(debounce);
+      debounce = setTimeout(() => {
+        const query = this.value.toLowerCase().trim();
+        cards.forEach(card => {
+          const name = card.dataset.name || '';
+          const desc = card.querySelector('.repo-card-desc')?.textContent.toLowerCase() || '';
+          const lang = card.dataset.language || '';
+          const category = card.dataset.category || '';
+          
+          const match = !query || 
+            name.includes(query) || 
+            desc.includes(query) || 
+            lang.includes(query) || 
+            category.includes(query);
+          
+          const currentlyHidden = card.style.display === 'none';
+          if (match && !currentlyHidden) {
+            card.style.display = 'flex';
+            card.style.animation = 'fadeInUp 0.3s ease forwards';
+          } else if (!match) {
+            card.style.display = 'none';
+          }
+        });
+      }, 150);
     });
-  });
+  }
 });
 </script>
 
@@ -202,19 +173,25 @@ document.addEventListener('DOMContentLoaded', function() {
 .repos-header h1 { margin-bottom: 12px; }
 .repos-subtitle { font-size: 1.125rem; color: var(--fg-muted); max-width: 600px; margin: 0 auto; }
 
-.repos-filters { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+.repos-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 24px; flex-wrap: wrap; }
+.repos-filters { display: flex; gap: 10px; flex-wrap: wrap; }
 .filter-btn { padding: 8px 18px; font-size: 0.8125rem; font-weight: 500; color: var(--fg-muted); background: var(--bg-card); border: 1px solid var(--border); border-radius: 999px; cursor: pointer; transition: all var(--transition); }
 .filter-btn:hover { color: var(--fg); border-color: var(--border-hover); }
 .filter-btn.active { color: white; background: var(--accent); border-color: var(--accent); }
+
+.repo-search { padding: 10px 16px; font-size: 0.875rem; color: var(--fg); background: var(--bg-card); border: 1px solid var(--border); border-radius: 999px; min-width: 240px; }
+.repo-search:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+.repo-search::placeholder { color: var(--fg-subtle); }
 
 .repos-stats { display: flex; justify-content: center; gap: 32px; margin-bottom: 32px; font-size: 0.875rem; color: var(--fg-subtle); flex-wrap: wrap; }
 .repos-stats .stat { display: flex; align-items: center; gap: 6px; }
 .repos-stats strong { color: var(--fg); font-family: var(--font-mono); }
 
 .repos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-.repo-card { display: flex; flex-direction: column; padding: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); transition: all var(--transition); position: relative; }
+.repo-card { display: flex; flex-direction: column; padding: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); transition: all var(--transition); position: relative; opacity: 0; }
+.repo-card.visible { opacity: 1; }
 .repo-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-strong)); border-radius: var(--radius) var(--radius) 0 0; opacity: 0; transition: opacity var(--transition); }
-.repo-card:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: var(--shadow); }
+.repo-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 .repo-card:hover::before { opacity: 1; }
 
 .repo-card-icon { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: var(--radius-sm); background: var(--accent-dim); color: var(--accent); margin-bottom: 16px; }
@@ -232,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
 .repo-platform, .repo-lang, .repo-category { padding: 3px 8px; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--fg-subtle); }
 
 .repo-card-links { display: flex; gap: 10px; margin-top: auto; }
-.repo-link { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; font-size: 0.75rem; font-weight: 600; border-radius: var(--radius-sm); background: var(--accent-dim); color: var(--accent); border: 1px solid transparent; transition: all var(--transition); text-decoration: none; }
+.repo-link { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; font-size: 0.8125rem; font-weight: 600; border-radius: var(--radius-sm); background: var(--accent-dim); color: var(--accent); border: 1px solid transparent; transition: all var(--transition); text-decoration: none; }
 .repo-link:hover { background: var(--accent); color: white; }
 .repo-link-external { background: transparent; color: var(--fg-muted); border-color: var(--border); }
 .repo-link-external:hover { background: var(--bg); color: var(--fg); border-color: var(--border-hover); }
@@ -241,15 +218,13 @@ document.addEventListener('DOMContentLoaded', function() {
 .repos-footer a { color: var(--fg-subtle); }
 .repos-footer a:hover { color: var(--accent); }
 
-.repo-search { margin-left: auto; padding: 8px 16px; font-size: 0.8125rem; color: var(--fg); background: var(--bg-card); border: 1px solid var(--border); border-radius: 999px; min-width: 200px; }
-.repo-search:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
-.repo-search::placeholder { color: var(--fg-subtle); }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 768px) {
   .repos-grid { grid-template-columns: 1fr; }
-  .repos-filters { gap: 8px; }
-  .filter-btn { padding: 6px 14px; font-size: 0.75rem; }
-  .repo-search { margin-left: 0; margin-top: 12px; width: 100%; min-width: 0; }
+  .repos-toolbar { flex-direction: column; align-items: stretch; }
+  .repos-filters { justify-content: center; }
+  .repo-search { width: 100%; min-width: 0; }
   .repos-stats { gap: 16px; font-size: 0.8125rem; }
 }
 </style>

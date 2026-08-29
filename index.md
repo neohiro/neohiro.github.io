@@ -23,16 +23,39 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
 
       <div class="hero-cta">
         <a href="#featured-tools" class="btn btn-primary">Explore Tools</a>
+        <a href="{{ '/repositories/' | relative_url }}" class="btn btn-secondary">All Repositories</a>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Media / Video Portfolio Section -->
+<section class="section" id="media-portfolio">
+  <div class="container">
+    <header class="section-header">
+      <h2>FrenzyPenguin Media</h2>
+      <p class="section-subtitle">Video deep-dives on security hardening, exploit mitigation, and privacy engineering</p>
+    </header>
+    
+    <div class="video-grid" id="video-grid">
+      <!-- Video cards rendered by JavaScript -->
+    </div>
+    
+    <div class="media-cta" style="text-align: center; margin-top: 48px;">
+      <a href="{{ '/media/' | relative_url }}" class="btn btn-secondary">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.814v-8l8 3.993-8 4.007z"/></svg>
+        View All Videos on YouTube
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Production-Grade Tools -->
 <section class="section" id="featured-tools">
   <div class="container">
     <header class="section-header">
       <h2>Featured Tools</h2>
-      <p class="section-subtitle">Production-grade security tooling for Windows and Linux</p>
+      <p class="section-subtitle">Production-grade security tooling for Windows and Linux — battle-tested, zero telemetry</p>
     </header>
 
     <div class="tools-grid">
@@ -72,11 +95,12 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
   </div>
 </section>
 
+<!-- Hardening Guides (OS-level) -->
 <section class="section section-alt" id="hardening-guides">
   <div class="container">
     <header class="section-header">
       <h2>Hardening Guides</h2>
-      <p class="section-subtitle">Step-by-step post-install security for your OS</p>
+      <p class="section-subtitle">Step-by-step post-install security for your operating system</p>
     </header>
 
     <div class="guides-grid">
@@ -160,7 +184,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
     ];
 
     const typingPrefix = document.querySelector('.typing-prefix');
-    const cursor = document.querySelector('.typing-cursor');
+    const cursor = document.query('.typing-cursor');
     if (!typingPrefix || !cursor) return;
 
     let phraseIndex = 0;

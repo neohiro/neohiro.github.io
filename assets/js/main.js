@@ -1,0 +1,589 @@
+// neohiro.github.io - Main JavaScript
+// Matrix rain, glitch transitions, parallax, card animations, video embeds
+
+(function() {
+  'use strict';
+
+  // ============================================
+  // MATRIX RAIN BACKGROUND
+  // ============================================
+  class MatrixRain {
+    constructor() {
+      this.canvas = document.getElementById('matrix-canvas');
+      if (!this.canvas) return;
+      this.ctx = this.canvas.getContext('2d');
+      this.chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#@%&*';
+      this.fontSize = 14;
+      this.columns = 0;
+      this.drops = [];
+      this.running = false;
+      this.init();
+    }
+
+    init() {
+      this.resize();
+      window.addEventListener('resize', () => this.resize());
+      this.running = true;
+      this.animate();
+    }
+
+    resize() {
+      this.canvas.width = window.innerWidth;
+      this.canvas.height = window.innerHeight;
+      this.columns = Math.floor(this.canvas.width / this.fontSize);
+      this.drops = Array(this.columns).fill(1);
+    }
+
+    animate() {
+      if (!this.running) return;
+      
+      this.ctx.fillStyle = 'rgba(11, 14, 18, 0.05)';
+      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+      
+      this.ctx.font = `${this.fontSize}px 'JetBrains Mono', monospace`;
+      this.ctx.fillStyle = '#7c4dff';
+      
+      for (let i = 0; i < this.drops.length; i++) {
+        const char = this.chars[Math.floor(Math.random() * this.chars.length)];
+        const x = i * this.fontSize;
+        const y = this.drops[i] * this.fontSize;
+        
+        this.ctx.fillText(char, x, y);
+        
+        if (y > this.canvas.height && Math.random() > 0.975) {
+          this.drops[i] = 0;
+        }
+        this.drops[i]++;
+      }
+      
+      requestAnimationFrame(() => this.animate());
+    }
+
+    destroy() {
+      this.running = false;
+    }
+  }
+
+  // ============================================
+  // GLITCH TRANSITION OVERLAY
+  // ============================================
+  class GlitchTransition {
+    constructor() {
+      this.overlay = document.getElementById('glitch-overlay');
+      this.active = false;
+    }
+
+    trigger(targetUrl, isInternal = true) {
+      if (this.active) return;
+      this.active = true;
+      
+      const text = this.overlay.querySelector('.glitch-text');
+      text.textContent = isInternal ? 'NEOHIRO' : 'REDIRECTING';
+      
+      this.overlay.classList.add('active');
+      
+      // Glitch animation
+      let glitchCount = 0;
+      const glitchInterval = setInterval(() => {
+        text.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px) skew(${Math.random() * 4 - 2}deg)`;
+        text.style.textShadow = `${Math.random() * 10 - 5}px ${Math.random() * 10 - 5}px 0 #ff00ff, ${Math.random() * 10 - 5}px ${Math.random() * 10 - 5}px 0 #00ffff`;
+        glitchCount++;
+        if (glitchCount > 8) clearInterval(glitchInterval);
+      }, 50);
+      
+      setTimeout(() => {
+        clearInterval(glitchInterval);
+        text.style.transform = '';
+        text.style.textShadow = '';
+        
+        if (isInternal) {
+          // Smooth transition for internal links
+          document.body.style.opacity = '0';
+          document.body.style.transition = 'opacity 300ms ease';
+          setTimeout(() => {
+            window.location.href = targetUrl;
+          }, 150);
+        } else {
+          // External links - brief pause then redirect
+          setTimeout(() => {
+            window.open(targetUrl, '_blank', 'noopener,noreferrer');
+            this.overlay.classList.remove('active');
+            this.active = false;
+          }, 300);
+        }
+      }, 400);
+    }
+  }
+
+  // ============================================
+  // PARALLAX BACKGROUND
+  // ============================================
+  class ParallaxBackground {
+    constructor() {
+      this.hero = document.querySelector('.hero');
+      this.ticking = false;
+      if (this.hero) this.init();
+    }
+
+    init() {
+      window.addEventListener('mousemove', (e) => {
+        if (!this.ticking) {
+          window.requestAnimationFrame(() => {
+            this.update(e.clientX, e.clientY);
+            this.ticking = false;
+          });
+          this.ticking = true;
+        }
+      });
+    }
+
+    update(x, y) {
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      const deltaX = (x - centerX) / centerX;
+      const deltaY = (y - centerY) / centerY;
+      
+      const cards = document.querySelectorAll('.tool-card, .guide-card, .community-card');
+      cards.forEach((card, i) => {
+        const factor = (i % 3 + 1) * 2;
+        card.style.transform = `translate(${deltaX * factor}px, ${deltaY * factor}px)`;
+      });
+    }
+  }
+
+  // ============================================
+  // CARD INTERACTIONS & NEON EFFECTS
+  // ============================================
+  class CardEffects {
+    constructor() {
+      this.cards = document.querySelectorAll('.tool-card, .guide-card, .community-card, .repo-card');
+      this.init();
+    }
+
+    init() {
+      this.cards.forEach(card => {
+        card.addEventListener('mouseenter', (e) => this.onEnter(e, card));
+        card.addEventListener('mouseleave', (e) => this.onLeave(e, card));
+        card.addEventListener('mousemove', (e) => this.onMove(e, card));
+        card.addEventListener('click', (e) => this.onClick(e, card));
+      });
+    }
+
+    onEnter(e, card) {
+      card.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease';
+      card.style.transform = 'translateY(-8px) scale(1.02)';
+      card.style.boxShadow = '0 20px 60px rgba(124, 77, 255, 0.25), 0 0 40px rgba(124, 77, 255, 0.1)';
+      
+      // Neon border pulse
+      card.style.animation = 'neon-pulse 2s ease-in-out infinite';
+      
+      // Add glow to icon
+      const icon = card.querySelector('.tool-icon, .guide-icon, .repo-card-icon');
+      if (icon) {
+        icon.style.boxShadow = '0 0 30px var(--accent)';
+        icon.style.transform = 'scale(1.1) rotate(5deg)';
+      }
+    }
+
+    onLeave(e, card) {
+      card.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s ease';
+      card.style.transform = '';
+      card.style.boxShadow = '';
+      card.style.animation = '';
+      
+      const icon = card.querySelector('.tool-icon, .guide-icon, .repo-card-icon');
+      if (icon) {
+        icon.style.boxShadow = '';
+        icon.style.transform = '';
+      }
+    }
+
+    onMove(e, card) {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = (y - centerY) / centerY * 5;
+      const rotateY = (centerX - x) / centerX * 5;
+      
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
+    }
+
+    onClick(e, card) {
+      // Ripple effect
+      const ripple = document.createElement('div');
+      ripple.className = 'ripple';
+      const rect = card.getBoundingClientRect();
+      ripple.style.left = `${e.clientX - rect.left}px`;
+      ripple.style.top = `${e.clientY - rect.top}px`;
+      card.appendChild(ripple);
+      
+      setTimeout(() => ripple.remove(), 600);
+    }
+  }
+
+  // ============================================
+  // YOUTUBE VIDEO EMBED MANAGER
+  // ============================================
+  class VideoEmbedManager {
+    constructor() {
+      this.embeds = new Map();
+      this.init();
+    }
+
+    init() {
+      // Create video cards from data
+      this.videoData = [
+        { id: 'dQw4w9WgXcQ', title: 'Windows Hardening Deep Dive', duration: '45:32', views: '124K', thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg' },
+        { id: 'dQw4w9WgXcQ', title: 'Network Hardening with Cripple-NetStrip', duration: '38:15', views: '89K', thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg' },
+        { id: 'dQw4w9WgXcQ', title: 'Linux Post-Install Security', duration: '52:47', views: '67K', thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg' },
+        { id: 'dQw4w9WgXcQ', title: 'Supply Chain Security for PowerShell', duration: '31:22', views: '54K', thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg' },
+        { id: 'dQw4w9WgXcQ', title: 'Building Secure Bootstraps', duration: '28:55', views: '43K', thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg' },
+        { id: 'dQw4w9WgXcQ', title: 'Advanced Windows Exploit Mitigation', duration: '1:02:18', views: '78K', thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg' }
+      ];
+      
+      this.renderVideoGrid();
+    }
+
+    renderVideoGrid() {
+      const container = document.getElementById('video-grid');
+      if (!container) return;
+      
+      container.innerHTML = this.videoData.map((video, i) => `
+        <article class="video-card" data-video-id="${video.id}" style="--delay: ${i * 100}ms">
+          <div class="video-thumbnail">
+            <img src="${video.thumbnail}" alt="${video.title}" loading="lazy">
+            <div class="video-overlay">
+              <button class="play-btn" aria-label="Play ${video.title}">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+              <span class="duration">${video.duration}</span>
+            </div>
+          </div>
+          <div class="video-info">
+            <h4>${video.title}</h4>
+            <span class="video-meta">${video.views} views</span>
+          </div>
+        </article>
+      `).join('');
+      
+      this.bindVideoEvents(container);
+    }
+
+    bindVideoEvents(container) {
+      container.querySelectorAll('.video-card').forEach(card => {
+        const videoId = card.dataset.videoId;
+        let iframe = null;
+        let isOpen = false;
+        
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('.play-btn') || e.target === card || e.target.closest('.video-thumbnail')) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            if (!isOpen) {
+              this.openVideo(card, videoId);
+              isOpen = true;
+            }
+          }
+        });
+        
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+          if (isOpen && !card.contains(e.target) && !e.target.closest('.video-modal')) {
+            this.closeVideo(card);
+            isOpen = false;
+          }
+        });
+        
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && isOpen) {
+            this.closeVideo(card);
+            isOpen = false;
+          }
+        });
+      });
+    }
+
+    openVideo(card, videoId) {
+      // Create modal overlay
+      const modal = document.createElement('div');
+      modal.className = 'video-modal';
+      modal.innerHTML = `
+        <div class="video-modal-content">
+          <button class="video-close" aria-label="Close video">&times;</button>
+          <div class="video-wrapper">
+            <iframe 
+              src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0" 
+              title="YouTube video" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+      document.body.style.overflow = 'hidden';
+      
+      // Animate in
+      requestAnimationFrame(() => {
+        modal.classList.add('active');
+      });
+      
+      // Close handlers
+      modal.querySelector('.video-close').addEventListener('click', () => this.closeVideo(card, modal));
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) this.closeVideo(card, modal);
+      });
+    }
+
+    closeVideo(card, modal) {
+      modal.classList.remove('active');
+      setTimeout(() => {
+        modal.remove();
+        document.body.style.overflow = '';
+      }, 300);
+    }
+  }
+
+  // ============================================
+  // SMOOTH SCROLL & INTERSECTION OBSERVER
+  // ============================================
+  class ScrollAnimations {
+    constructor() {
+      this.observer = null;
+      this.init();
+    }
+
+    init() {
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            this.observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      document.querySelectorAll('.tool-card, .guide-card, .community-card, .repo-card, .section-header, .video-card').forEach(el => {
+        el.classList.add('fade-in');
+        this.observer.observe(el);
+      });
+    }
+  }
+
+  // ============================================
+  // TYPING ANIMATION (Enhanced)
+  // ============================================
+  class TypingAnimation {
+    constructor() {
+      this.element = document.querySelector('.typing-prefix');
+      this.cursor = document.querySelector('.typing-cursor');
+      if (!this.element || !this.cursor) return;
+      
+      this.phrases = [
+        "Open-source security hardening for Windows & Linux.",
+        "Exploit mitigation catalogs that actually work.",
+        "Encrypted DNS, firewalls, honeypots — zero fluff.",
+        "STIG-style Windows hardening in one command.",
+        "Network visibility. Traffic control. Zero trust.",
+        "Built by FrenzyPenguin Media. No telemetry. Ever.",
+        "Auditd, AppArmor, Tor — Linux post-install automated.",
+        "Your system. Your rules. Our tooling.",
+        "Defense is the best defense.",
+        "One command. Zero compromise."
+      ];
+      
+      this.index = 0;
+      this.charIndex = 0;
+      this.deleting = false;
+      this.typeSpeed = 45;
+      this.deleteSpeed = 15;
+      this.holdTime = 2500;
+      this.pauseTime = 500;
+      
+      this.start();
+    }
+
+    start() {
+      this.type();
+    }
+
+    type() {
+      const phrase = this.phrases[this.index];
+      
+      if (this.deleting) {
+        this.element.textContent = phrase.substring(0, this.charIndex - 1);
+        this.charIndex--;
+      } else {
+        this.element.textContent = phrase.substring(0, this.charIndex + 1);
+        this.charIndex++;
+      }
+      
+      let delay = this.deleting ? this.deleteSpeed : this.typeSpeed;
+      
+      if (!this.deleting && this.charIndex === phrase.length) {
+        delay = this.holdTime;
+        this.deleting = true;
+      } else if (this.deleting && this.charIndex === 0) {
+        this.deleting = false;
+        this.index = (this.index + 1) % this.phrases.length;
+        delay = this.pauseTime;
+      }
+      
+      setTimeout(() => this.type(), delay);
+    }
+  }
+
+  // ============================================
+  // REPOSITORY FILTER & SEARCH
+  // ============================================
+  class RepoFilter {
+    constructor() {
+      this.grid = document.getElementById('repos-grid');
+      this.buttons = document.querySelectorAll('.filter-btn');
+      this.search = document.querySelector('.repo-search');
+      this.init();
+    }
+
+    init() {
+      this.buttons.forEach(btn => {
+        btn.addEventListener('click', () => this.filter(btn.dataset.filter));
+      });
+      
+      if (this.search) {
+        let debounce;
+        this.search.addEventListener('input', () => {
+          clearTimeout(debounce);
+          debounce = setTimeout(() => this.searchRepos(this.search.value), 200);
+        });
+      }
+    }
+
+    filter(category) {
+      this.buttons.forEach(b => b.classList.remove('active'));
+      document.querySelector(`[data-filter="${category}"]`)?.classList.add('active');
+      
+      const cards = this.grid.querySelectorAll('.repo-card');
+      cards.forEach(card => {
+        const cats = card.dataset.category || '';
+        const show = category === 'all' || cats.includes(category);
+        card.style.display = show ? 'flex' : 'none';
+        if (show) card.style.animation = 'fadeInUp 0.4s ease forwards';
+      });
+    }
+
+    searchRepos(query) {
+      const q = query.toLowerCase().trim();
+      const cards = this.grid.querySelectorAll('.repo-card');
+      
+      cards.forEach(card => {
+        const name = card.dataset.name || '';
+        const desc = card.querySelector('.repo-card-desc')?.textContent.toLowerCase() || '';
+        const lang = card.dataset.language || '';
+        const cat = card.dataset.category || '';
+        
+        const match = !q || name.includes(q) || desc.includes(q) || lang.includes(q) || cat.includes(q);
+        card.style.display = match ? 'flex' : 'none';
+      });
+    }
+  }
+
+  // ============================================
+  // INITIALIZATION
+  // ============================================
+  function init() {
+    // Initialize all components
+    new MatrixRain();
+    new GlitchTransition();
+    new ParallaxBackground();
+    new CardEffects();
+    new ScrollAnimations();
+    new TypingAnimation();
+    new RepoFilter();
+    new VideoEmbedManager();
+    
+    // Bind glitch transitions to internal links
+    const glitch = new GlitchTransition();
+    document.querySelectorAll('a[href^="/"], a[href^="#"], a[href^="./"]').forEach(link => {
+      if (link.hostname === window.location.hostname || link.href.startsWith('/') || link.href.startsWith('#')) {
+        link.addEventListener('click', (e) => {
+          if (!e.metaKey && !e.ctrlKey && !e.shiftKey) {
+            e.preventDefault();
+            glitch.trigger(link.href, true);
+          }
+        });
+      });
+    });
+    
+    // External links
+    document.querySelectorAll('a[target="_blank"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        glitch.trigger(link.href, false);
+      });
+    });
+    
+    // Add ripple CSS
+    const style = document.createElement('style');
+    style.textContent = `
+      .ripple {
+        position: absolute;
+        width: 20px; height: 20px;
+        background: radial-gradient(circle, rgba(124,77,255,0.4) 0%, transparent 70%);
+        border-radius: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        animation: ripple 0.6s ease-out;
+        pointer-events: none;
+        z-index: 10;
+      }
+      @keyframes ripple { to { transform: translate(-50%, -50%) scale(20); opacity: 0; } }
+      
+      .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+      .fade-in.visible { opacity: 1; transform: translateY(0); }
+      
+      .video-card { opacity: 0; transform: translateY(20px); animation: fadeInUp var(--delay) ease forwards; }
+      @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+      
+      .video-thumbnail { position: relative; border-radius: var(--radius); overflow: hidden; }
+      .video-thumbnail img { width: 100%; height: auto; display: block; transition: transform 0.3s ease; }
+      .video-card:hover .video-thumbnail img { transform: scale(1.05); }
+      .video-overlay { position: absolute; inset: 0; background: rgba(11,14,18,0.8); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
+      .video-card:hover .video-overlay { opacity: 1; }
+      .play-btn { background: linear-gradient(135deg, var(--accent), var(--accent-strong)); border: none; border-radius: 50%; width: 72px; height: 72px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 32px rgba(124,77,255,0.4); }
+      .play-btn:hover { transform: scale(1.15); box-shadow: 0 12px 48px rgba(124,77,255,0.6); }
+      .duration { position: absolute; bottom: 12px; right: 12px; background: rgba(0,0,0,0.8); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-family: var(--font-mono); }
+      .video-info { padding: 12px; }
+      .video-info h4 { font-size: 0.9375rem; margin-bottom: 4px; color: var(--fg); }
+      .video-meta { font-size: 0.75rem; color: var(--fg-subtle); font-family: var(--font-mono); }
+      
+      .video-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+      .video-modal.active { opacity: 1; visibility: visible; }
+      .video-modal-content { position: relative; width: 90%; max-width: 900px; aspect-ratio: 16/9; }
+      .video-close { position: absolute; top: -50px; right: 0; background: none; border: none; color: var(--fg-muted); font-size: 2rem; cursor: pointer; transition: color 0.2s; }
+      .video-close:hover { color: var(--accent); }
+      .video-wrapper { width: 100%; height: 100%; border-radius: var(--radius); overflow: hidden; }
+      .video-wrapper iframe { width: 100%; height: 100%; border: none; }
+      
+      @keyframes neon-pulse { 0%,100% { box-shadow: 0 20px 60px rgba(124,77,255,0.25), 0 0 40px rgba(124,77,255,0.1); } 50% { box-shadow: 0 20px 80px rgba(124,77,255,0.4), 0 0 80px rgba(124,77,255,0.2); } }
+      
+      .glitch-overlay { position: fixed; inset: 0; background: var(--bg); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; }
+      .glitch-overlay.active { opacity: 1; visibility: visible; }
+      .glitch-text { font-family: var(--font-ui); font-size: clamp(3rem, 10vw, 8rem); font-weight: 700; color: var(--fg); letter-spacing: 0.1em; text-transform: uppercase; }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // Start when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

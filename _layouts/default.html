@@ -14,6 +14,14 @@
   {% feed_meta %}
 </head>
 <body>
+  <!-- Matrix rain canvas for background ambience -->
+  <canvas id="matrix-canvas" aria-hidden="true"></canvas>
+  
+  <!-- Glitch overlay for page transitions -->
+  <div id="glitch-overlay" class="glitch-overlay" aria-hidden="true">
+    <div class="glitch-text" data-text="NEOHIRO"></div>
+  </div>
+
   <div class="page-wrapper">
     <header class="site-header" role="banner">
       <div class="container">
@@ -24,7 +32,8 @@
         <nav class="site-nav" aria-label="Main navigation">
           <a href="#featured-tools" class="nav-link">Tools</a>
           <a href="#hardening-guides" class="nav-link">Guides</a>
-          <a href="https://www.youtube.com/FrenzyPenguinMedia?sub_confirmation=1" class="nav-link" target="_blank" rel="noopener">Media</a>
+          <a href="{{ '/repositories/' | relative_url }}" class="nav-link">Repositories</a>
+          <a href="{{ '/media/' | relative_url }}" class="nav-link">Media</a>
           <a href="https://github.com/sponsors/neohiro" class="nav-link nav-sponsor" target="_blank" rel="noopener">Sponsor</a>
         </nav>
       </div>
@@ -49,6 +58,6 @@
     </footer>
   </div>
 
-  <script src="{{ '/assets/js/typing.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
 </body>
 </html>
