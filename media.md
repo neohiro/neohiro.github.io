@@ -2,6 +2,7 @@
 layout: default
 title: Media - FrenzyPenguin Media
 description: "Video portfolio - Security hardening deep-dives, exploit mitigation tutorials, and privacy engineering"
+permalink: /media/
 ---
 
 <div class="media-page" id="media">
