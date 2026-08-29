@@ -82,6 +82,20 @@ permalink: /repositories/
               GitHub
             </a>
           </div>
+          <div class="repo-card-actions">
+            <a href="{{ tool.repo_url }}/issues" class="repo-action-btn repo-action-bug" target="_blank" rel="noopener" title="Bug Reports">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12h2a8 8 0 1 0 16 0H2c0-4.41 3.59-8 8-8z"/></svg>
+              Bug
+            </a>
+            <a href="{{ tool.repo_url }}/security" class="repo-action-btn repo-action-sec" target="_blank" rel="noopener" title="Security / Vulnerabilities">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/></svg>
+              Sec
+            </a>
+            <a href="{{ tool.repo_url }}/discussions" class="repo-action-btn repo-action-disc" target="_blank" rel="noopener" title="Discussions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Discuss
+            </a>
+          </div>
         </article>
       {% endfor %}
     </div>
@@ -213,6 +227,15 @@ document.addEventListener('DOMContentLoaded', function() {
 .repo-link:hover { background: var(--accent); color: white; }
 .repo-link-external { background: transparent; color: var(--fg-muted); border-color: var(--border); }
 .repo-link-external:hover { background: var(--bg); color: var(--fg); border-color: var(--border-hover); }
+
+.repo-card-actions { display: flex; gap: 6px; margin-top: 10px; }
+.repo-action-btn { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; font-size: 0.72rem; font-weight: 600; border-radius: 4px; text-decoration: none; border: 1px solid; transition: all var(--transition); }
+.repo-action-bug { color: var(--orange); border-color: var(--orange); background: rgba(255,167,38,0.06); }
+.repo-action-bug:hover { background: rgba(255,167,38,0.15); }
+.repo-action-sec { color: var(--red); border-color: var(--red); background: rgba(239,83,80,0.06); }
+.repo-action-sec:hover { background: rgba(239,83,80,0.15); }
+.repo-action-disc { color: var(--green); border-color: var(--green); background: rgba(102,187,106,0.06); }
+.repo-action-disc:hover { background: rgba(102,187,106,0.15); }
 
 .repos-footer { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--fg-subtle); font-size: 0.875rem; }
 .repos-footer a { color: var(--fg-subtle); }
