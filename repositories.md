@@ -2,6 +2,7 @@
 layout: default
 title: All Repositories
 description: "Complete index of neohiro public repositories — security tools, privacy utilities, games, and developer tools"
+permalink: /repositories/
 ---
 
 <div class="repos-page" id="repositories">
