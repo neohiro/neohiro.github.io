@@ -23,7 +23,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
 
       <div class="hero-cta">
         <a href="#featured-tools" class="btn btn-primary">Explore Tools</a>
-        <a href="https://github.com/neohiro?tab=repositories" class="btn btn-secondary" target="_blank" rel="noopener">All Repositories</a>
+        <a href="{{ '/repositories/' | relative_url }}" class="btn btn-secondary">All Repositories</a>
       </div>
     </div>
   </div>
