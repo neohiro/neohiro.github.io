@@ -20,6 +20,7 @@ ALLOWED_KEYS = {
     "featured", "weight", "repo_url",
     "stars", "forks", "open_issues", "created_at", "pushed_at"
 }
+DRIFT_KEYS = frozenset(ALLOWED_KEYS - {"name", "stars", "forks", "open_issues", "created_at", "pushed_at"})
 
 def parse_front_matter(path):
     with open(path, "rb") as f:
@@ -96,18 +97,12 @@ for path in sorted(glob.glob(os.path.join(TOOLS_DIR, "*.md"))):
         warnings.append(f"{path}: front matter name={fm['name']!r} does not match filename={name!r}")
     tools[name] = fm
 
-def text_starts_with_bom(path):
-    with open(path, "rb") as f:
-        return f.read(3) == b"\xef\xbb\xbf"
-
 # Parse yaml
 yaml_repos = parse_yaml_repos(YAML_PATH)
 yaml_names = set(yaml_repos.keys())
 tool_names = set(tools.keys())
 
 # Check schema
-for k in ALLOWED_KEYS:
-    pass
 for name, repo in yaml_repos.items():
     for k in repo.keys():
         if k not in ALLOWED_KEYS:
@@ -125,7 +120,7 @@ if extra_in_yaml:
 for name in tool_names & yaml_names:
     fm = tools[name]
     ym = yaml_repos[name]
-    for k in ("title", "tagline", "platform", "language", "category", "featured", "weight", "repo_url"):
+    for k in DRIFT_KEYS:
         fm_v = normalize(fm.get(k, ""))
         ym_v = normalize(ym.get(k, ""))
         if fm_v and ym_v and fm_v != ym_v:
