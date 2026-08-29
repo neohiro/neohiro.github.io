@@ -14,12 +14,10 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
 
       <h1 class="hero-title">Defense is the best defense.</h1>
 
-      <div class="typing-container" aria-live="polite" aria-atomic="true">
-        <p class="typing-text">
-          <span class="typing-prefix"></span>
-          <span class="typing-cursor" aria-hidden="true">|</span>
-        </p>
-      </div>
+      <p class="hero-tagline">
+        Open-source security hardening for Windows &amp; Linux.
+        Exploit mitigation that actually works. Zero telemetry. Ever.
+      </p>
 
       <div class="hero-cta">
         <a href="#featured-tools" class="btn btn-primary">Explore Tools</a>
@@ -29,23 +27,34 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
   </div>
 </div>
 
-<!-- Media / Video Portfolio Section -->
-<section class="section" id="media-portfolio">
+<!-- Curated Quotes -->
+<section class="section section-quotes" id="quotes">
   <div class="container">
     <header class="section-header">
-      <h2>FrenzyPenguin Media</h2>
-      <p class="section-subtitle">Video deep-dives on security hardening, exploit mitigation, and privacy engineering</p>
+      <h2>Curated Quotes</h2>
+      <p class="section-subtitle">Lines we live by — from FrenzyPenguin Media and neohiro</p>
     </header>
-    
-    <div class="video-grid" id="video-grid">
-      <!-- Video cards rendered by JavaScript -->
-    </div>
-    
-    <div class="media-cta" style="text-align: center; margin-top: 48px;">
-      <a href="https://neohiro.github.io/frenzypenguin-media/" class="btn btn-secondary" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.814v-8l8 3.993-8 4.007z"/></svg>
-        View FrenzyPenguin Media Site
-      </a>
+
+    <div class="quotes-grid">
+      <blockquote class="quote-card">
+        <p class="quote-text">"Your system. Your rules. Our tooling."</p>
+        <footer class="quote-attribution">— FrenzyPenguin Media</footer>
+      </blockquote>
+
+      <blockquote class="quote-card">
+        <p class="quote-text">"Encrypted DNS, firewalls, honeypots — zero fluff."</p>
+        <footer class="quote-attribution">— FrenzyPenguin Media</footer>
+      </blockquote>
+
+      <blockquote class="quote-card">
+        <p class="quote-text">"No telemetry. No accounts. No compromises."</p>
+        <footer class="quote-attribution">— neohiro</footer>
+      </blockquote>
+
+      <blockquote class="quote-card">
+        <p class="quote-text">"Auditd, AppArmor, Tor — Linux post-install automated."</p>
+        <footer class="quote-attribution">— neohiro</footer>
+      </blockquote>
     </div>
   </div>
 </section>
@@ -138,7 +147,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
 <section class="section" id="community">
   <div class="container">
     <header class="section-header">
-      <h2>Community & Support</h2>
+      <h2>Community &amp; Support</h2>
       <p class="section-subtitle">Pick a project, then choose how to engage</p>
     </header>
 
@@ -166,63 +175,35 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
         <p>Support ongoing development via GitHub Sponsors or Patreon.</p>
         <span class="card-action">Sponsor neohiro →</span>
       </article>
+
+      <article class="community-card community-card-media" onclick="window.open('https://neohiro.github.io/frenzypenguin-media/', '_blank', 'noopener')">
+        <div class="community-card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.814v-8l8 3.993-8 4.007z"/></svg>
+        </div>
+        <h3>FrenzyPenguin Media</h3>
+        <p>Video deep-dives on security hardening, exploit mitigation, and privacy engineering.</p>
+        <span class="card-action">Visit media site →</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Sponsor -->
+<section class="section section-alt" id="sponsor">
+  <div class="container" style="text-align:center; max-width:800px;">
+    <h2 style="margin-bottom:16px;">Support the Stack</h2>
+    <p style="color:var(--fg-muted); margin-bottom:32px;">All tools here are free and open source. If they save you time or protect your systems, consider a sponsorship to keep development going.</p>
+    <div class="sponsor-links">
+      <a href="https://github.com/sponsors/neohiro" class="sponsor-red" target="_blank" rel="noopener">♥ Sponsor neohiro on GitHub</a>
+      <a href="https://neohiro.github.io/frenzypenguin-media/" target="_blank" rel="noopener">🎬 FrenzyPenguin Media</a>
+      <a href="https://transhumanists.github.io/" target="_blank" rel="noopener">🧬 transhumanists Dashboard</a>
+      <a href="https://github.com/transhumanists" target="_blank" rel="noopener">📋 transhumanists GitHub</a>
     </div>
   </div>
 </section>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const phrases = [
-      "Open-source security hardening for Windows & Linux.",
-      "Exploit mitigation catalogs that actually work.",
-      "Encrypted DNS, firewalls, honeypots — zero fluff.",
-      "STIG-style Windows hardening in one command.",
-      "Network visibility. Traffic control. Zero trust.",
-      "Built by FrenzyPenguin Media. No telemetry. Ever.",
-      "Auditd, AppArmor, Tor — Linux post-install automated.",
-      "Your system. Your rules. Our tooling."
-    ];
-
-    const typingPrefix = document.querySelector('.typing-prefix');
-    const cursor = document.query('.typing-cursor');
-    if (!typingPrefix || !cursor) return;
-
-    let phraseIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    const typeSpeed = 48;
-    const deleteSpeed = 18;
-    const holdTime = 2200;
-    const pauseBetween = 400;
-
-    function type() {
-      const currentPhrase = phrases[phraseIndex];
-
-      if (isDeleting) {
-        typingPrefix.textContent = currentPhrase.substring(0, charIndex - 1);
-        charIndex--;
-      } else {
-        typingPrefix.textContent = currentPhrase.substring(0, charIndex + 1);
-        charIndex++;
-      }
-
-      let nextDelay = isDeleting ? deleteSpeed : typeSpeed;
-
-      if (!isDeleting && charIndex === currentPhrase.length) {
-        nextDelay = holdTime;
-        isDeleting = true;
-      } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        phraseIndex = (phraseIndex + 1) % phrases.length;
-        nextDelay = pauseBetween;
-      }
-
-      setTimeout(type, nextDelay);
-    }
-
-    type();
-
-    // Make community cards keyboard accessible
     document.querySelectorAll('.community-card').forEach(card => {
       card.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') {

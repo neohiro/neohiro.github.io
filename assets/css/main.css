@@ -594,3 +594,126 @@ p { color: var(--fg-muted); }
   .tools-grid { grid-template-columns: 1fr; }
   .guides-grid { grid-template-columns: 1fr; }
 }
+
+/* Hero tagline */
+.hero-tagline {
+  font-size: 1.15rem;
+  color: var(--fg-muted);
+  max-width: 640px;
+  margin: 0 auto 32px;
+  line-height: 1.7;
+}
+
+/* Quotes section */
+.section-quotes {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-elevated) 100%);
+}
+
+.quotes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.quote-card {
+  background: var(--bg-card);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: 24px 28px;
+  margin: 0;
+}
+
+.quote-text {
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--fg);
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+
+.quote-attribution {
+  color: var(--fg-subtle);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Community card media variant */
+.community-card-media {
+  border-color: var(--purple);
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(138, 43, 226, 0.06) 100%);
+}
+
+.community-card-media:hover {
+  border-color: var(--purple);
+}
+
+.community-card-icon {
+  margin-bottom: 12px;
+  color: var(--purple);
+}
+
+/* Sponsor badge */
+.sponsor-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: transparent;
+  border: 1px solid var(--red);
+  color: var(--red);
+  transition: all var(--transition);
+}
+
+.sponsor-badge:hover {
+  background: var(--red);
+  color: white;
+  text-decoration: none;
+}
+
+/* Video grid for media section */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+/* Sponsor links section */
+.sponsor-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.sponsor-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  color: var(--fg-muted);
+  background: var(--bg-card);
+  transition: all var(--transition);
+}
+
+.sponsor-links a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.sponsor-links a.sponsor-red:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
