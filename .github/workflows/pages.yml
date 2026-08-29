@@ -2,9 +2,9 @@ name: Build & Deploy
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
@@ -29,6 +29,14 @@ jobs:
           bundler-cache: true
           cache-version: v2
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify _tools ↔ _data/repos.yml consistency
+        run: python scripts/verify_data.py
+
       - name: Build Jekyll Site
         run: bundle exec jekyll build
         env:
@@ -40,7 +48,7 @@ jobs:
           path: ./_site
 
   deploy:
-    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch) || github.ref == 'refs/heads/master'
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
     needs: build
     runs-on: ubuntu-latest
     environment:
