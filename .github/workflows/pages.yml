@@ -29,6 +29,24 @@ jobs:
           bundler-cache: true
           cache-version: v2
 
+      - name: Debug file
+        if: always()
+        run: |
+          bundle exec ruby -e "
+            path = '_data/repos.json'
+            data = File.binread(path)
+            puts 'SIZE:' + data.bytesize.to_s
+            puts 'FIRST15:' + data.bytes[0..14].inspect
+            puts 'CONTROL:' + data.bytes.count{|b| b < 0x09 || (b >= 0x0B && b <= 0x0D && b != 0x0A && b != 0x09) || (b >= 0x1F && b != 0x7F) }.to_s
+            puts 'ENCODING:' + data.encoding.to_s
+            require 'json'
+            j = JSON.parse(data)
+            puts 'JSON_OK:' + j['repos'].length.to_s
+            require 'safe_yaml'
+            y = SafeYAML.load(data)
+            puts 'SAFEYAML_OK:' + y.class.to_s
+          "
+
       - name: Build Jekyll Site
         run: bundle exec jekyll build
         env:
