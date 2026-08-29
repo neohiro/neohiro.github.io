@@ -23,7 +23,6 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
 
       <div class="hero-cta">
         <a href="#featured-tools" class="btn btn-primary">Explore Tools</a>
-        <a href="{{ '/repositories/' | relative_url }}" class="btn btn-secondary">All Repositories</a>
       </div>
     </div>
   </div>
@@ -108,20 +107,6 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
           View Guide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </article>
-
-      <article class="guide-card">
-        <div class="guide-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 6v6l4 2"/>
-          </svg>
-        </div>
-        <h3>Network Hardening</h3>
-        <p>DNS sinkhole, encrypted DNS, firewall rules, traffic classification.</p>
-        <a href="https://github.com/neohiro/Cripple-NetStrip" class="guide-link" target="_blank" rel="noopener">
-          View Guide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </article>
     </div>
   </div>
 </section>
@@ -130,31 +115,32 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
   <div class="container">
     <header class="section-header">
       <h2>Community & Support</h2>
+      <p class="section-subtitle">Pick a project, then choose how to engage</p>
     </header>
 
     <div class="community-grid">
-      <article class="community-card">
+      <article class="community-card" onclick="window.open('https://github.com/neohiro?tab=repositories', '_blank', 'noopener')">
         <h3>Bug Reports</h3>
         <p>Structured issue templates on each repository with required diagnostics.</p>
-        <a href="https://github.com/neohiro/windows/issues/new/choose" target="_blank" rel="noopener">Open Issue</a>
+        <span class="card-action">Select a project →</span>
       </article>
 
-      <article class="community-card">
+      <article class="community-card" onclick="window.open('https://github.com/neohiro?tab=repositories', '_blank', 'noopener')">
         <h3>Security Vulnerabilities</h3>
         <p>Private disclosure via Security Advisories tab on each repository.</p>
-        <a href="https://github.com/neohiro/windows/security/advisories/new" target="_blank" rel="noopener">Report</a>
+        <span class="card-action">Select a project →</span>
       </article>
 
-      <article class="community-card">
+      <article class="community-card" onclick="window.open('https://github.com/neohiro?tab=repositories', '_blank', 'noopener')">
         <h3>Discussions</h3>
         <p>Questions, showcases, and feature requests in each repo's Discussions.</p>
-        <a href="https://github.com/neohiro/windows/discussions" target="_blank" rel="noopener">Join</a>
+        <span class="card-action">Select a project →</span>
       </article>
 
-      <article class="community-card">
+      <article class="community-card" onclick="window.open('https://github.com/sponsors/neohiro', '_blank', 'noopener')">
         <h3>Sponsor</h3>
         <p>Support ongoing development via GitHub Sponsors or Patreon.</p>
-        <a href="https://github.com/sponsors/neohiro" target="_blank" rel="noopener">Sponsor</a>
+        <span class="card-action">Sponsor neohiro →</span>
       </article>
     </div>
   </div>
@@ -180,10 +166,10 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
     let phraseIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    const typeSpeed = 48;       // ms per char (slower typing)
-    const deleteSpeed = 18;     // ms per char (faster deletion)
-    const holdTime = 2200;      // ms to hold full text
-    const pauseBetween = 400;   // ms before next phrase
+    const typeSpeed = 48;
+    const deleteSpeed = 18;
+    const holdTime = 2200;
+    const pauseBetween = 400;
 
     function type() {
       const currentPhrase = phrases[phraseIndex];
@@ -211,5 +197,17 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
     }
 
     type();
+
+    // Make community cards keyboard accessible
+    document.querySelectorAll('.community-card').forEach(card => {
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        }
+      });
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+    });
   });
 </script>
