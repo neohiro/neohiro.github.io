@@ -4,16 +4,21 @@ Verify _data/repos.yml matches _tools/*.md front matter.
 Catches:
 - repos.yml has entries without matching _tools file
 - _tools has files without matching repos.yml entry
-- name/weight/title drift between files
-- weight/featured schema drift
+- field drift between repos.yml and _tools front matter for any
+  non-numeric / non-timestamp key in ALLOWED_KEYS
+- unknown fields in either source
+- UTF-8 BOM in either source
+- mojibake (Latin-1→UTF-8 round-trip) on em-dash / middle-dot
 """
 import re
 import glob
 import sys
 import os
 
-YAML_PATH = "_data/repos.yml"
-TOOLS_DIR = "_tools"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+REPO_ROOT  = os.path.normpath(os.path.join(SCRIPT_DIR, ".."))
+YAML_PATH  = os.path.join(REPO_ROOT, "_data", "repos.yml")
+TOOLS_DIR  = os.path.join(REPO_ROOT, "_tools")
 
 ALLOWED_KEYS = {
     "name", "title", "tagline", "platform", "language", "category",
@@ -21,6 +26,15 @@ ALLOWED_KEYS = {
     "stars", "forks", "open_issues", "created_at", "pushed_at"
 }
 DRIFT_KEYS = frozenset(ALLOWED_KEYS - {"name", "stars", "forks", "open_issues", "created_at", "pushed_at"})
+
+# Byte-level signatures of "double-encoded" UTF-8 mojibake. Each entry is
+# (replacement target, replacement string). These show up when UTF-8 bytes
+# are decoded as Latin-1 and the resulting string is re-encoded as UTF-8.
+# We match the trailing bytes of that pattern so the warning is precise.
+MOJIBAKE_PATTERNS = [
+    (b"\xc3\xa2\xe2\x82\xac",       "em-dash (—)"),
+    (b"\xc3\x82\xc2\xb7",           "middle-dot (·)"),
+]
 
 def parse_front_matter(path):
     with open(path, "rb") as f:
@@ -96,6 +110,22 @@ for path in sorted(glob.glob(os.path.join(TOOLS_DIR, "*.md"))):
     if "name" in fm and fm["name"] != name:
         warnings.append(f"{path}: front matter name={fm['name']!r} does not match filename={name!r}")
     tools[name] = fm
+
+# Mojibake regression guard. Scans raw bytes (mojibake is a byte-level
+# signature, not a text one) so the check works regardless of how the
+# file was decoded upstream.
+for path in sorted(glob.glob(os.path.join(TOOLS_DIR, "*.md"))):
+    with open(path, "rb") as f:
+        raw = f.read()
+    for sig, label in MOJIBAKE_PATTERNS:
+        if sig in raw:
+            errors.append(f"{path}: mojibake {label} (re-encode UTF-8 of UTF-8-as-Latin-1)")
+
+with open(YAML_PATH, "rb") as f:
+    yaml_raw = f.read()
+for sig, label in MOJIBAKE_PATTERNS:
+    if sig in yaml_raw:
+        errors.append(f"{YAML_PATH}: mojibake {label}")
 
 # Parse yaml
 yaml_repos = parse_yaml_repos(YAML_PATH)
