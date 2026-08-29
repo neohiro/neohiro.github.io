@@ -5,9 +5,6 @@ baseurl: ""
 github_username: neohiro
 github_repo: neohiro.github.io
 
-theme: minima
-remote_theme: null
-
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
