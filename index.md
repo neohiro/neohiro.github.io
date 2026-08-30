@@ -22,10 +22,55 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
       <div class="hero-cta">
         <a href="#featured-tools" class="btn btn-primary">Explore Tools</a>
         <a href="{{ '/repositories/' | relative_url }}" class="btn btn-secondary">All Repositories</a>
+        <a href="https://github.com/login/oauth/authorize?client_id=neohiro&scope=read%3Auser" class="btn btn-ghost btn-login" id="login-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          Login with GitHub
+        </a>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Legal & Onboarding -->
+<section class="section section-legal" id="legal">
+  <div class="container">
+    <header class="section-header">
+      <h2>Consent &amp; Cloud Memory</h2>
+      <p class="section-subtitle">Before you interact, here's how your data is handled</p>
+    </header>
+
+    <div class="legal-grid">
+      <article class="legal-card" id="consent-card">
+        <div class="legal-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2L4 5v6c0 5 3 9 8 11 5-2 8-6 8-11V5l-8-3z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+        </div>
+        <h3>Your data. Safely stored as cloud memory.</h3>
+        <p>
+          When you interact with the neohiro assistant, your information is
+          securely stored as <strong>cloud memory</strong> to help the system
+          learn more about you and improve your experience.
+        </p>
+        <p class="legal-warning">
+          <strong>Do not use this service if you decline.</strong>
+          By continuing, you consent to this storage. You can withdraw consent
+          and request complete deletion of your data at any time.
+        </p>
+        <div class="legal-links">
+          <a href="{{ '/privacy/' | relative_url }}" class="legal-link">Read Privacy Policy</a>
+          <a href="{{ '/tos/' | relative_url }}" class="legal-link">Read Terms of Service</a>
+          <a href="{{ '/LICENSE/' | relative_url }}" class="legal-link">View License (GPL-3.0)</a>
+        </div>
+        <div class="legal-actions">
+          <button class="btn btn-primary" id="consent-accept">I consent — continue</button>
+          <button class="btn btn-secondary" id="consent-decline">Decline</button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
 
 <!-- Curated Quotes -->
 <section class="section section-quotes" id="quotes">
@@ -152,31 +197,31 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
     </header>
 
     <div class="community-grid">
-      <article class="community-card" onclick="window.open('https://github.com/neohiro?tab=repositories', '_blank', 'noopener')">
+      <article class="community-card" data-href="https://github.com/neohiro?tab=repositories">
         <h3>Bug Reports</h3>
         <p>Structured issue templates on each repository with required diagnostics.</p>
         <span class="card-action">Select a project →</span>
       </article>
 
-      <article class="community-card" onclick="window.open('https://github.com/neohiro?tab=repositories', '_blank', 'noopener')">
+      <article class="community-card" data-href="https://github.com/neohiro?tab=repositories">
         <h3>Security Vulnerabilities</h3>
         <p>Private disclosure via Security Advisories tab on each repository.</p>
         <span class="card-action">Select a project →</span>
       </article>
 
-      <article class="community-card" onclick="window.open('https://github.com/neohiro?tab=repositories', '_blank', 'noopener')">
+      <article class="community-card" data-href="https://github.com/neohiro?tab=repositories">
         <h3>Discussions</h3>
         <p>Questions, showcases, and feature requests in each repo's Discussions.</p>
         <span class="card-action">Select a project →</span>
       </article>
 
-      <article class="community-card" onclick="window.open('https://github.com/sponsors/neohiro', '_blank', 'noopener')">
+      <article class="community-card" data-href="https://github.com/sponsors/neohiro">
         <h3>Sponsor</h3>
         <p>Support ongoing development via GitHub Sponsors or Patreon.</p>
         <span class="card-action">Sponsor neohiro →</span>
       </article>
 
-      <article class="community-card community-card-media" onclick="window.open('https://neohiro.github.io/frenzypenguin-media/', '_blank', 'noopener')">
+      <article class="community-card community-card-media" data-href="https://neohiro.github.io/frenzypenguin-media/">
         <div class="community-card-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.814v-8l8 3.993-8 4.007z"/></svg>
         </div>
@@ -188,31 +233,155 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
   </div>
 </section>
 
-<!-- Sponsor -->
-<section class="section section-alt" id="sponsor">
-  <div class="container" style="text-align:center; max-width:800px;">
-    <h2 style="margin-bottom:16px;">Support the Stack</h2>
-    <p style="color:var(--fg-muted); margin-bottom:32px;">All tools here are free and open source. If they save you time or protect your systems, consider a sponsorship to keep development going.</p>
-    <div class="sponsor-links">
-      <a href="https://github.com/sponsors/neohiro" class="sponsor-red" target="_blank" rel="noopener">♥ Sponsor neohiro on GitHub</a>
-      <a href="https://neohiro.github.io/frenzypenguin-media/" target="_blank" rel="noopener">🎬 FrenzyPenguin Media</a>
-      <a href="https://transhumanists.github.io/" target="_blank" rel="noopener">🧬 transhumanists Dashboard</a>
-      <a href="https://github.com/transhumanists" target="_blank" rel="noopener">📋 transhumanists GitHub</a>
-    </div>
+<!-- Legal footer -->
+<section class="section section-alt section-footer-legal" id="footer-legal">
+  <div class="container" style="text-align:center;">
+    <p class="footer-legal-links">
+      <a href="{{ '/privacy/' | relative_url }}">Privacy</a> ·
+      <a href="{{ '/tos/' | relative_url }}">Terms</a> ·
+      <a href="{{ '/LICENSE/' | relative_url }}">License (GPL-3.0)</a> ·
+      <a href="https://github.com/neohiro">GitHub</a>
+    </p>
+    <p class="footer-quote">
+      <em>"Every body has organs. Every system has dependencies. We built this stack so nothing breaks quietly."</em>
+    </p>
   </div>
 </section>
 
+{% include sponsor-cta.html %}
+
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.community-card').forEach(card => {
-      card.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
+  // ── Onboarding consent flow ───────────────────────────────────────
+  (function() {
+    const KEY = "neohiro.consent.v1";
+    const saved = localStorage.getItem(KEY);
+    const card = document.getElementById("consent-card");
+    const accept = document.getElementById("consent-accept");
+    const decline = document.getElementById("consent-decline");
+    if (saved === "accepted") {
+      card.classList.add("consent-accepted");
+      card.classList.remove("consent-pending");
+    } else if (saved === "declined") {
+      card.classList.add("consent-declined");
+      card.classList.remove("consent-pending");
+    } else {
+      card.classList.add("consent-pending");
+    }
+    if (accept) {
+      accept.addEventListener("click", function() {
+        localStorage.setItem(KEY, "accepted");
+        card.classList.add("consent-accepted");
+        card.classList.remove("consent-pending", "consent-declined");
+        // Fire a custom event so other parts of the page can react
+        document.dispatchEvent(new CustomEvent("neohiro:consent", {detail: {ok: true}}));
+        // Subtle celebration
+        celebrate(card);
+      });
+    }
+    if (decline) {
+      decline.addEventListener("click", function() {
+        localStorage.setItem(KEY, "declined");
+        card.classList.add("consent-declined");
+        card.classList.remove("consent-pending", "consent-accepted");
+        document.dispatchEvent(new CustomEvent("neohiro:consent", {detail: {ok: false}}));
+      });
+    }
+
+    // Subtle celebration: pulse the card
+    function celebrate(el) {
+      el.classList.add("celebrate");
+      setTimeout(() => el.classList.remove("celebrate"), 1200);
+    }
+
+    // ── Interactive click ripple on every primary action ────────────
+    document.addEventListener("click", function(e) {
+      const target = e.target.closest(".btn, .legal-link, .guide-link, .card-action, .community-card, .tool-link");
+      if (!target) return;
+      // Ripple effect
+      const rect = target.getBoundingClientRect();
+      const ripple = document.createElement("span");
+      ripple.className = "click-ripple";
+      const size = Math.max(rect.width, rect.height) * 1.4;
+      ripple.style.width = ripple.style.height = size + "px";
+      ripple.style.left = (e.clientX - rect.left - size / 2) + "px";
+      ripple.style.top = (e.clientY - rect.top - size / 2) + "px";
+      target.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 700);
+
+      // Community cards: external link open
+      if (target.classList.contains("community-card")) {
+        const href = target.dataset.href;
+        if (href) {
           e.preventDefault();
-          this.click();
+          setTimeout(() => window.open(href, "_blank", "noopener"), 120);
+        }
+      }
+    });
+
+    // ── Login flow: opens GitHub OAuth, and on return, a confetti burst ─
+    const loginBtn = document.getElementById("login-btn");
+    if (loginBtn) {
+      loginBtn.addEventListener("click", function(e) {
+        // Mark intent so we know the user came from this site
+        sessionStorage.setItem("neohiro.login.intent", "1");
+        // Confetti on the button itself
+        const rect = loginBtn.getBoundingClientRect();
+        for (let i = 0; i < 12; i++) {
+          const spark = document.createElement("span");
+          spark.className = "login-spark";
+          spark.style.left = (rect.left + rect.width / 2) + "px";
+          spark.style.top = (rect.top + rect.height / 2) + "px";
+          const angle = (Math.PI * 2 * i) / 12;
+          const dist = 50 + Math.random() * 60;
+          spark.style.setProperty("--dx", Math.cos(angle) * dist + "px");
+          spark.style.setProperty("--dy", Math.sin(angle) * dist + "px");
+          document.body.appendChild(spark);
+          setTimeout(() => spark.remove(), 900);
         }
       });
-      card.setAttribute('tabindex', '0');
-      card.setAttribute('role', 'button');
+    }
+
+    // ── Scroll progress bar ─────────────────────────────────────────
+    const progress = document.createElement("div");
+    progress.className = "scroll-progress";
+    document.body.appendChild(progress);
+    window.addEventListener("scroll", function() {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+      progress.style.width = pct + "%";
+    }, {passive: true});
+
+    // ── Reveal-on-scroll (fade + slide up) ──────────────────────────
+    const revealTargets = document.querySelectorAll(".section, .legal-card, .tool-card, .guide-card, .community-card, .quote-card");
+    revealTargets.forEach(el => el.classList.add("reveal"));
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal-in");
+            io.unobserve(entry.target);
+          }
+        });
+      }, {threshold: 0.08, rootMargin: "0px 0px -10% 0px"});
+      revealTargets.forEach(el => io.observe(el));
+    } else {
+      revealTargets.forEach(el => el.classList.add("reveal-in"));
+    }
+
+    // ── Magnetic hover on tool cards ────────────────────────────────
+    document.querySelectorAll(".tool-card, .guide-card, .quote-card").forEach(card => {
+      card.addEventListener("mousemove", function(e) {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.setProperty("--mx", (x * 8) + "px");
+        card.style.setProperty("--my", (y * 8) + "px");
+      });
+      card.addEventListener("mouseleave", function() {
+        card.style.setProperty("--mx", "0px");
+        card.style.setProperty("--my", "0px");
+      });
     });
-  });
+  })();
 </script>

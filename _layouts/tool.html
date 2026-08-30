@@ -61,6 +61,18 @@ layout: default
         {{ content }}
       </div>
 
+      <div class="tool-sponsor-strip">
+        <div class="container">
+          <div class="tool-sponsor">
+            <p class="tool-sponsor-prompt">This tool is free and open source. Support the developer:</p>
+            <a href="https://github.com/sponsors/neohiro" class="sponsor-btn" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true"><path d="M12 21.35l-1.45-.13C5.4 15.36 2 12.27 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.77-3.4 6.86-8.55 12.72L12 21.35z"/></svg>
+              Sponsor neohiro on GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
       <footer class="tool-footer">
         <div class="tool-nav">
           <a href="{{ '/repositories/' | relative_url }}" class="tool-nav-link">
@@ -128,5 +140,51 @@ layout: default
   .tool-header-content { text-align: center; }
   .tool-meta { justify-content: center; }
   .tool-links-row { justify-content: center; }
+}
+
+/* ── Sponsor strip ─────────────────────────────────────────────────────── */
+.tool-sponsor-strip {
+  margin: 40px 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.tool-sponsor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.tool-sponsor-prompt {
+  font-size: 0.875rem;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.sponsor-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid var(--red);
+  color: var(--red);
+  background: transparent;
+  text-decoration: none;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.sponsor-btn:hover {
+  background: var(--red);
+  color: white;
+  transform: translateY(-1px);
+}
+.sponsor-btn svg { flex-shrink: 0; }
+
+@media (max-width: 480px) {
+  .tool-sponsor { flex-direction: column; text-align: center; gap: 12px; }
+  .tool-sponsor-prompt { font-size: 0.8125rem; }
 }
 </style>
