@@ -1,11 +1,11 @@
----
+﻿---
 stars: 0
 forks: 0
 open_issues: 0
 pushed_at: 2026-08-22T20:29:59Z
 created_at: 2025-08-21T02:31:28Z
 title: ZombieShoot
-tagline: "Top-down zombie shooter — procedural levels, permadeath, moddable (Windows/Linux)"
+tagline: "Top-down zombie shooter —” procedural levels, permadeath, moddable (Windows/Linux)"
 platform: Windows / Linux
 language: Python (PyGame) / C++
 category: Games
@@ -23,13 +23,13 @@ icon: |
 
 ## Features
 
-- **Procedural Levels** — Infinite city blocks, sewers, malls, forests
-- **Permadeath** — One life; death = new run (legacy items unlock)
-- **Weapon Crafting** — Combine parts: barrel + stock + receiver + mod
-- **Enemy Types** — 20+ zombie variants with unique behaviors
-- **Mod Support** — JSON data files for weapons, enemies, levels, items
-- **Replay System** — Full run recording with ghost playback
-- **Local Co-op** — 2-player split-screen (keyboard + gamepad)
+- **Procedural Levels** —” Infinite city blocks, sewers, malls, forests
+- **Permadeath** —” One life; death = new run (legacy items unlock)
+- **Weapon Crafting** —” Combine parts: barrel + stock + receiver + mod
+- **Enemy Types** —” 20+ zombie variants with unique behaviors
+- **Mod Support** —” JSON data files for weapons, enemies, levels, items
+- **Replay System** —” Full run recording with ghost playback
+- **Local Co-op** —” 2-player split-screen (keyboard + gamepad)
 
 ## Installation
 
@@ -84,10 +84,10 @@ Load via Main Menu â†’ Mods â†’ Enable.
 ## Legacy System
 
 Complete runs to unlock:
-- **Starting weapons** — Pistol, SMG, Shotgun variants
-- **Perks** — Faster reload, more health, ammo finder
-- **Cosmetics** — Character skins, weapon skins, UI themes
-- **Difficulty modifiers** — Hardcore, speedrun, pacifist modes
+- **Starting weapons** —” Pistol, SMG, Shotgun variants
+- **Perks** —” Faster reload, more health, ammo finder
+- **Cosmetics** —” Character skins, weapon skins, UI themes
+- **Difficulty modifiers** —” Hardcore, speedrun, pacifist modes
 
 ## Requirements
 
@@ -98,5 +98,5 @@ Complete runs to unlock:
 
 ## Related
 
-- [TristarMania](https://github.com/neohiro/TristarMania) — Space shooter
-- [GhostMaze](https://github.com/neohiro/GhostMaze) — 2D RPG
+- [TristarMania](https://github.com/frenzypenguin-media/tristar-mania) —” Space shooter
+- [GhostMaze](https://github.com/neohiro/GhostMaze) —” 2D RPG
