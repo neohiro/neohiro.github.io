@@ -5,6 +5,10 @@ baseurl: ""
 github_username: neohiro
 github_repo: neohiro.github.io
 
+# Visitor counter (SSOT: links-secret/counter-surfaces.spec.yaml)
+# Rendered via _includes/counter-widget.html in _layouts/default.html.
+counter_id: "1631173"
+
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
