@@ -1,4 +1,4 @@
----
+﻿---
 stars: 0
 forks: 1
 open_issues: 0
@@ -102,5 +102,5 @@ icon: |
 
 ## Related
 
-- [TristarMania](https://github.com/neohiro/TristarMania) —” Space shooter
+- [TristarMania](https://github.com/frenzypenguin-media/tristar-mania) —” Space shooter
 - [GhostMaze](https://github.com/neohiro/GhostMaze) —” 2D RPG

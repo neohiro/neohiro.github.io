@@ -9,7 +9,7 @@ tagline: "Addictive space shooter —” procedural waves, ship customization, o
 platform: Windows / Linux / macOS
 language: Rust (Bevy) / WebAssembly
 category: Games
-repo_url: https://github.com/neohiro/TristarMania
+repo_url: https://github.com/frenzypenguin-media/tristar-mania
 featured: false
 weight: 18
 icon: |
@@ -35,7 +35,7 @@ icon: |
 **Web:** [tristarmania.neohiro.dev](https://tristarmania.neohiro.dev) (WASM)
 
 **Desktop:**
-- Windows: `TristarMania-Setup.exe` from [Releases](https://github.com/neohiro/TristarMania/releases)
+- Windows: `TristarMania-Setup.exe` from [Releases](https://github.com/frenzypenguin-media/tristar-mania/releases)
 - Linux: Flatpak / AppImage / `cargo install tristarmania`
 - macOS: `brew install --cask tristarmania`
 
