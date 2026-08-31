@@ -28,6 +28,7 @@ permalink: /repositories/
         <button class="filter-btn" data-filter="utilities">Utilities</button>
         <button class="filter-btn" data-filter="guides">Guides</button>
         <button class="filter-btn" data-filter="pages">GitHub Pages</button>
+        <button class="filter-btn" data-filter="deprecated" id="filter-deprecated-btn">Deprecated</button>
       </div>
 
       <div class="repos-controls">
@@ -56,13 +57,15 @@ permalink: /repositories/
     <div class="repos-stats" aria-live="polite">
       <span class="stat"><strong id="count-all">{{ site.data.repos.repos | size }}</strong> repositories</span>
       <span class="stat"><strong id="count-featured">{{ site.data.repos.repos | where: "featured", true | size }}</strong> featured</span>
-      <span class="stat"><strong id="count-stars">— total stars</strong></span>
+      <span class="stat"><strong id="count-deprecated">{{ site.data.repos.repos | where: "deprecated", true | size }}</strong> deprecated</span>
+      <span class="stat"><strong id="count-stars">—</strong> total stars</span>
     </div>
 
     <div class="repos-grid" id="repos-grid">
       {% assign sorted_tools = site.data.repos.repos | sort: "weight" %}
       {% for tool in sorted_tools %}
         {% assign categories = tool.category | split: ", " %}
+        {% assign is_deprecated = tool.deprecated | default: false %}
         <article class="repo-card visible"
                  data-category="{{ categories | join: ' ' }}"
                  data-name="{{ tool.title | downcase }}"
@@ -73,7 +76,14 @@ permalink: /repositories/
                  data-issues="{{ tool.open_issues | default: 0 }}"
                  data-pushed="{{ tool.pushed_at }}"
                  data-created="{{ tool.created_at }}"
+                 data-deprecated="{{ is_deprecated }}"
                  itemscope itemtype="https://schema.org/SoftwareApplication">
+          {% if is_deprecated %}
+            <div class="repo-card-deprecated-badge" title="Deprecated — moved to {{ tool.successor_repo }}">
+              <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 0a8 8 0 100 16A8 8 0 008 0zm.75 4.75a.75.75 0 00-1.5 0v3.5a.75.75 0 00.37.65l2.5 1.5a.75.75 0 10.76-1.3L8.75 7.84V4.75z"/></svg>
+              DEPRECATED
+            </div>
+          {% endif %}
           <div class="repo-card-icon" aria-hidden="true">
             {% if tool.category contains 'Security' or tool.category contains 'Network' %}
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
@@ -98,6 +108,12 @@ permalink: /repositories/
             {% endif %}
           </h3>
           <p class="repo-card-desc" itemprop="description">{{ tool.tagline }}</p>
+          {% if is_deprecated and tool.successor_repo %}
+            <p class="repo-card-successor">
+              <strong>Successor:</strong>
+              <a href="{{ tool.successor_repo }}" target="_blank" rel="noopener">{{ tool.successor_repo | split: '/' | last }}</a>
+            </p>
+          {% endif %}
           <div class="repo-card-meta">
             <span class="repo-platform" itemprop="operatingSystem">{{ tool.platform }}</span>
             {% if tool.language %}
@@ -163,6 +179,7 @@ permalink: /repositories/
     var sortSelect = document.getElementById('repo-sort');
     var countAll = document.getElementById('count-all');
     var countFeatured = document.getElementById('count-featured');
+    var countDeprecated = document.getElementById('count-deprecated');
     var countStars = document.getElementById('count-stars');
 
     // ── Make all cards visible immediately ──────────────────────────────────
@@ -172,6 +189,11 @@ permalink: /repositories/
     if (countAll) countAll.textContent = cards.length;
     if (countFeatured) {
       countFeatured.textContent = grid.querySelectorAll('.featured-badge').length;
+    }
+    if (countDeprecated) {
+      countDeprecated.textContent = cards.filter(function(c) {
+        return c.dataset.deprecated === 'True' || c.dataset.deprecated === 'true';
+      }).length;
     }
     if (countStars) {
       var totalStars = cards.reduce(function(s, c) {
@@ -192,12 +214,17 @@ permalink: /repositories/
         var desc = (card.querySelector('.repo-card-desc') || {}).textContent || '';
         var lang = (card.dataset.language || '').toLowerCase();
         var repo = (card.dataset.repo || '').toLowerCase();
+        var isDeprecated = card.dataset.deprecated === 'True' || card.dataset.deprecated === 'true';
         desc = desc.toLowerCase();
         var q = activeQuery.toLowerCase().trim();
 
         var show = true;
         if (activeFilter !== 'all') {
-          show = cats.includes(activeFilter);
+          if (activeFilter === 'deprecated') {
+            show = isDeprecated;
+          } else {
+            show = cats.includes(activeFilter);
+          }
         }
         if (show && q) {
           show = name.includes(q) || desc.includes(q) || lang.includes(q) || cats.includes(q) || repo.includes(q);
@@ -316,6 +343,11 @@ permalink: /repositories/
 .repo-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-strong)); border-radius: var(--radius) var(--radius) 0 0; opacity: 0; transition: opacity var(--transition); }
 .repo-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 .repo-card:hover::before { opacity: 1; }
+
+.repo-card-deprecated-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; font-size: 0.68rem; font-weight: 700; font-family: var(--font-mono); color: #f59e0b; background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.4); border-radius: 4px; margin-bottom: 8px; }
+.repo-card-successor { font-size: 0.78rem; color: var(--fg-muted); margin-bottom: 8px; }
+.repo-card-successor a { color: var(--accent); }
+.repo-card-successor a:hover { text-decoration: underline; }
 
 .repo-card-icon { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: var(--radius-sm); background: var(--accent-dim); color: var(--accent); margin-bottom: 16px; }
 .repo-card-icon svg { width: 24px; height: 24px; }

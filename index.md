@@ -12,7 +12,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
         <span class="badge badge-fpm">FrenzyPenguin Media</span>
       </div>
 
-      <h1 class="hero-title">Defense is the best defense.</h1>
+      <h1 class="hero-title shimmer">Defense is the best defense.</h1>
 
       <p class="hero-tagline">
         Open-source security hardening for Windows &amp; Linux.
@@ -31,78 +31,88 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
   </div>
 </div>
 
-<!-- Legal & Onboarding -->
-<section class="section section-legal" id="legal">
-  <div class="container">
-    <header class="section-header">
-      <h2>Consent &amp; Cloud Memory</h2>
-      <p class="section-subtitle">Before you interact, here's how your data is handled</p>
-    </header>
-
-    <div class="legal-grid">
-      <article class="legal-card" id="consent-card">
-        <div class="legal-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M12 2L4 5v6c0 5 3 9 8 11 5-2 8-6 8-11V5l-8-3z"/>
-            <path d="M9 12l2 2 4-4"/>
-          </svg>
-        </div>
-        <h3>Your data. Safely stored as cloud memory.</h3>
-        <p>
-          When you interact with the neohiro assistant, your information is
-          securely stored as <strong>cloud memory</strong> to help the system
-          learn more about you and improve your experience.
-        </p>
-        <p class="legal-warning">
-          <strong>Do not use this service if you decline.</strong>
-          By continuing, you consent to this storage. You can withdraw consent
-          and request complete deletion of your data at any time.
-        </p>
-        <div class="legal-links">
-          <a href="{{ '/privacy/' | relative_url }}" class="legal-link">Read Privacy Policy</a>
-          <a href="{{ '/tos/' | relative_url }}" class="legal-link">Read Terms of Service</a>
-          <a href="{{ '/LICENSE/' | relative_url }}" class="legal-link">View License (GPL-3.0)</a>
-        </div>
-        <div class="legal-actions">
-          <button class="btn btn-primary" id="consent-accept">I consent — continue</button>
-          <button class="btn btn-secondary" id="consent-decline">Decline</button>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- Curated Quotes -->
+<!-- Live Quote Typewriter (replaces the static "Curated Quotes" grid) -->
 <section class="section section-quotes" id="quotes">
-  <div class="container">
-    <header class="section-header">
-      <h2>Curated Quotes</h2>
-      <p class="section-subtitle">Lines we live by — from FrenzyPenguin Media and neohiro</p>
-    </header>
-
-    <div class="quotes-grid">
-      <blockquote class="quote-card">
-        <p class="quote-text">"Your system. Your rules. Our tooling."</p>
-        <footer class="quote-attribution">— FrenzyPenguin Media</footer>
-      </blockquote>
-
-      <blockquote class="quote-card">
-        <p class="quote-text">"Encrypted DNS, firewalls, honeypots — zero fluff."</p>
-        <footer class="quote-attribution">— FrenzyPenguin Media</footer>
-      </blockquote>
-
-      <blockquote class="quote-card">
-        <p class="quote-text">"No telemetry. No accounts. No compromises."</p>
-        <footer class="quote-attribution">— neohiro</footer>
-      </blockquote>
-
-      <blockquote class="quote-card">
-        <p class="quote-text">"Auditd, AppArmor, Tor — Linux post-install automated."</p>
-        <footer class="quote-attribution">— neohiro</footer>
-      </blockquote>
-    </div>
+  <div class="typewriter-wrap" aria-live="polite">
+    <span class="typewriter-prefix" aria-hidden="true">✦ live signal</span>
+    <div class="typewriter" id="tw-text" aria-atomic="true"></div>
+    <div class="typewriter-attribution" id="tw-attrib"></div>
   </div>
 </section>
+
+<script>
+  /* Live typewriter — 24 short, punchy neohiro quotes.
+     Fast type → brief hold → quick erase → next quote (no pausing). */
+  (function () {
+    const QUOTES = [
+      { t: "Defense is the best defense.",            a: "neohiro" },
+      { t: "One command. Zero compromise.",           a: "Harden-Windows" },
+      { t: "Your system. Your rules. Our tooling.",   a: "FrenzyPenguin Media" },
+      { t: "Encrypted DNS for everyone.",             a: "dnscrypt-proxy-gui" },
+      { t: "Ship the hardening. Skip the telemetry.", a: "neohiro" },
+      { t: "Auditd, AppArmor, Tor — automated.",      a: "neohiro/linux" },
+      { t: "Block the noise. Trust the packet.",      a: "Cripple-NetStrip" },
+      { t: "ASR · CFG · DEP · SEHOP. Toggled.",       a: "ExploitProtection" },
+      { t: "Privacy isn't a feature. It's the floor.", a: "FrenzyPenguin Media" },
+      { t: "Make the boring right. Then ship.",       a: "neohiro" },
+      { t: "Honeypots, with zero config.",            a: "HoneyScan" },
+      { t: "STIG-grade. In one command.",             a: "Harden-Windows" },
+      { t: "No accounts. No compromises.",            a: "neohiro" },
+      { t: "Encrypted DNS, but make it graphical.",   a: "dnscrypt-proxy-gui" },
+      { t: "A firewall you actually understand.",     a: "Cripple-NetStrip" },
+      { t: "MITRE mapped. ASR enabled. SEHOP on.",    a: "ExploitProtection" },
+      { t: "All your repos, in one searchable index.", a: "neohiro/repositories" },
+      { t: "Three heartbeats. One body.",             a: "neohiro/heartbeats" },
+      { t: "Production tools, not demos.",            a: "neohiro" },
+      { t: "Made by humans, for sysadmins.",          a: "FrenzyPenguin Media" },
+      { t: "Zero fluff. Lots of evidence.",           a: "neohiro" },
+      { t: "If it can break, we audit it.",           a: "neohiro-doctor" },
+      { t: "Privacy is the foundation.",              a: "FrenzyPenguin Media" },
+      { t: "Talk to the assistant below. It's live.", a: "neohiro AI" }
+    ];
+
+    const elText  = document.getElementById('tw-text');
+    const elAttr  = document.getElementById('tw-attrib');
+    if (!elText) return;
+
+    // Cursor lives OUTSIDE the gradient-clipped div so it stays visible
+    const cursor = document.createElement('span');
+    cursor.className = 'typewriter-cursor';
+    elText.parentNode.insertBefore(cursor, elText.nextSibling);
+
+    let qi = 0, ci = 0, deleting = false;
+
+    function tick() {
+      const q = QUOTES[qi];
+      if (!deleting) {
+        ci++;
+        elText.textContent = q.t.slice(0, ci);
+        elText.appendChild(cursor);
+        if (ci >= q.t.length) {
+          // Hold, then erase
+          elAttr.innerHTML = '— <b>' + q.a + '</b>';
+          deleting = true;
+          return setTimeout(tick, 1100);
+        }
+        // Fast type with a tiny variance
+        return setTimeout(tick, 28 + Math.random() * 32);
+      } else {
+        ci--;
+        elText.textContent = q.t.slice(0, ci);
+        elText.appendChild(cursor);
+        if (ci <= 0) {
+          deleting = false;
+          qi = (qi + 1) % QUOTES.length;
+          elAttr.innerHTML = '';
+          return setTimeout(tick, 220);
+        }
+        // Quicker deletion
+        return setTimeout(tick, 12 + Math.random() * 14);
+      }
+    }
+    setTimeout(tick, 350);
+  })();
+</script>
 
 <!-- Production-Grade Tools -->
 <section class="section" id="featured-tools">
@@ -115,7 +125,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
     <div class="tools-grid">
       {% assign featured = site.data.repos.repos | where_exp: "tool", "tool.featured == true" | sort: "weight" %}
       {% for tool in featured %}
-        <article class="tool-card" itemscope itemtype="https://schema.org/SoftwareApplication">
+        <article class="tool-card card-3d" itemscope itemtype="https://schema.org/SoftwareApplication">
           <div class="tool-icon" aria-hidden="true">
             {% if tool.icon %}
               {{ tool.icon }}
@@ -197,39 +207,40 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
     </header>
 
     <div class="community-grid">
-      <article class="community-card" data-href="https://github.com/neohiro?tab=repositories">
+      <article class="community-card card-3d" data-href="https://github.com/neohiro?tab=repositories">
         <h3>Bug Reports</h3>
         <p>Structured issue templates on each repository with required diagnostics.</p>
         <span class="card-action">Select a project →</span>
       </article>
 
-      <article class="community-card" data-href="https://github.com/neohiro?tab=repositories">
+      <article class="community-card card-3d" data-href="https://github.com/neohiro?tab=repositories">
         <h3>Security Vulnerabilities</h3>
         <p>Private disclosure via Security Advisories tab on each repository.</p>
         <span class="card-action">Select a project →</span>
       </article>
 
-      <article class="community-card" data-href="https://github.com/neohiro?tab=repositories">
+      <article class="community-card card-3d" data-href="https://github.com/neohiro?tab=repositories">
         <h3>Discussions</h3>
         <p>Questions, showcases, and feature requests in each repo's Discussions.</p>
         <span class="card-action">Select a project →</span>
       </article>
 
-      <article class="community-card" data-href="https://github.com/sponsors/neohiro">
+      <article class="community-card card-3d" data-href="https://github.com/sponsors/neohiro">
         <h3>Sponsor</h3>
         <p>Support ongoing development via GitHub Sponsors or Patreon.</p>
         <span class="card-action">Sponsor neohiro →</span>
       </article>
-
-      <article class="community-card community-card-media" data-href="https://neohiro.github.io/frenzypenguin-media/">
-        <div class="community-card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.814v-8l8 3.993-8 4.007z"/></svg>
-        </div>
-        <h3>FrenzyPenguin Media</h3>
-        <p>Video deep-dives on security hardening, exploit mitigation, and privacy engineering.</p>
-        <span class="card-action">Visit media site →</span>
-      </article>
     </div>
+
+    <!-- FrenzyPenguin Media — centered, full-bleed style, just below the grid -->
+    <a class="fpm-spotlight card-3d" href="https://neohiro.github.io/frenzypenguin-media/" target="_blank" rel="noopener" aria-label="FrenzyPenguin Media — video deep-dives on security hardening">
+      <div class="community-card-icon" aria-hidden="true" style="margin: 0 auto 14px; color: var(--purple);">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="36" height="36"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.814v-8l8 3.993-8 4.007z"/></svg>
+      </div>
+      <h3>🎬 FrenzyPenguin Media</h3>
+      <p>Video deep-dives on security hardening, exploit mitigation, and privacy engineering. Weekly long-form content from the makers of neohiro.</p>
+      <span class="card-action" style="color: var(--purple);">Watch on YouTube →</span>
+    </a>
   </div>
 </section>
 
@@ -272,9 +283,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
         localStorage.setItem(KEY, "accepted");
         card.classList.add("consent-accepted");
         card.classList.remove("consent-pending", "consent-declined");
-        // Fire a custom event so other parts of the page can react
         document.dispatchEvent(new CustomEvent("neohiro:consent", {detail: {ok: true}}));
-        // Subtle celebration
         celebrate(card);
       });
     }
@@ -287,17 +296,14 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
       });
     }
 
-    // Subtle celebration: pulse the card
     function celebrate(el) {
       el.classList.add("celebrate");
       setTimeout(() => el.classList.remove("celebrate"), 1200);
     }
 
-    // ── Interactive click ripple on every primary action ────────────
     document.addEventListener("click", function(e) {
-      const target = e.target.closest(".btn, .legal-link, .guide-link, .card-action, .community-card, .tool-link");
+      const target = e.target.closest(".btn, .legal-link, .guide-link, .card-action, .community-card, .tool-link, .fpm-spotlight");
       if (!target) return;
-      // Ripple effect
       const rect = target.getBoundingClientRect();
       const ripple = document.createElement("span");
       ripple.className = "click-ripple";
@@ -308,7 +314,6 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
       target.appendChild(ripple);
       setTimeout(() => ripple.remove(), 700);
 
-      // Community cards: external link open
       if (target.classList.contains("community-card")) {
         const href = target.dataset.href;
         if (href) {
@@ -318,13 +323,10 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
       }
     });
 
-    // ── Login flow: opens GitHub OAuth, and on return, a confetti burst ─
     const loginBtn = document.getElementById("login-btn");
     if (loginBtn) {
       loginBtn.addEventListener("click", function(e) {
-        // Mark intent so we know the user came from this site
         sessionStorage.setItem("neohiro.login.intent", "1");
-        // Confetti on the button itself
         const rect = loginBtn.getBoundingClientRect();
         for (let i = 0; i < 12; i++) {
           const spark = document.createElement("span");
@@ -341,7 +343,6 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
       });
     }
 
-    // ── Scroll progress bar ─────────────────────────────────────────
     const progress = document.createElement("div");
     progress.className = "scroll-progress";
     document.body.appendChild(progress);
@@ -352,8 +353,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
       progress.style.width = pct + "%";
     }, {passive: true});
 
-    // ── Reveal-on-scroll (fade + slide up) ──────────────────────────
-    const revealTargets = document.querySelectorAll(".section, .legal-card, .tool-card, .guide-card, .community-card, .quote-card");
+    const revealTargets = document.querySelectorAll(".section, .legal-card, .tool-card, .guide-card, .community-card, .quote-card, .fpm-spotlight");
     revealTargets.forEach(el => el.classList.add("reveal"));
     if ("IntersectionObserver" in window) {
       const io = new IntersectionObserver(entries => {
@@ -369,8 +369,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
       revealTargets.forEach(el => el.classList.add("reveal-in"));
     }
 
-    // ── Magnetic hover on tool cards ────────────────────────────────
-    document.querySelectorAll(".tool-card, .guide-card, .quote-card").forEach(card => {
+    document.querySelectorAll(".tool-card, .guide-card, .quote-card, .fpm-spotlight").forEach(card => {
       card.addEventListener("mousemove", function(e) {
         const rect = card.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width - 0.5;
