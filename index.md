@@ -384,3 +384,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
     });
   })();
 </script>
+
+<div align="center">
+  <a href="https://www.freevisitorcounters.com/en/home/stats/id/1631173" rel="noopener noreferrer nofollow no-referrer"><img src="https://www.freevisitorcounters.com/en/counter/render/1631173/t/1" alt="Visitor counter" /></a>
+</div>
