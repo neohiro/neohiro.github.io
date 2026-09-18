@@ -162,7 +162,7 @@ p { color: var(--fg-muted); }
 
 /* Hero */
 .hero {
-  min-height: calc(100vh - 68px);
+  min-height: auto; /* fit content; AI bar visible without scroll */
   display: flex;
   align-items: center;
   padding: 80px 0 120px;
@@ -1303,3 +1303,4 @@ p { color: var(--fg-muted); }
 #glitch-overlay.active {
   pointer-events: auto;
 }
+
