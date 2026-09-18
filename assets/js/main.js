@@ -510,15 +510,9 @@
     { name: 'Cripple-NetStrip',   desc: 'Network hardening & debloater' },
     { name: 'ExploitProtection',  desc: 'Exploit Protection GUI' },
     { name: 'metapod',            desc: 'Windows 10/11 hardening GUI' },
-    { name: 'tailscale-exit',     desc: 'Tailscale exit / SOCKS / Funnel' },
     { name: 'opencode',           desc: 'Open source coding agent' },
-    { name: 'opencode-config',    desc: 'OpenCode plugin / agent pipeline' },
     { name: 'auto-resume',        desc: 'Self-healing OpenCode sessions' },
     { name: 'mobile-sync',        desc: 'OpenCode mobile via Tailscale Funnel' },
-    { name: 'opencode-hub',       desc: 'Cross-device OpenCode sync' },
-    { name: 'wingman-hub',        desc: 'Private assistant hub' },
-    { name: 'dashboard',          desc: 'Live ops dashboard' },
-    { name: 'LLM',                desc: 'Free models router' },
     { name: 'frenzypenguin-media',desc: 'FrenzyPenguin Media site' },
     { name: 'neohiro',            desc: 'Org profile README' },
     { name: 'linux',              desc: 'Linux hardening' },
@@ -545,9 +539,7 @@
     { name: 'TristarMania',       desc: 'Space shooter' },
     { name: 'Tetris',             desc: 'Retro Tetris' },
     { name: 'GhostMaze',          desc: '2D RPG' },
-    { name: 'SecondLife',         desc: 'LSL snippets' },
-    { name: 'rcv',                desc: 'Recovery tokens' },
-    { name: 'private-assistant',  desc: 'Private assistant' }
+    { name: 'SecondLife',         desc: 'LSL snippets' }
   ];
 
   const REPO_TABS = [
@@ -859,7 +851,6 @@
     new LinkGuard();
     
     // Bind glitch transitions to internal links
-    const glitch = new GlitchTransition();
     document.querySelectorAll('a[href^="/"], a[href^="#"], a[href^="./"]').forEach(link => {
       if (link.hostname === window.location.hostname || link.href.startsWith('/') || link.href.startsWith('#')) {
         link.addEventListener('click', (e) => {
@@ -868,7 +859,7 @@
             glitch.trigger(link.href, true);
           }
         });
-      });
+      }
     });
     
     // External links
