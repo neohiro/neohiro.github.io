@@ -1,4 +1,5 @@
-{# counter-widget.html — unified visitor counter partial for the neohiro/FPM/OSI/H+ Jekyll sites.
+{% comment %}
+counter-widget.html — unified visitor counter partial for the neohiro/FPM/OSI/H+ Jekyll sites.
    Include with:   {% include counter-widget.html %}
    Reads counter_id from site config (preferred) or a local override:
      - site.counter_id (set in _config.yml) — auto-populated for all sites
@@ -16,7 +17,7 @@
      2. Synced to 4 sites via template-shared/sync-shared.sh
      3. Sites expose counter_id via _config.yml (site.counter_id)
      4. Validator + CI ensure no other embed pattern ships.
-#}
+{% endcomment %}
 {%- assign _id = include.counter_id | default: site.counter_id -%}
 {%- if _id -%}
 <div align="center">
