@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -29,7 +29,7 @@
     <header class="site-header" role="banner">
       <div class="container">
         <a class="site-brand" href="{{ '/' | relative_url }}" aria-label="neohiro - Home">
-          <span class="logo-mark" aria-hidden="true">👽</span>
+          <span class="logo-mark" aria-hidden="true">dY\u200b</span>
           <span class="logo-text">neohiro</span>
         </a>
         <nav class="site-nav" aria-label="Main navigation">
@@ -39,7 +39,7 @@
           <a href="{{ '/media/' | relative_url }}" class="nav-link">Media</a>
           <div class="nav-dropdown">
             <button class="nav-link nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
-              Community <span aria-hidden="true">▾</span>
+              Community <span aria-hidden="true">\u200b-_</span>
             </button>
             <div class="nav-dropdown-menu">
               <a href="https://github.com/neohiro" class="nav-dropdown-item">Org Overview</a>
@@ -61,10 +61,7 @@
 
     <footer class="site-footer" role="contentinfo">
       <div class="container">
-        <div align="center">
-          <a href="https://visitorbadge.io/status?path=github.com%2Fneohiro.github.io" rel="noopener noreferrer nofollow">
-            <img src="https://api.visitorbadge.io/api/visitors?path=github.com%2Fneohiro.github.io&label=Visitors&countColor=%23263759" alt="Visitors" /></a>
-        </div>
+        {% include counter-widget.html %}
         {% include footer-button-row.html org="neohiro" %}
       </div>
     </footer>

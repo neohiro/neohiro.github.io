@@ -33,9 +33,11 @@ icon: |
 
 ## Quick Start
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/neohiro/ubuntu/main/install.sh | sudo bash
-```
+> **Note:** This repo is archived (2026-08-31). Use [neohiro/linux](https://github.com/neohiro/linux):
+>
+> ```bash
+> curl -fsSL https://raw.githubusercontent.com/neohiro/linux/main/linuxinstall.sh | sudo bash -s --
+> ```
 
 ## Profiles
 

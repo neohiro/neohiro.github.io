@@ -7,6 +7,11 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
 <div class="hero" id="home">
   <div class="container">
     <div class="hero-content">
+      <img class="hero-avatar"
+           src="{{ '/assets/profile.png' | relative_url }}"
+           alt="neohiro avatar"
+           width="92" height="92"
+           fetchpriority="high">
       <div class="hero-badges" aria-label="Affiliations">
         <span class="badge badge-metapod">METAPOD</span>
         <span class="badge badge-fpm">FrenzyPenguin Media</span>
