@@ -1283,15 +1283,22 @@ p { color: var(--fg-muted); }
   color: var(--fg-muted, #888);
   margin: 0;
 }
-/* Background effects - fixed positioning so they don't consume layout space */
+/* Background effects - matrix rain constrained to hero */
+.hero {
+  position: relative;
+}
 #matrix-canvas {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
+}
+.hero > .container {
+  position: relative;
+  z-index: 1;
 }
 
 #glitch-overlay {
