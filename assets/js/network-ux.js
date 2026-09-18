@@ -1,15 +1,15 @@
-/* ─────────────────────────────────────────────────────────────────────
+﻿/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
  * neohiro-network :: Universal cross-site UX module
  *   - AI assistant input bar (full width, dynamic cursor, typing indicator)
  *   - Conversation modal (sway-down, user/assistant bubbles, typing indicator)
  *   - Previous-button (cross-domain navigation back to last visited site)
- *   - Universal top-nav auth tabs (Login / Dashboard) — render-only hook
+ *   - Universal top-nav auth tabs (Login / Dashboard) â€” render-only hook
  *   - Starfield parallax background
  *   - Heart/Mouth heartbeat detection (API fetch with local classify fallback)
  *   - Stranger tracking (localStorage + neohiro:stranger event)
  *
  * Loaded by every site in the neohiro network. Self-contained.
- * ───────────────────────────────────────────────────────────────────── */
+ * â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 (function () {
   'use strict';
 
@@ -36,7 +36,7 @@
     runDiagnostics();
   }
 
-  /* ── Universal interaction wiring (ripples, tilt, reveal) ─── */
+  /* â”€â”€ Universal interaction wiring (ripples, tilt, reveal) â”€â”€â”€ */
   function wireInteractions() {
     // Click ripple on any element with [data-ripple] or .btn-primary, .btn-secondary, .btn
     document.addEventListener('click', function (e) {
@@ -50,7 +50,7 @@
       ripple.style.width = ripple.style.height = size + 'px';
       ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
       ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
-      // Make sure target is positioned — avoid getComputedStyle (forces layout)
+      // Make sure target is positioned â€” avoid getComputedStyle (forces layout)
       // Check inline style first; only fall back to computed if needed.
       if (!target.style.position || target.style.position === 'static') {
         target.style.position = 'relative';
@@ -100,7 +100,7 @@
     } catch (_) {}
   }
 
-  /* ── Starfield (parallax deep-space, 3 layers) ───────────── */
+  /* â”€â”€ Starfield (parallax deep-space, 3 layers) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   function mountStarfield() {
     if (document.getElementById('starfield')) return;
     const s = document.createElement('div');
@@ -136,7 +136,7 @@
       });
     });
 
-    // Third ambient orb (pinky) — additive
+    // Third ambient orb (pinky) â€” additive
     if (!document.querySelector('.ambient-orb')) {
       const orb = document.createElement('div');
       orb.className = 'ambient-orb';
@@ -145,7 +145,7 @@
     }
   }
 
-  /* ── Cross-domain Previous button ─────────────────────────────── */
+  /* â”€â”€ Cross-domain Previous button â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   function mountPreviousButton() {
     if (sessionStorage.getItem('neohiro.prev.skip') === '1') return;
     const last = readLast();
@@ -203,7 +203,7 @@
     return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
 
-  /* ── Org avatar (site identity) ───────────────────────────────────
+  /* â”€â”€ Org avatar (site identity) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    * Every site in the neohiro network shows its own avatar in the
    * assistant conversation and the AI dock. The self-hosted profile.png
    * is preferred where it exists (neohiro/frenzypenguin enforce
@@ -211,10 +211,16 @@
    * (transhumanists/openstageisland allow https:). */
   var SITE_AVATAR = (function () {
     var host = (location.hostname || '').toLowerCase();
-    if (host.indexOf('frenzypenguin') === 0)    return '/assets/profile.png';
-    if (host.indexOf('transhumanists') === 0)   return 'https://github.com/transhumanists.png';
-    if (host.indexOf('openstageisland') === 0)  return 'https://github.com/openstageisland.png';
-    if (host.indexOf('neohiro') === 0)          return '/assets/profile.png';
+    // Exact hostname match to prevent subdomain spoofing (e.g. frenzypenguin-attacker.com)
+    var exact = {
+      'neohiro.github.io':           '/assets/profile.png',
+      'frenzypenguin-media.github.io': '/assets/profile.png',
+      'transhumanists.github.io':    'https://github.com/transhumanists.png',
+      'openstageisland.github.io':   'https://github.com/openstageisland.png',
+    };
+    if (exact[host]) return exact[host];
+    // Fallback: known subdomains of neohiro org
+    if (host.endsWith('.neohiro.github.io') || host === 'neohiro.github.io') return '/assets/profile.png';
     return '/assets/profile.png';
   })();
 
@@ -231,7 +237,7 @@
   }
 
   // Injects the org avatar into every assistant avatar slot + the
-  // conversation header brand. The slot's existing glyph (✦ / 🤖) stays
+  // conversation header brand. The slot's existing glyph (âœ¦ / ðŸ¤–) stays
   // underneath as a graceful offline fallback: if the image errors out it
   // is removed and the glyph + tinted circle remain.
   function fillAvatarSlots(root) {
@@ -283,7 +289,7 @@
     }, { once: true });
   }
 
-  /* ── Conversation modal (sway-down, bubbles, typing indicator) ── */
+  /* â”€â”€ Conversation modal (sway-down, bubbles, typing indicator) â”€â”€ */
   // Built hidden on first AI-bar mount; activated on submit.
   // Animates down from the AI bar, displays the user's query as a bubble,
   // then a typing indicator while Heart/Mouth is queried for a reply.
@@ -304,7 +310,7 @@
           </span>
           <span class="ai-conv__heart" id="ai-conv__heart" aria-live="polite" title="Heart status">
             <span class="ai-conv__heart-dot" aria-hidden="true"></span>
-            <span id="ai-conv__heart-text">connecting…</span>
+            <span id="ai-conv__heart-text">connectingâ€¦</span>
           </span>
           <button type="button" class="ai-conv__close" id="ai-conv__close" aria-label="Close conversation">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true">
@@ -314,18 +320,18 @@
         </div>
         <div class="ai-conv__messages" id="ai-conv__messages" role="log" aria-live="polite">
           <div class="ai-conv__msg ai-conv__msg--assistant">
-            <div class="ai-conv__avatar" aria-hidden="true">✦</div>
+            <div class="ai-conv__avatar" aria-hidden="true">âœ¦</div>
             <div class="ai-conv__bubble">
-              Hey — I'm the neohiro assistant. I run across all 4 network sites and
+              Hey â€” I'm the neohiro assistant. I run across all 4 network sites and
               learn more about what you ask, so I can route you faster next time.
             </div>
           </div>
         </div>
         <div class="ai-conv__typing hidden" id="ai-conv__typing" role="status" aria-live="polite">
-          <div class="ai-conv__avatar" aria-hidden="true">✦</div>
+          <div class="ai-conv__avatar" aria-hidden="true">âœ¦</div>
           <div class="ai-conv__bubble ai-conv__bubble--typing">
             <span class="ai-conv__dots" aria-hidden="true"><span></span><span></span><span></span></span>
-            <span id="ai-conv__typing-text">Mouth is composing your reply…</span>
+            <span id="ai-conv__typing-text">Mouth is composing your replyâ€¦</span>
           </div>
         </div>
         <div class="ai-conv__footer">
@@ -415,17 +421,17 @@
   function appendConvMessage(role, md) {
     const box = document.getElementById('ai-conv__messages');
     if (!box) return;
-    // Validate role — only 'user' or 'assistant' allowed to prevent CSS injection via className
+    // Validate role â€” only 'user' or 'assistant' allowed to prevent CSS injection via className
     var safeRole = (role === 'user' || role === 'assistant') ? role : 'assistant';
     const row = document.createElement('div');
     row.className = 'ai-conv__msg ai-conv__msg--' + (safeRole === 'user' ? 'user' : 'assistant');
     if (safeRole === 'user') {
-      // User text is always escaped — no markdown/HTML allowed.
+      // User text is always escaped â€” no markdown/HTML allowed.
       const safe = escapeHtml(String(md));
       row.innerHTML = `<div class="ai-conv__bubble">${safe}</div>`;
     } else {
       // Assistant markdown comes from classify() (trusted) or Mouth API (future).
-      // Render via safe markdown→DOM (no HTML passthrough). For Mouth API responses
+      // Render via safe markdownâ†’DOM (no HTML passthrough). For Mouth API responses
       // that might contain raw HTML, fall back to renderSafeHtml.
       var safeHtml;
       if (typeof md === 'string' && /[#*_`\[\]]/.test(md)) {
@@ -434,7 +440,7 @@
         safeHtml = renderSafeHtml(md);
       }
       row.innerHTML = `
-        <div class="ai-conv__avatar" aria-hidden="true">✦</div>
+        <div class="ai-conv__avatar" aria-hidden="true">âœ¦</div>
         <div class="ai-conv__bubble">${safeHtml}</div>
       `;
     }
@@ -443,12 +449,12 @@
     box.scrollTop = box.scrollHeight;
   }
 
-  // ── Safe HTML renderer ──────────────────────────────────────────
+  // â”€â”€ Safe HTML renderer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   // Parses `html` with DOMParser (safe, no execution), then walks the
   // tree and returns a sanitized string. Strips:
   //   - All tags except: p b i a div span br strong em ul ol li
   //   - All attributes except: href (whitelisted scheme), target (whitelisted), class (allowlisted prefixes)
-  //   - All on* event handlers (onerror, onclick, onload …)
+  //   - All on* event handlers (onerror, onclick, onload â€¦)
   //   - javascript:, data:, vbscript: URL schemes (with leading whitespace
   //     and HTML-encoded prefixes to defeat obfuscation)
   //   - id attributes (would collide with page IDs and CSS)
@@ -487,7 +493,7 @@
     return /^(https?:|mailto:|\/|#|\?)/i.test(t) || /^[a-z0-9._~!$&'()*+,;=:@\/?%#-]+$/i.test(t);
   }
 
-  // ── Markdown → DOM renderer (safe, no HTML passthrough) ────────────────
+  // â”€â”€ Markdown â†’ DOM renderer (safe, no HTML passthrough) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // Renders a trusted markdown subset used by classify() and Mouth.
 // Supported: paragraphs, **bold**, *italic*, `code`, [links](url),
 // unordered lists (- item), ordered lists (1. item), step blocks
@@ -682,7 +688,7 @@ function renderSafeHtml(html) {
       tmp.appendChild(frag);
       return tmp.innerHTML;
     } catch (_) {
-      // DOMParser unavailable (unlikely) — fall back to escaping all HTML.
+      // DOMParser unavailable (unlikely) â€” fall back to escaping all HTML.
       return escapeHtml(str);
     }
   }
@@ -704,7 +710,7 @@ function renderSafeHtml(html) {
     const dot  = wrap && wrap.querySelector('.ai-conv__heart-dot');
     const span = document.getElementById('ai-conv__heart-text');
     if (!wrap) return;
-    // Validate state — only known states allowed to prevent arbitrary class injection
+    // Validate state â€” only known states allowed to prevent arbitrary class injection
     var validStates = ['ai-conv__heart--up', 'ai-conv__heart--down', 'ai-conv__heart--probe'];
     var safeState = (state && validStates.indexOf(state) !== -1) ? state : '';
     wrap.classList.remove('ai-conv__heart--up', 'ai-conv__heart--down', 'ai-conv__heart--probe');
@@ -712,7 +718,7 @@ function renderSafeHtml(html) {
     if (span && text) span.textContent = text;
   }
 
-  /* ── Heart/Mouth heartbeat detection ─────────────────────────── */
+  /* â”€â”€ Heart/Mouth heartbeat detection â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   // Probes a well-known heart-endpoint to decide whether the body is online.
   // Falls back to local classify() if Heart is unreachable. This is the
   // "goes through heartbeat detection" wire you asked for.
@@ -735,7 +741,7 @@ function renderSafeHtml(html) {
   function probeHeart() {
     if (_heartProbed) return Promise.resolve(_heartUp);
     _heartProbed = true;
-    setConvHeart('ai-conv__heart--probe', 'probing heart…');
+    setConvHeart('ai-conv__heart--probe', 'probing heartâ€¦');
     // Try each endpoint in sequence until one succeeds
     return HEART_ENDPOINTS.reduce(function (promise, url) {
       return promise.catch(function () {
@@ -783,7 +789,7 @@ function renderSafeHtml(html) {
     } catch (_) { /* private mode etc. */ }
   }
 
-  /* ── AI assistant input bar (full width) ──────────────────────── */
+  /* â”€â”€ AI assistant input bar (full width) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   function mountAssistantBar() {
     if (document.getElementById('ai-bar')) return;
 
@@ -796,7 +802,7 @@ function renderSafeHtml(html) {
     wrap.setAttribute('aria-label', 'Ask the neohiro assistant');
     wrap.innerHTML = `
       <div class="ai-bar__inner">
-        <span class="ai-bar__hint" aria-hidden="true">ask anything · reports · repo discovery · guided tours</span>
+        <span class="ai-bar__hint" aria-hidden="true">ask anything Â· reports Â· repo discovery Â· guided tours</span>
         <form class="ai-bar__form" id="ai-bar__form" autocomplete="off">
           <span class="ai-bar__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
@@ -808,7 +814,7 @@ function renderSafeHtml(html) {
             class="ai-bar__input"
             type="text"
             name="q"
-            placeholder="Ask the neohiro assistant — find a repo, report a bug, get a guide, or describe what you need…"
+            placeholder="Ask the neohiro assistant â€” find a repo, report a bug, get a guide, or describe what you needâ€¦"
             aria-label="Ask the neohiro assistant"
             maxlength="600" />
           <button type="submit" class="ai-bar__send" id="ai-bar__send" aria-label="Send message">
@@ -820,7 +826,7 @@ function renderSafeHtml(html) {
         </form>
         <div class="ai-bar__typing hidden" id="ai-bar__typing" role="status" aria-live="polite">
           <span class="ai-bar__dots" aria-hidden="true"><span></span><span></span><span></span></span>
-          <span id="ai-bar__typing-text">Mouth is composing your reply…</span>
+          <span id="ai-bar__typing-text">Mouth is composing your replyâ€¦</span>
         </div>
         <div class="ai-bar__response hidden" id="ai-bar__response" role="region" aria-live="polite"></div>
         <div class="ai-bar__counter" id="ai-bar__counter" aria-live="off" aria-atomic="true">0 / 600</div>
@@ -851,12 +857,12 @@ function renderSafeHtml(html) {
     updateCounter();
     // Cute dynamic cursor: shift placeholder text on focus/blur
     const placeholders = [
-      'Ask the neohiro assistant — find a repo, report a bug, get a guide, or describe what you need…',
-      'Try: “harden my Windows laptop in 5 minutes”',
-      'Try: “show me encryption tools”',
-      'Try: “report a bug in Cripple-NetStrip”',
-      'Try: “take me to the world map dashboard”',
-      'Try: “how do I file a security advisory?”'
+      'Ask the neohiro assistant â€” find a repo, report a bug, get a guide, or describe what you needâ€¦',
+      'Try: â€œharden my Windows laptop in 5 minutesâ€',
+      'Try: â€œshow me encryption toolsâ€',
+      'Try: â€œreport a bug in Cripple-NetStripâ€',
+      'Try: â€œtake me to the world map dashboardâ€',
+      'Try: â€œhow do I file a security advisory?â€'
     ];
     let pIdx = 0;
     input.addEventListener('focus', () => {
@@ -867,7 +873,7 @@ function renderSafeHtml(html) {
     });
   }
 
-  // ── In-flight state (singleton guards) ──
+  // â”€â”€ In-flight state (singleton guards) â”€â”€
   let _inFlightInt = null;
   let _inFlightTO  = null;
   let _inFlightVer = 0;
@@ -895,7 +901,7 @@ function renderSafeHtml(html) {
     const q = raw.replace(/[\u0000-\u001F\u007F-\u009F\u200B-\u200F\u202A-\u202E\u2066-\u2069]+/g, ' ').replace(/\s+/g, ' ').trim();
     if (!q) { input.focus(); return; }
     if (q.length > 600) {
-      // Truncate — the live counter already warned at 540+ (amber) and 600+ (red).
+      // Truncate â€” the live counter already warned at 540+ (amber) and 600+ (red).
       // No toast needed; user self-corrects before submit.
       input.value = q.slice(0, 600);
       input.focus();
@@ -910,7 +916,7 @@ function renderSafeHtml(html) {
     input.setAttribute('aria-busy', 'true');
     input.disabled = true;
 
-    // ── Step 1: show the conversation modal ─────────────────────
+    // â”€â”€ Step 1: show the conversation modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     showConversationModal();
     appendConvMessage('user', q);
     input.value = '';
@@ -919,14 +925,14 @@ function renderSafeHtml(html) {
     var ctr = document.getElementById('ai-bar__counter');
     if (ctr) { ctr.textContent = '0 / 600'; ctr.className = 'ai-bar__counter'; }
 
-    // ── Step 2: probe Heart while typing indicator starts ─────────
+    // â”€â”€ Step 2: probe Heart while typing indicator starts â”€â”€â”€â”€â”€â”€â”€â”€â”€
     probeHeart();
 
     const cycle = [
-      'Mouth is reading your question…',
-      'Triage: identifying who you are and what you need…',
-      'Pulling the right repo / docs / step-by-step…',
-      'Composing a helpful reply…'
+      'Mouth is reading your questionâ€¦',
+      'Triage: identifying who you are and what you needâ€¦',
+      'Pulling the right repo / docs / step-by-stepâ€¦',
+      'Composing a helpful replyâ€¦'
     ];
     const myVer = ++_inFlightVer;
     let c = 0;
@@ -937,7 +943,7 @@ function renderSafeHtml(html) {
       setConvTyping(true, cycle[c]);
     }, 900);
 
-    // ── Step 3: fetch from Heart/Mouth → fall back to local classify ─
+    // â”€â”€ Step 3: fetch from Heart/Mouth â†’ fall back to local classify â”€
     const delay = 1500 + Math.random() * 600;
     _inFlightTO = setTimeout(() => {
       _inFlightInt && clearInterval(_inFlightInt);
@@ -964,9 +970,9 @@ function renderSafeHtml(html) {
   function classify(q) {
     const t = q.toLowerCase();
     // Word-boundary anchored patterns to avoid false positives like
-    //   "I have a security issue"  → NOT harden
-    //   "stream of consciousness"  → NOT media hub
-    //   "world map" css layout     → still matches dashboard
+    //   "I have a security issue"  â†’ NOT harden
+    //   "stream of consciousness"  â†’ NOT media hub
+    //   "world map" css layout     â†’ still matches dashboard
     // Each branch is ordered by specificity (most specific first).
     const isBugSec = /(security\s+(vuln|issue|advisory|advisories|disclosure|bug)|cve|advisory|vulnerability|exploit|disclosure)/.test(t);
     const isBug    = /(\bbug|\bissue|\bcrash|\bbroken\b|broken\s*link|not\s*working|stopped\s*working|throws?\s+an?\s+error|\berror\s+when)/.test(t);
@@ -993,16 +999,16 @@ function renderSafeHtml(html) {
     }
     if (isDash) {
       return `
-**Dashboard** — live ops, world map, and metrics are at the central neohiro dashboard.
+**Dashboard** â€” live ops, world map, and metrics are at the central neohiro dashboard.
 
 :::step
-**Step 1** — [Open the dashboard](https://neohiro.github.io/dashboard/)
+**Step 1** â€” [Open the dashboard](https://neohiro.github.io/dashboard/)
 :::
 :::step
-**Step 2** — switch to the World Map panel
+**Step 2** â€” switch to the World Map panel
 :::
 :::step
-**Step 3** — pin the categories you care about
+**Step 3** â€” pin the categories you care about
 :::
 
 If you want to see heartbeats for the org, open [/heartbeats/](https://neohiro.github.io/heartbeats/) (public/authed/godadmin tiers).
@@ -1010,14 +1016,14 @@ If you want to see heartbeats for the org, open [/heartbeats/](https://neohiro.g
     }
     if (isMedia) {
       return `
-**Media hub:** [FrenzyPenguin Media](https://neohiro.github.io/media/) — video deep-dives on hardening, exploit mitigation, and privacy engineering.
+**Media hub:** [FrenzyPenguin Media](https://neohiro.github.io/media/) â€” video deep-dives on hardening, exploit mitigation, and privacy engineering.
 
 **YouTube:** [@FrenzyPenguinMedia](https://www.youtube.com/FrenzyPenguinMedia?sub_confirmation=1)
       `.trim();
     }
     if (isSponsor) {
       return `
-Thanks for considering support — every bit keeps the tools free and telemetry-free.
+Thanks for considering support â€” every bit keeps the tools free and telemetry-free.
 
 - [Sponsor on GitHub](https://github.com/sponsors/neohiro)
 - [Patreon](https://www.patreon.com/frenzypenguin_media)
@@ -1029,51 +1035,51 @@ Thanks for considering support — every bit keeps the tools free and telemetry-
     }
     // Default helpful response
     return `
-Got it — I can help you with that. To give you the most useful answer, tell me one of these:
+Got it â€” I can help you with that. To give you the most useful answer, tell me one of these:
 
 :::step
-**1** — *"I'm looking for a tool to…"* — e.g. harden Windows, encrypt DNS, monitor a server. I'll match you to the right repo.
+**1** â€” *"I'm looking for a tool toâ€¦"* â€” e.g. harden Windows, encrypt DNS, monitor a server. I'll match you to the right repo.
 :::
 :::step
-**2** — *"I found a bug / want to report a security issue"* — I'll walk you to the right repo and pre-fill the issue template.
+**2** â€” *"I found a bug / want to report a security issue"* â€” I'll walk you to the right repo and pre-fill the issue template.
 :::
 :::step
-**3** — *"Take me to the dashboard / world map / media hub / sponsors"* — instant cross-site navigation.
+**3** â€” *"Take me to the dashboard / world map / media hub / sponsors"* â€” instant cross-site navigation.
 :::
     `.trim();
   }
 
   function stepsForBug() {
     return `
-**Bug / Issue report** — I'll route you to the right repo and pre-fill diagnostics. Pick the project below:
+**Bug / Issue report** â€” I'll route you to the right repo and pre-fill diagnostics. Pick the project below:
 
 :::step
-**1** — **Identify the project.** Browse [all repositories](https://neohiro.github.io/repositories/) with filter/sort. If unsure, I'll suggest based on keywords.
+**1** â€” **Identify the project.** Browse [all repositories](https://neohiro.github.io/repositories/) with filter/sort. If unsure, I'll suggest based on keywords.
 :::
 :::step
-**2** — **Security vulnerability?** Use the repo's *Security* tab (private disclosure) — not the public issue tracker. [Open neohiro org](https://github.com/neohiro?tab=repositories).
+**2** â€” **Security vulnerability?** Use the repo's *Security* tab (private disclosure) â€” not the public issue tracker. [Open neohiro org](https://github.com/neohiro?tab=repositories).
 :::
 :::step
-**3** — **Regular bug?** Open the repo's *Issues* tab, click *New issue*, choose the *Bug report* template, and include: OS, version, steps to reproduce, expected vs actual.
+**3** â€” **Regular bug?** Open the repo's *Issues* tab, click *New issue*, choose the *Bug report* template, and include: OS, version, steps to reproduce, expected vs actual.
 :::
 :::step
-**4** — **Need a discussion instead?** Use the repo's *Discussions* tab — great for questions, ideas, and showcases.
+**4** â€” **Need a discussion instead?** Use the repo's *Discussions* tab â€” great for questions, ideas, and showcases.
 :::
     `.trim();
   }
 
   function stepsForRepo() {
     return `
-**Repo discovery** — 15+ projects across security, privacy, networking, developer tools, and games.
+**Repo discovery** â€” 15+ projects across security, privacy, networking, developer tools, and games.
 
 :::step
-**1** — Open the [All Repositories](https://neohiro.github.io/repositories/) page.
+**1** â€” Open the [All Repositories](https://neohiro.github.io/repositories/) page.
 :::
 :::step
-**2** — Use the filter chips (Security & Privacy, Network, Developer, Games, …) and the search box.
+**2** â€” Use the filter chips (Security & Privacy, Network, Developer, Games, â€¦) and the search box.
 :::
 :::step
-**3** — Sort by stars, recent activity, or year. Each card has Bug / Sec / Discuss quick-links.
+**3** â€” Sort by stars, recent activity, or year. Each card has Bug / Sec / Discuss quick-links.
 :::
     `.trim();
   }
@@ -1082,34 +1088,34 @@ Got it — I can help you with that. To give you the most useful answer, tell me
     const linux = /(linux|ubuntu|debian|arch|fedora|rhel|suse|manjaro)/.test(t);
     return linux
       ? `
-**Linux hardening** — automated post-install path:
+**Linux hardening** â€” automated post-install path:
 
 :::step
-**1** — Run the [neohiro/linux](https://github.com/neohiro/linux) script (UFW + DNSCrypt + Tor + auditd + AppArmor + sysctl + SSH).
+**1** â€” Run the [neohiro/linux](https://github.com/neohiro/linux) script (UFW + DNSCrypt + Tor + auditd + AppArmor + sysctl + SSH).
 :::
 :::step
-**2** — For Ubuntu: [neohiro/ubuntu](https://github.com/neohiro/ubuntu) with snap/flatpak control + GNOME privacy.
+**2** â€” For Ubuntu: [neohiro/ubuntu](https://github.com/neohiro/ubuntu) with snap/flatpak control + GNOME privacy.
 :::
 :::step
-**3** — Network layer: [Cripple-NetStrip](https://github.com/neohiro/Cripple-NetStrip) (DNS sinkhole + encrypted DNS + firewall).
+**3** â€” Network layer: [Cripple-NetStrip](https://github.com/neohiro/Cripple-NetStrip) (DNS sinkhole + encrypted DNS + firewall).
 :::
       `.trim()
       : `
-**Windows hardening** — pick a depth:
+**Windows hardening** â€” pick a depth:
 
 :::step
-**1** — One-command STIG-style: [Harden-Windows](https://github.com/neohiro/windows) (18 modules, 4 profiles, rollback, dry-run).
+**1** â€” One-command STIG-style: [Harden-Windows](https://github.com/neohiro/windows) (18 modules, 4 profiles, rollback, dry-run).
 :::
 :::step
-**2** — GUI exploit-mitigation catalog: [ExploitProtection](https://github.com/neohiro/ExploitProtection) (ASR + CFG + DEP + SEHOP).
+**2** â€” GUI exploit-mitigation catalog: [ExploitProtection](https://github.com/neohiro/ExploitProtection) (ASR + CFG + DEP + SEHOP).
 :::
 :::step
-**3** — Network + DNS: [Cripple-NetStrip](https://github.com/neohiro/Cripple-NetStrip) and [dnscrypt-proxy-gui](https://github.com/neohiro/dnscrypt-proxy-gui).
+**3** â€” Network + DNS: [Cripple-NetStrip](https://github.com/neohiro/Cripple-NetStrip) and [dnscrypt-proxy-gui](https://github.com/neohiro/dnscrypt-proxy-gui).
 :::
       `.trim();
   }
 
-  /* ── Universal top-nav auth tabs ──────────────────────────────── */
+  /* â”€â”€ Universal top-nav auth tabs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   function injectNavAuth() {
     const nav = document.querySelector('.site-nav') || document.querySelector('header nav') || document.querySelector('nav');
     if (!nav) return;
@@ -1226,7 +1232,7 @@ Got it — I can help you with that. To give you the most useful answer, tell me
     window.dispatchEvent(new CustomEvent('neohiro:nav-auth', { detail: { session: s } }));
   }
 
-  // ── Cross-script hook: allow auth-bar to trigger nav update ──
+  // â”€â”€ Cross-script hook: allow auth-bar to trigger nav update â”€â”€
   // Guard against feedback: showUserNav/showLoggedOutNav dispatch this same
   // event after mutating DOM, so the listener must suppress self-dispatches.
   var _navAuthSuppress = 0;
@@ -1258,7 +1264,7 @@ Got it — I can help you with that. To give you the most useful answer, tell me
     window.dispatchEvent(new CustomEvent('neohiro:nav-auth', { detail: { session: null } }));
   }
 
-  // ── Diagnostics probe ─────────────────────────────────────────
+  // â”€â”€ Diagnostics probe â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   // Fires once on boot, logs a structured health block to the console,
   // and exposes NEohiro.diagnose() so godadmins can call it from the
   // devtools console without inspecting network tab.
@@ -1342,3 +1348,4 @@ Got it — I can help you with that. To give you the most useful answer, tell me
   // Expose
   window.NEohiro = NEohiro;
 })();
+

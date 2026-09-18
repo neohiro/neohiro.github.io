@@ -9,7 +9,7 @@ tagline: "Ubuntu post-install hardening —” firewall, encrypted DNS, Tor, App
 platform: Ubuntu 20.04 / 22.04 / 24.04
 language: Shell / Python
 category: Security Guides
-repo_url: https://github.com/neohiro/linux
+repo_url: https://github.com/neohiro/ubuntu
 featured: false
 weight: 11
 icon: |
