@@ -23,7 +23,8 @@ TOOLS_DIR  = os.path.join(REPO_ROOT, "_tools")
 ALLOWED_KEYS = {
     "name", "title", "tagline", "platform", "language", "category",
     "featured", "weight", "repo_url",
-    "stars", "forks", "open_issues", "created_at", "pushed_at"
+    "stars", "forks", "open_issues", "created_at", "pushed_at",
+    "deprecated", "deprecated_at", "deprecated_reason", "successor_repo"
 }
 DRIFT_KEYS = frozenset(ALLOWED_KEYS - {"name", "stars", "forks", "open_issues", "created_at", "pushed_at"})
 
@@ -140,7 +141,8 @@ for name, repo in yaml_repos.items():
 
 # Check coverage
 missing_from_yaml = tool_names - yaml_names
-extra_in_yaml = yaml_names - tool_names
+extra_in_yaml = {name for name in (yaml_names - tool_names)
+                 if normalize(yaml_repos[name].get("deprecated")) != "true"}
 if missing_from_yaml:
     errors.append(f"_tools files missing from _data/repos.yml: {sorted(missing_from_yaml)}")
 if extra_in_yaml:
