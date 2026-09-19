@@ -18,7 +18,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
         <span class="badge badge-fpm">FrenzyPenguin Media</span>
       </div>
 
-      <h1 class="hero-title shimmer">Defense is the best defense.</h1>
+      <h1 class="hero-title">Defense is the best defense.</h1>
 
       <p class="hero-tagline">
         Open-source security hardening for Windows &amp; Linux.

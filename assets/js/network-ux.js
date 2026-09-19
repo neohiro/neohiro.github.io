@@ -790,7 +790,7 @@ function renderSafeHtml(html) {
   }
 
   /* â”€â”€ AI assistant input bar (full width) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-  function mountAssistantBar() {
+function mountAssistantBar() {
     if (document.getElementById('ai-bar')) return;
 
     recordCurrent(); // register this page for the cross-domain back button
@@ -802,7 +802,7 @@ function renderSafeHtml(html) {
     wrap.setAttribute('aria-label', 'Ask the neohiro assistant');
     wrap.innerHTML = `
       <div class="ai-bar__inner">
-        <span class="ai-bar__hint" aria-hidden="true">ask anything Â· reports Â· repo discovery Â· guided tours</span>
+        <span class="ai-bar__hint" aria-hidden="true">ask anything · reports · repo discovery · guided tours</span>
         <form class="ai-bar__form" id="ai-bar__form" autocomplete="off">
           <span class="ai-bar__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
@@ -814,7 +814,7 @@ function renderSafeHtml(html) {
             class="ai-bar__input"
             type="text"
             name="q"
-            placeholder="Ask the neohiro assistant â€” find a repo, report a bug, get a guide, or describe what you needâ€¦"
+            placeholder="Ask the neohiro assistant — find a repo, report a bug, get a guide, or describe what you need…"
             aria-label="Ask the neohiro assistant"
             maxlength="600" />
           <button type="submit" class="ai-bar__send" id="ai-bar__send" aria-label="Send message">
@@ -826,19 +826,24 @@ function renderSafeHtml(html) {
         </form>
         <div class="ai-bar__typing hidden" id="ai-bar__typing" role="status" aria-live="polite">
           <span class="ai-bar__dots" aria-hidden="true"><span></span><span></span><span></span></span>
-          <span id="ai-bar__typing-text">Mouth is composing your replyâ€¦</span>
+          <span id="ai-bar__typing-text">Mouth is composing your reply…</span>
         </div>
         <div class="ai-bar__response hidden" id="ai-bar__response" role="region" aria-live="polite"></div>
         <div class="ai-bar__counter" id="ai-bar__counter" aria-live="off" aria-atomic="true">0 / 600</div>
       </div>
     `;
 
-    // Insert into hero-content if present (hero middle), otherwise fall back to body
-    const heroContent = document.querySelector('.hero-content');
-    if (heroContent) {
-      heroContent.appendChild(wrap);
+    // Insert into hero, above the typewriter (live signal) section
+    const typewriterWrap = document.querySelector('.typewriter-wrap');
+    if (typewriterWrap) {
+      typewriterWrap.parentNode.insertBefore(wrap, typewriterWrap);
     } else {
-      document.body.appendChild(wrap);
+      const heroContent = document.querySelector('.hero-content');
+      if (heroContent) {
+        heroContent.appendChild(wrap);
+      } else {
+        document.body.appendChild(wrap);
+      }
     }
 
     const form = document.getElementById('ai-bar__form');
@@ -847,12 +852,13 @@ function renderSafeHtml(html) {
     form.addEventListener('submit', onAsk);
     // Live char counter: shows how much is left so users self-correct
     // before hitting the 600-char cap and getting a silent truncation.
-    function updateCounter() {
-      var n = input.value.length;
-      counter.textContent = n + ' / 600';
-      counter.classList.toggle('ai-bar__counter--near', n >= 540);
-      counter.classList.toggle('ai-bar__counter--over', n > 600);
-    }
+function updateCounter() {
+        var n = input.value.length;
+        counter.textContent = n + ' / 600';
+        counter.classList.toggle('ai-bar__counter--near', n >= 540);
+        counter.classList.toggle('ai-bar__counter--over', n > 600);
+        form.classList.toggle('has-content', n > 0);
+      }
     input.addEventListener('input', updateCounter);
     updateCounter();
     // Cute dynamic cursor: shift placeholder text on focus/blur
