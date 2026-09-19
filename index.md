@@ -9,7 +9,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
   <div class="container">
     <div class="hero-content">
       <img class="hero-avatar"
-           src="{{ '/assets/profile.png' | relative_url }}"
+           src="https://github.com/neohiro.png"
            alt="neohiro avatar"
            width="92" height="92"
            fetchpriority="high">
