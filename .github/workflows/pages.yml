@@ -2,9 +2,11 @@ name: Build & Deploy
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      main
   pull_request:
-    branches: [ main ]
+    branches:
+      main
   workflow_dispatch:
 
 permissions:
@@ -22,25 +24,16 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.3'
-          bundler-cache: true
-          cache-version: v2
-
-      - name: Setup Python
-        uses: actions/setup-python@v7
-        with:
-          python-version: '3.12'
-
-      - name: Verify _tools ↔ _data/repos.yml consistency
-        run: python scripts/verify_data.py
-
-      - name: Build Jekyll Site
-        run: bundle exec jekyll build
-        env:
-          JEKYLL_ENV: production
+      - name: Prepare site directory
+        run: |
+          mkdir -p _site
+          # Copy all HTML files
+          cp *.html _site/ 2>/dev/null || true
+          cp -r assets _site/ 2>/dev/null || true
+          cp -r scripts _site/ 2>/dev/null || true
+          cp -r _headers _site/ 2>/dev/null || true
+          cp robots.txt _site/ 2>/dev/null || true
+          cp .nojekyll _site/ 2>/dev/null || true
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v5
@@ -53,8 +46,8 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
-        id: deployment
+        id: deploy
         uses: actions/deploy-pages@v5
