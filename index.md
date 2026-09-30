@@ -1,4 +1,4 @@
----
+﻿---
 layout: default
 title: neohiro
 description: "Security hardening & privacy tools for Windows and Linux. Defense is the best defense."
@@ -37,7 +37,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
   </div>
 </div>
 
-<!-- Live Quote Typewriter (replaces the static "Curated Quotes" grid) -->
+<!-- Live Quote Typewriter -->
 <section class="section section-quotes" id="quotes">
   <div class="typewriter-wrap" aria-live="polite">
     <span class="typewriter-prefix" aria-hidden="true">✦ live signal</span>
@@ -47,8 +47,6 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
 </section>
 
 <script>
-  /* Live typewriter — 24 short, punchy neohiro quotes.
-     Fast type → brief hold → quick erase → next quote (no pausing). */
   (function () {
     const QUOTES = [
       { t: "Defense is the best defense.",            a: "neohiro" },
@@ -81,7 +79,6 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
     const elAttr  = document.getElementById('tw-attrib');
     if (!elText) return;
 
-    // Cursor lives OUTSIDE the gradient-clipped div so it stays visible
     const cursor = document.createElement('span');
     cursor.className = 'typewriter-cursor';
     elText.parentNode.insertBefore(cursor, elText.nextSibling);
@@ -95,12 +92,10 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
         elText.textContent = q.t.slice(0, ci);
         elText.appendChild(cursor);
         if (ci >= q.t.length) {
-          // Hold, then erase
           elAttr.innerHTML = '— <b>' + q.a + '</b>';
           deleting = true;
           return setTimeout(tick, 1100);
         }
-        // Fast type with a tiny variance
         return setTimeout(tick, 28 + Math.random() * 32);
       } else {
         ci--;
@@ -112,7 +107,6 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
           elAttr.innerHTML = '';
           return setTimeout(tick, 220);
         }
-        // Quicker deletion
         return setTimeout(tick, 12 + Math.random() * 14);
       }
     }
@@ -238,7 +232,6 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
       </article>
     </div>
 
-    <!-- FrenzyPenguin Media — centered, full-bleed style, just below the grid -->
     <a class="fpm-spotlight card-3d" href="https://frenzypenguin-media.github.io/" target="_blank" rel="noopener" aria-label="FrenzyPenguin Media — video deep-dives on security hardening">
       <div class="community-card-icon" aria-hidden="true" style="margin: 0 auto 14px; color: var(--purple);">
         <svg viewBox="0 0 24 24" fill="currentColor" width="36" height="36"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.814v-8l8 3.993-8 4.007z"/></svg>
@@ -268,7 +261,6 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
 {% include sponsor-cta.html %}
 
 <script>
-  // ── Onboarding consent flow ───────────────────────────────────────
   (function() {
     const KEY = "neohiro.consent.v1";
     const saved = localStorage.getItem(KEY);
