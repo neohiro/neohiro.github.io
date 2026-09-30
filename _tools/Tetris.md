@@ -5,7 +5,7 @@ open_issues: 0
 pushed_at: 2026-08-22T20:29:52Z
 created_at: 2025-08-27T01:09:44Z
 title: Tetris
-tagline: "Classic Tetris —” guideline-compliant, T-spin detection, replay system, vs AI"
+tagline: "Classic Tetris — guideline-compliant, T-spin detection, replay system, vs AI"
 platform: Windows / Linux / macOS / Web
 language: Rust (macroquad) / TypeScript
 category: Games
@@ -23,13 +23,13 @@ icon: |
 
 ## Features
 
-- **Guideline Compliant** —” SRS rotation, 7-bag randomizer, hold, ghost piece, 3+ next
-- **T-Spin Detection** —” Mini, regular, double, triple with bonus scoring
-- **Replay System** —” Full input recording; frame-perfect playback; export .tetris-replay
-- **AI Opponent** —” Configurable difficulty (beginner to TGM master); learns from your play
-- **Multiplayer** —” Local VS, LAN, online (WebRTC); spectator mode
-- **Web Version** —” Play instantly at [tetris.neohiro.dev](https://tetris.neohiro.dev)
-- **Statistics** —” APM, PPS, VS%, survival time, T-spin rate, B2B chains
+- **Guideline Compliant** — SRS rotation, 7-bag randomizer, hold, ghost piece, 3+ next
+- **T-Spin Detection** — Mini, regular, double, triple with bonus scoring
+- **Replay System** — Full input recording; frame-perfect playback; export .tetris-replay
+- **AI Opponent** — Configurable difficulty (beginner to TGM master); learns from your play
+- **Multiplayer** — Local VS, LAN, online (WebRTC); spectator mode
+- **Web Version** — Play instantly at [tetris.neohiro.dev](https://tetris.neohiro.dev)
+- **Statistics** — APM, PPS, VS%, survival time, T-spin rate, B2B chains
 
 ## Play Now
 
@@ -102,5 +102,5 @@ icon: |
 
 ## Related
 
-- [TristarMania](https://github.com/neohiro/TristarMania) —” Space shooter
-- [GhostMaze](https://github.com/neohiro/GhostMaze) —” 2D RPG
+- [TristarMania](https://github.com/neohiro/TristarMania) — Space shooter
+- [GhostMaze](https://github.com/neohiro/GhostMaze) — 2D RPG

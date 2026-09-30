@@ -160,10 +160,10 @@ permalink: /repositories/
       {% endfor %}
     </div>
 
-    <footer class="repos-footer">
+    <div class="repos-footer">
       <p>Part of <a href="https://github.com/neohiro" target="_blank" rel="noopener">neohiro</a> — {{ site.description }}</p>
       <p><a href="{{ '/' | relative_url }}">← Back to Home</a></p>
-    </footer>
+    </div>
   </div>
 </div>
 

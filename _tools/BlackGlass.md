@@ -5,7 +5,7 @@ open_issues: 0
 pushed_at: 2026-08-25T20:37:51Z
 created_at: 2025-12-13T22:07:22Z
 title: BlackGlass
-tagline: "Multi-client chat viewer for Second Life —” unified IM, local chat, group chat with history search"
+tagline: "Multi-client chat viewer for Second Life — unified IM, local chat, group chat with history search"
 platform: Windows / Linux / macOS
 language: Python (PySide6/Qt)
 category: Communication
@@ -22,13 +22,13 @@ icon: |
 
 ## Features
 
-- **Unified Inbox** —” IMs, local chat, group chat, notices in one timeline
-- **History Search** —” Full-text search across all conversations with date filters
-- **Multi-Account** —” Simultaneous login for multiple avatars
-- **Offline Messages** —” Queued delivery when recipients come online
-- **Chat Logs** —” Automatic JSON/CSV export with privacy controls
-- **Notifications** —” Native desktop notifications with avatar preview
-- **Themes** —” Dark/light/auto with custom accent colors
+- **Unified Inbox** — IMs, local chat, group chat, notices in one timeline
+- **History Search** — Full-text search across all conversations with date filters
+- **Multi-Account** — Simultaneous login for multiple avatars
+- **Offline Messages** — Queued delivery when recipients come online
+- **Chat Logs** — Automatic JSON/CSV export with privacy controls
+- **Notifications** — Native desktop notifications with avatar preview
+- **Themes** — Dark/light/auto with custom accent colors
 
 ## Installation
 
@@ -55,20 +55,20 @@ brew install --cask blackglass
 
 - Second Life account (or OpenSim-compatible grid)
 - Python 3.10+ with PySide6 (bundled in releases)
-- libomv (OpenMetaverse) —” bundled
+- libomv (OpenMetaverse) — bundled
 
 ## Protocol Support
 
-- **Second Life** —” Full support including mesh, materials, animesh
-- **OpenSim** —” Partial (core chat/IM works; region features vary)
-- **Third-party grids** —” Configurable login URI
+- **Second Life** — Full support including mesh, materials, animesh
+- **OpenSim** — Partial (core chat/IM works; region features vary)
+- **Third-party grids** — Configurable login URI
 
 ## Privacy
 
-- **Local-only storage** —” No cloud sync; chat logs never leave your machine
-- **Encrypted logs** —” Optional AES-256 encryption for exported logs
-- **No telemetry** —” Zero usage tracking
+- **Local-only storage** — No cloud sync; chat logs never leave your machine
+- **Encrypted logs** — Optional AES-256 encryption for exported logs
+- **No telemetry** — Zero usage tracking
 
 ## Related
 
-- [SecondLifePrivate](https://github.com/neohiro/SecondLifePrivate) —” Private LSL snippets
+- [SecondLifePrivate](https://github.com/neohiro/SecondLifePrivate) — Private LSL snippets

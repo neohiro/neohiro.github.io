@@ -5,7 +5,7 @@ open_issues: 0
 pushed_at: 2026-08-22T20:38:25Z
 created_at: 2025-08-14T23:25:13Z
 title: NewsAggregator
-tagline: "Global news feed with search —” RSS/Atom/JSON Feed aggregation, offline reading, cross-platform"
+tagline: "Global news feed with search — RSS/Atom/JSON Feed aggregation, offline reading, cross-platform"
 platform: Windows / Linux / macOS
 language: Python (PySide6/Qt)
 category: Information
@@ -19,18 +19,18 @@ icon: |
     <circle cx="5" cy="19" r="1" fill="currentColor"/>
   </svg>
 ---
-**NewsAggregator** pulls news from anywhere —” RSS, Atom, JSON Feed, Reddit, Hacker News, Twitter/X —” into a unified, searchable reader.
+**NewsAggregator** pulls news from anywhere — RSS, Atom, JSON Feed, Reddit, Hacker News, Twitter/X — into a unified, searchable reader.
 
 ## Features
 
-- **Multi-Source** —” RSS/Atom/JSON Feed, Reddit (subreddits/multireddits), HN, Twitter/X lists, Mastodon
-- **Unified Timeline** —” Chronological or relevance-sorted with source badges
-- **Full-Text Search** —” SQLite FTS5 index across all articles; regex support
-- **Offline Reading** —” Articles cached locally; read anywhere without internet
-- **Filters & Rules** —” "Hide paywall", "Only tech", "Exclude politics" per feed
-- **Read Later** —” Pocket/Instapaper/Readwise sync; local bookmarks
-- **Export** —” EPUB, PDF, Markdown, JSON for offline archives
-- **Themes** —” Dark/light/sepia with custom fonts and line height
+- **Multi-Source** — RSS/Atom/JSON Feed, Reddit (subreddits/multireddits), HN, Twitter/X lists, Mastodon
+- **Unified Timeline** — Chronological or relevance-sorted with source badges
+- **Full-Text Search** — SQLite FTS5 index across all articles; regex support
+- **Offline Reading** — Articles cached locally; read anywhere without internet
+- **Filters & Rules** — "Hide paywall", "Only tech", "Exclude politics" per feed
+- **Read Later** — Pocket/Instapaper/Readwise sync; local bookmarks
+- **Export** — EPUB, PDF, Markdown, JSON for offline archives
+- **Themes** — Dark/light/sepia with custom fonts and line height
 
 ## Installation
 
@@ -74,10 +74,10 @@ brew install --cask newsaggregator
 
 ## Privacy
 
-- **Local-only** —” No accounts, no cloud sync unless you configure it
-- **No tracking** —” Requests go directly to sources; no proxy
-- **Tor support** —” Route via Tor for anonymous fetching
-- **Encrypted cache** —” Optional AES-256 for article database
+- **Local-only** — No accounts, no cloud sync unless you configure it
+- **No tracking** — Requests go directly to sources; no proxy
+- **Tor support** — Route via Tor for anonymous fetching
+- **Encrypted cache** — Optional AES-256 for article database
 
 ## Keyboard Shortcuts
 
@@ -110,4 +110,4 @@ tor_proxy: "socks5://127.0.0.1:9050"
 
 ## Related
 
-- [opencode](https://github.com/neohiro/opencode) —” AI agent that can summarize feeds
+- [opencode](https://github.com/neohiro/opencode) — AI agent that can summarize feeds

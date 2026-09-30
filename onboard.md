@@ -149,13 +149,13 @@ permalink: /onboard/
       </div>
     </div>
 
-    <footer class="onboard-footer">
+    <div class="onboard-footer">
       <span>Triage powered by the neohiro cadence engine.</span>
       <span>
         <a href="{{ '/privacy/' | relative_url }}">Privacy</a> ·
         <a href="{{ '/tos/' | relative_url }}">Terms</a>
       </span>
-    </footer>
+    </div>
   </main>
 </div>
 

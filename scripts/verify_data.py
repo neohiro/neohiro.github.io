@@ -22,7 +22,7 @@ TOOLS_DIR  = os.path.join(REPO_ROOT, "_tools")
 
 ALLOWED_KEYS = {
     "name", "title", "tagline", "platform", "language", "category",
-    "featured", "weight", "repo_url",
+    "featured", "weight", "repo_url", "demo_url", "docs_url", "icon",
     "stars", "forks", "open_issues", "created_at", "pushed_at",
     "deprecated", "deprecated_at", "deprecated_reason", "successor_repo"
 }

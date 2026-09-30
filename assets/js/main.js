@@ -78,6 +78,21 @@
     trigger(targetUrl, isInternal = true) {
       if (this.active) return;
       this.active = true;
+
+      let isAnchor = false;
+      let targetId = null;
+      try {
+        const parsed = new URL(targetUrl, window.location.href);
+        if (parsed.origin === window.location.origin && parsed.pathname === window.location.pathname && parsed.hash) {
+          isAnchor = true;
+          targetId = parsed.hash.slice(1);
+        }
+      } catch (err) {
+        if (typeof targetUrl === 'string' && targetUrl.startsWith('#')) {
+          isAnchor = true;
+          targetId = targetUrl.slice(1);
+        }
+      }
       
       const text = this.overlay.querySelector('.glitch-text');
       text.textContent = isInternal ? 'NEOHIRO' : 'REDIRECTING';
@@ -98,7 +113,25 @@
         text.style.transform = '';
         text.style.textShadow = '';
         
-        if (isInternal) {
+        if (isAnchor) {
+          const targetEl = targetId ? document.getElementById(targetId) : null;
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+            history.pushState(null, '', '#' + targetId);
+            setTimeout(() => {
+              this.overlay.classList.remove('active');
+              document.body.style.opacity = '1';
+              this.active = false;
+            }, 150);
+          } else {
+            // Anchor element doesn't exist on this page, navigate to root with hash
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 300ms ease';
+            setTimeout(() => {
+              window.location.href = '/' + (targetId ? '#' + targetId : '');
+            }, 150);
+          }
+        } else if (isInternal) {
           // Smooth transition for internal links
           document.body.style.opacity = '0';
           document.body.style.transition = 'opacity 300ms ease';
@@ -507,43 +540,6 @@
   // tab, open directly, or jump to a specific tab (Issues, Discussions,
   // Security, Wiki, Pulse, etc.) without leaving the site first.
 
-  const REPO_CATALOG = [
-    { name: 'windows',            desc: 'Windows hardening (STIG)' },
-    { name: 'Cripple-NetStrip',   desc: 'Network hardening & debloater' },
-    { name: 'ExploitProtection',  desc: 'Exploit Protection GUI' },
-    { name: 'metapod',            desc: 'Windows 10/11 hardening GUI' },
-    { name: 'opencode',           desc: 'Open source coding agent' },
-    { name: 'auto-resume',        desc: 'Self-healing OpenCode sessions' },
-    { name: 'mobile-sync',        desc: 'OpenCode mobile via Tailscale Funnel' },
-    { name: 'frenzypenguin-media',desc: 'FrenzyPenguin Media site' },
-    { name: 'neohiro',            desc: 'Org profile README' },
-    { name: 'linux',              desc: 'Linux hardening' },
-    { name: 'ubuntu',             desc: 'Ubuntu install/hardening' },
-    { name: 'openstage-island.github.io', desc: 'Virtual events space' },
-    { name: 'dnscrypt-proxy-gui', desc: 'dnscrypt-proxy GUI' },
-    { name: 'BlackGlass',         desc: 'Second Life chat viewer' },
-    { name: 'HoneyScan',          desc: 'Passive honeypot' },
-    { name: 'SystemMonitor',      desc: 'System health monitor' },
-    { name: 'NewsAggregator',     desc: 'Global news feed' },
-    { name: 'LANScan',            desc: 'ARP/ICMP network scanner' },
-    { name: 'NetMatrix',          desc: 'Connections monitor' },
-    { name: 'DNSLookup',          desc: 'DNS lookup tool' },
-    { name: 'ShadowSocks',        desc: 'ShadowSocks client' },
-    { name: 'MoodTracker',        desc: 'Wellbeing diary' },
-    { name: 'MusicPlay',          desc: 'Audio player' },
-    { name: 'ClockWidget',        desc: 'Desktop clock widget' },
-    { name: 'FileManager',        desc: 'File manager' },
-    { name: 'Calculator',         desc: 'Python calculator' },
-    { name: 'Godmode',            desc: 'Windows God Mode activator' },
-    { name: 'htmlinfo',           desc: 'HTML info scraper' },
-    { name: 'GoogleCommand',      desc: 'TTS Google Assistant' },
-    { name: 'ZombieShoot',        desc: 'Zombie shooter game' },
-    { name: 'TristarMania',       desc: 'Space shooter' },
-    { name: 'Tetris',             desc: 'Retro Tetris' },
-    { name: 'GhostMaze',          desc: '2D RPG' },
-    { name: 'SecondLife',         desc: 'LSL snippets' }
-  ];
-
   const REPO_TABS = [
     { id: 'overview',  label: 'Overview',          icon: '📖', path: '' },
     { id: 'issues',    label: 'Bug Reports',       icon: '🐞', path: '/issues' },
@@ -563,6 +559,7 @@
       this.overlay = null;
       this.iframe = null;
       this.lastTrigger = null;
+      this.currentRepo = null;
       this.init();
     }
 
@@ -593,15 +590,14 @@
             </div>
           </section>
           <section class="link-guard-tabs" id="link-guard-tabs" hidden>
-            <label class="link-guard-section-label">Quick jump to repository section</label>
+            <label class="link-guard-section-label">Jump to repository section</label>
             <div class="link-guard-row">
-              <select class="link-guard-repo" id="link-guard-repo" aria-label="Repository"></select>
               <select class="link-guard-tab" id="link-guard-tab" aria-label="Section">
                 ${REPO_TABS.map(t => `<option value="${t.id}">${t.icon} ${t.label}</option>`).join('')}
               </select>
-              <button class="link-guard-go" id="link-guard-go" type="button">Open</button>
+              <button class="link-guard-go" id="link-guard-go" type="button">Open Section</button>
             </div>
-            <p class="link-guard-hint">Opens the chosen tab of the chosen repo in a new tab — no extra clicks.</p>
+            <p class="link-guard-hint">Opens the chosen section of this repository directly in a new tab.</p>
           </section>
           <footer class="link-guard-actions">
             <button class="link-guard-btn link-guard-btn-ghost" data-close>Stay here</button>
@@ -612,15 +608,6 @@
       document.body.appendChild(this.overlay);
 
       this.iframe = this.overlay.querySelector('#link-guard-iframe');
-
-      // Populate repo catalog
-      const repoSel = this.overlay.querySelector('#link-guard-repo');
-      REPO_CATALOG.forEach(r => {
-        const opt = document.createElement('option');
-        opt.value = r.name;
-        opt.textContent = `${r.name} — ${r.desc}`;
-        repoSel.appendChild(opt);
-      });
 
       // Bind events
       this.overlay.addEventListener('click', (e) => {
@@ -728,6 +715,8 @@
         if (host.includes('youtube.com')) return 'A YouTube page — video / channel / playlist.';
         if (host.includes('linktr.ee'))   return 'Linktree — all public links for the project.';
         if (host.includes('sponsor'))     return 'Sponsor page.';
+        if (host.includes('frenzypenguin.media') || host.includes('frenzypenguin')) return 'FrenzyPenguin Media — official video & media publishing platform.';
+        if (host.includes('transhumanists')) return 'Transhumanists (H+) — research, philosophy & longevity ecosystem.';
         return `External destination on ${host}.`;
       })();
 
@@ -785,18 +774,20 @@
         this.iframe.src = 'about:blank';
       }
 
-      // Quick jump: only for github.com/<owner>/<repo> base paths
+      // Quick jump: only for github.com/<owner>/<repo>
       const tabsEl = this.overlay.querySelector('#link-guard-tabs');
-      const repoSel = this.overlay.querySelector('#link-guard-repo');
       const tabSel = this.overlay.querySelector('#link-guard-tab');
-      if (info.isRepo) {
-        repoSel.value = info.repo;
+      const labelEl = this.overlay.querySelector('.link-guard-section-label');
+      if (info.isRepo && info.repo) {
+        this.currentRepo = info.repo;
+        if (labelEl) labelEl.textContent = `Jump to ${this.escape(info.repo)} section`;
         if (info.isIssues) tabSel.value = 'issues';
         else if (info.isSecurity) tabSel.value = 'security';
         else if (info.isDisc) tabSel.value = 'discussions';
         else tabSel.value = 'overview';
         tabsEl.hidden = false;
       } else {
+        this.currentRepo = null;
         tabsEl.hidden = true;
       }
 
@@ -817,7 +808,8 @@
     }
 
     openRepoTab() {
-      const repo = this.overlay.querySelector('#link-guard-repo').value;
+      const repo = this.currentRepo;
+      if (!repo) return;
       const tabId = this.overlay.querySelector('#link-guard-tab').value;
       const tab = REPO_TABS.find(t => t.id === tabId) || REPO_TABS[0];
       const url = `https://github.com/${this.owner}/${repo}${tab.path}`;
@@ -851,6 +843,14 @@
     new RepoFilter();
     new VideoEmbedManager();
     new LinkGuard();
+
+    // BFCache restoration: ensure page is visible on back/forward navigation
+    window.addEventListener('pageshow', () => {
+      document.body.style.opacity = '1';
+      const overlay = document.getElementById('glitch-overlay');
+      if (overlay) overlay.classList.remove('active');
+      glitch.active = false;
+    });
     
     // Bind glitch transitions to internal links
     document.querySelectorAll('a[href^="/"], a[href^="#"], a[href^="./"]').forEach(link => {

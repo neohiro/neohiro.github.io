@@ -27,10 +27,10 @@ permalink: /media/
       <!-- Video cards rendered by JavaScript -->
     </div>
 
-    <footer class="media-footer">
+    <div class="media-footer">
       <p>All videos published on <a href="https://www.youtube.com/FrenzyPenguinMedia?sub_confirmation=1" target="_blank" rel="noopener">YouTube @FrenzyPenguinMedia</a></p>
       <p>Subscribe for weekly security engineering content</p>
-    </footer>
+    </div>
   </div>
 </div>
 
