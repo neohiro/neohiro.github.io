@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: neohiro
 description: "Security hardening & privacy tools for Windows and Linux. Defense is the best defense."
