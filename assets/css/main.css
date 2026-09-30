@@ -219,16 +219,16 @@ p { color: var(--fg-muted); }
 .badge-fpm:hover { background: rgba(38, 198, 218, 0.12); }
 
 .hero-title {
-  margin-bottom: 28px;
-  background: linear-gradient(135deg, var(--fg) 0%, var(--fg-muted) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
-}
+    margin-bottom: 28px;
+    background: linear-gradient(135deg, var(--fg) 0%, var(--fg-muted) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    max-width: 100%;
+  }
 
 .typing-container {
   height: 48px;
