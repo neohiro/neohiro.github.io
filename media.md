@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Media - FrenzyPenguin Media
-description: "Video portfolio - Security hardening deep-dives, exploit mitigation tutorials, and privacy engineering"
+description: "Music artist recordings, creative projects, and multimedia content from the makers of neohiro"
 permalink: /media/
 ---
 
@@ -18,18 +18,18 @@ permalink: /media/
         <span class="media-logo" aria-hidden="true">🎬</span>
         <div>
           <h1>FrenzyPenguin Media</h1>
-          <p class="media-tagline">Security hardening deep-dives · Exploit mitigation tutorials · Privacy engineering</p>
+          <p class="media-tagline">Music artist recordings · Creative projects · Multimedia content</p>
         </div>
       </div>
     </header>
 
     <div class="video-grid" id="video-grid">
-      <!-- Video cards rendered by JavaScript -->
+      <!-- Media cards rendered by JavaScript -->
     </div>
 
     <div class="media-footer">
-      <p>All videos published on <a href="https://www.youtube.com/FrenzyPenguinMedia?sub_confirmation=1" target="_blank" rel="noopener">YouTube @FrenzyPenguinMedia</a></p>
-      <p>Subscribe for weekly security engineering content</p>
+      <p>Published on <a href="https://www.youtube.com/FrenzyPenguinMedia?sub_confirmation=1" target="_blank" rel="noopener">YouTube @FrenzyPenguinMedia</a></p>
+      <p>Subscribe for weekly creative content</p>
     </div>
   </div>
 </div>

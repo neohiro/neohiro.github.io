@@ -726,13 +726,17 @@ p { color: var(--fg-muted); }
   border-radius: 6px;
   text-decoration: none;
   transition: all var(--transition);
+  flex: 1;
+  text-align: center;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ecosystem-btn-main {
   background: var(--accent);
   color: #fff;
-  flex: 1;
-  text-align: center;
 }
 
 .ecosystem-btn-main:hover {
