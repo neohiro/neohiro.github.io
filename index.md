@@ -216,29 +216,29 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
 
     <!-- Action Cards (shown after project selection) -->
     <div class="community-grid" id="community-actions" style="display: none;">
-      <article class="community-card card-3d" id="action-bugs">
+      <a class="community-card card-3d" id="action-bugs" href="#" role="button" tabindex="0" aria-label="Open bug reports for selected project">
         <h3>Bug Reports</h3>
         <p>Structured issue templates with required diagnostics.</p>
         <span class="card-action">Open Issues →</span>
-      </article>
+      </a>
 
-      <article class="community-card card-3d" id="action-security">
+      <a class="community-card card-3d" id="action-security" href="#" role="button" tabindex="0" aria-label="Report security vulnerability for selected project">
         <h3>Security Vulnerabilities</h3>
         <p>Private disclosure via Security Advisories tab.</p>
         <span class="card-action">Report Security →</span>
-      </article>
+      </a>
 
-      <article class="community-card card-3d" id="action-discussions">
+      <a class="community-card card-3d" id="action-discussions" href="#" role="button" tabindex="0" aria-label="Join discussions for selected project">
         <h3>Discussions</h3>
         <p>Questions, showcases, and feature requests.</p>
         <span class="card-action">Join Discussion →</span>
-      </article>
+      </a>
 
-      <article class="community-card card-3d" id="action-sponsor">
+      <a class="community-card card-3d" id="action-sponsor" href="https://github.com/sponsors/neohiro" target="_blank" rel="noopener" aria-label="Sponsor neohiro on GitHub">
         <h3>Sponsor</h3>
         <p>Support ongoing development via GitHub Sponsors or Patreon.</p>
         <span class="card-action">Sponsor neohiro →</span>
-      </article>
+      </a>
     </div>
 
     <a class="fpm-spotlight card-3d" href="https://frenzypenguin.media" target="_blank" rel="noopener" aria-label="FrenzyPenguin Media — music artist recordings & creative content">
@@ -412,10 +412,10 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
       const discussionsUrl = `${repoUrl}/discussions`;
       const sponsorUrl = "https://github.com/sponsors/neohiro";
 
-      actionCards.bugs.onclick = () => window.open(issuesUrl, "_blank", "noopener");
-      actionCards.security.onclick = () => window.open(securityUrl, "_blank", "noopener");
-      actionCards.discussions.onclick = () => window.open(discussionsUrl, "_blank", "noopener");
-      actionCards.sponsor.onclick = () => window.open(sponsorUrl, "_blank", "noopener");
+      actionCards.bugs.href = issuesUrl;
+      actionCards.security.href = securityUrl;
+      actionCards.discussions.href = discussionsUrl;
+      // Sponsor link is static, already set in HTML
 
       actionCards.bugs.querySelector(".card-action").textContent = `Open Issues →`;
       actionCards.security.querySelector(".card-action").textContent = `Report Security →`;
@@ -430,6 +430,30 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
         communityActions.style.display = "grid";
       } else {
         communityActions.style.display = "none";
+      }
+    });
+
+    // Keyboard support for action cards (Enter/Space to follow link)
+    document.querySelectorAll("#community-actions a[role='button']").forEach(card => {
+      card.addEventListener("keydown", function(e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          this.click();
+        }
+      });
+    });
+
+    // Ensure dynamic links open in new tab with noopener
+    const dynamicActionCards = ["action-bugs", "action-security", "action-discussions"];
+    dynamicActionCards.forEach(id => {
+      const card = document.getElementById(id);
+      if (card) {
+        card.addEventListener("click", function(e) {
+          if (this.href && this.href !== "#") {
+            e.preventDefault();
+            window.open(this.href, "_blank", "noopener");
+          }
+        });
       }
     });
 
