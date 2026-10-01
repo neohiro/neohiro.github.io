@@ -1105,6 +1105,13 @@ p { color: var(--fg-muted); }
   gap: 24px;
 }
 
+@media (max-width: 768px) {
+  .media-grid,
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .media-card,
 .video-card {
   position: relative;
@@ -1160,6 +1167,43 @@ p { color: var(--fg-muted); }
   opacity: 1;
 }
 
+.play-btn {
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  border: none;
+  border-radius: 50%;
+  width: 72px;
+  height: 72px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 32px rgba(124,77,255,0.4);
+}
+
+.play-btn:hover {
+  transform: scale(1.15);
+  box-shadow: 0 12px 48px rgba(124,77,255,0.6);
+}
+
+.play-btn svg {
+  width: 32px;
+  height: 32px;
+  margin-left: 4px;
+}
+
+.duration {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+}
+
 .media-info,
 .video-info {
   padding: 16px 20px 20px;
@@ -1178,6 +1222,86 @@ p { color: var(--fg-muted); }
   font-size: 0.75rem;
   color: var(--fg-subtle);
   font-family: var(--font-mono);
+}
+
+/* Media page styles */
+.media-page {
+  padding: 40px 0 80px;
+}
+
+.media-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: var(--fg-subtle);
+  margin-bottom: 40px;
+}
+
+.media-breadcrumb a {
+  color: var(--fg-subtle);
+}
+
+.media-breadcrumb a:hover {
+  color: var(--accent);
+}
+
+.media-breadcrumb span[aria-current] {
+  color: var(--fg);
+  font-weight: 500;
+}
+
+.media-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.media-logo {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.media-brand h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 8px;
+}
+
+.media-tagline {
+  font-size: 1.125rem;
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+.media-footer {
+  text-align: center;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  color: var(--fg-subtle);
+}
+
+.media-footer a {
+  color: var(--accent);
+}
+
+.media-footer a:hover {
+  color: var(--accent-strong);
+}
+
+.media-footer p {
+  margin: 8px 0;
+}
+
+@media (max-width: 768px) {
+  .media-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
 }
 
 /* Footer button row (also used by #sponsor section CTA) */
