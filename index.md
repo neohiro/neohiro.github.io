@@ -202,37 +202,46 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
 <section class="section" id="community">
   <div class="container">
     <header class="section-header">
-      <h2>Community &amp; Support</h2>
+      <h2>Community & Support</h2>
       <p class="section-subtitle">Pick a project, then choose how to engage</p>
     </header>
 
-    <div class="community-grid">
-      <article class="community-card card-3d" data-href="https://github.com/neohiro?tab=repositories">
+    <!-- Project Selector -->
+    <div class="project-selector" id="project-selector">
+      <label for="project-select" class="visually-hidden">Select a project</label>
+      <select id="project-select" class="project-select" aria-label="Select a project to view community links">
+        <option value="" disabled selected>-- Choose a project --</option>
+      </select>
+    </div>
+
+    <!-- Action Cards (shown after project selection) -->
+    <div class="community-grid" id="community-actions" style="display: none;">
+      <article class="community-card card-3d" id="action-bugs">
         <h3>Bug Reports</h3>
-        <p>Structured issue templates on each repository with required diagnostics.</p>
-        <span class="card-action">Select a project →</span>
+        <p>Structured issue templates with required diagnostics.</p>
+        <span class="card-action">Open Issues →</span>
       </article>
 
-      <article class="community-card card-3d" data-href="https://github.com/neohiro?tab=repositories">
+      <article class="community-card card-3d" id="action-security">
         <h3>Security Vulnerabilities</h3>
-        <p>Private disclosure via Security Advisories tab on each repository.</p>
-        <span class="card-action">Select a project →</span>
+        <p>Private disclosure via Security Advisories tab.</p>
+        <span class="card-action">Report Security →</span>
       </article>
 
-      <article class="community-card card-3d" data-href="https://github.com/neohiro?tab=repositories">
+      <article class="community-card card-3d" id="action-discussions">
         <h3>Discussions</h3>
-        <p>Questions, showcases, and feature requests in each repo's Discussions.</p>
-        <span class="card-action">Select a project →</span>
+        <p>Questions, showcases, and feature requests.</p>
+        <span class="card-action">Join Discussion →</span>
       </article>
 
-      <article class="community-card card-3d" data-href="https://github.com/sponsors/neohiro">
+      <article class="community-card card-3d" id="action-sponsor">
         <h3>Sponsor</h3>
         <p>Support ongoing development via GitHub Sponsors or Patreon.</p>
         <span class="card-action">Sponsor neohiro →</span>
       </article>
     </div>
 
-    <a class="fpm-spotlight card-3d" href="https://frenzypenguin.media" target="_blank" rel="noopener" aria-label="FrenzyPenguin Media — music artist recordings &amp; creative content">
+    <a class="fpm-spotlight card-3d" href="https://frenzypenguin.media" target="_blank" rel="noopener" aria-label="FrenzyPenguin Media — music artist recordings & creative content">
       <div class="community-card-icon" aria-hidden="true" style="margin: 0 auto 14px; color: var(--purple);">
         <svg viewBox="0 0 24 24" fill="currentColor" width="36" height="36"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.814v-8l8 3.993-8 4.007z"/></svg>
       </div>
@@ -363,5 +372,67 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
         card.style.setProperty("--my", "0px");
       });
     });
+
+    // Project selector & community actions
+    const projectSelect = document.getElementById("project-select");
+    const communityActions = document.getElementById("community-actions");
+    const actionCards = {
+      bugs: document.getElementById("action-bugs"),
+      security: document.getElementById("action-security"),
+      discussions: document.getElementById("action-discussions"),
+      sponsor: document.getElementById("action-sponsor")
+    };
+
+    const REPOS_JSON = "{{ '/assets/data/repos.json' | relative_url }}";
+
+    async function loadRepos() {
+      try {
+        const resp = await fetch(REPOS_JSON);
+        if (!resp.ok) throw new Error("Failed to load repos");
+        const data = await resp.json();
+        const repos = data.repos || data;
+        repos.forEach(repo => {
+          const opt = document.createElement("option");
+          opt.value = repo.repo_url || `https://github.com/neohiro/${repo.name}`;
+          opt.textContent = repo.title || repo.name;
+          opt.dataset.repoUrl = repo.repo_url || `https://github.com/neohiro/${repo.name}`;
+          opt.dataset.name = repo.name;
+          projectSelect.appendChild(opt);
+        });
+      } catch (e) {
+        console.warn("Could not load project list:", e);
+        projectSelect.innerHTML = '<option value="">Failed to load projects</option>';
+      }
+    }
+
+    function updateActionLinks(repoUrl, repoName) {
+      if (!repoUrl) return;
+      const issuesUrl = `${repoUrl}/issues`;
+      const securityUrl = `${repoUrl}/security/advisories/new`;
+      const discussionsUrl = `${repoUrl}/discussions`;
+      const sponsorUrl = "https://github.com/sponsors/neohiro";
+
+      actionCards.bugs.onclick = () => window.open(issuesUrl, "_blank", "noopener");
+      actionCards.security.onclick = () => window.open(securityUrl, "_blank", "noopener");
+      actionCards.discussions.onclick = () => window.open(discussionsUrl, "_blank", "noopener");
+      actionCards.sponsor.onclick = () => window.open(sponsorUrl, "_blank", "noopener");
+
+      actionCards.bugs.querySelector(".card-action").textContent = `Open Issues →`;
+      actionCards.security.querySelector(".card-action").textContent = `Report Security →`;
+      actionCards.discussions.querySelector(".card-action").textContent = `Join Discussion →`;
+    }
+
+    projectSelect.addEventListener("change", function() {
+      const selected = this.options[this.selectedIndex];
+      if (selected.value) {
+        const repoUrl = selected.dataset.repoUrl;
+        updateActionLinks(repoUrl, selected.textContent);
+        communityActions.style.display = "grid";
+      } else {
+        communityActions.style.display = "none";
+      }
+    });
+
+    loadRepos();
   })();
 </script>

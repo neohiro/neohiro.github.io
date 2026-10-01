@@ -542,6 +542,55 @@ p { color: var(--fg-muted); }
   opacity: 1;
 }
 
+/* Project Selector */
+.project-selector {
+  margin: 24px 0 32px;
+  max-width: 480px;
+}
+
+.project-select {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 1rem;
+  font-family: var(--font-ui);
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--fg);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2396a8b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 50px;
+}
+
+.project-select:hover {
+  border-color: var(--accent-dim);
+}
+
+.project-select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.project-select option {
+  background: var(--bg);
+  color: var(--fg);
+  padding: 10px;
+}
+
+/* Community Actions Grid */
+#community-actions {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* Footer */
 .site-footer {
   padding: 56px 0 40px;
