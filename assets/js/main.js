@@ -715,7 +715,7 @@
         if (host.includes('youtube.com')) return 'A YouTube page — video / channel / playlist.';
         if (host.includes('linktr.ee'))   return 'Linktree — all public links for the project.';
         if (host.includes('sponsor'))     return 'Sponsor page.';
-        if (host.includes('frenzypenguin.media') || host.includes('frenzypenguin')) return 'FrenzyPenguin Media — official video & media publishing platform.';
+        if (host.includes('frenzypenguin.media') || host.includes('frenzypenguin')) return 'FrenzyPenguin Media — music artist recordings & creative projects.';
         if (host.includes('transhumanists')) return 'Transhumanists (H+) — research, philosophy & longevity ecosystem.';
         return `External destination on ${host}.`;
       })();
