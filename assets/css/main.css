@@ -712,6 +712,7 @@ p { color: var(--fg-muted); }
 
 .ecosystem-links {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin-top: auto;
   container-type: inline-size;
@@ -727,7 +728,7 @@ p { color: var(--fg-muted); }
   border-radius: 6px;
   text-decoration: none;
   transition: all var(--transition);
-  flex: 1;
+  flex: 1 1 140px;
   text-align: center;
   min-width: 0;
   overflow: hidden;
@@ -735,7 +736,7 @@ p { color: var(--fg-muted); }
   white-space: nowrap;
 }
 
-@container (max-width: 320px) {
+@container (max-width: 360px) {
   .ecosystem-links {
     flex-direction: column;
     gap: 6px;
