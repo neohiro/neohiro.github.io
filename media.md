@@ -23,7 +23,7 @@ permalink: /media/
       </div>
     </header>
 
-    <div class="video-grid" id="video-grid">
+    <div class="media-grid" id="media-grid">
       <!-- Media cards rendered by JavaScript -->
     </div>
 
@@ -46,17 +46,17 @@ permalink: /media/
 .media-brand h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 8px; }
 .media-tagline { font-size: 1.125rem; color: var(--fg-muted); margin: 0; }
 
-.video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+.media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
 
-.video-card { position: relative; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: all var(--transition); }
-.video-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.media-card { position: relative; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: all var(--transition); }
+.media-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 
-.video-thumbnail { position: relative; aspect-ratio: 16/9; overflow: hidden; }
-.video-thumbnail img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
-.video-card:hover .video-thumbnail img { transform: scale(1.05); }
+.media-thumbnail { position: relative; aspect-ratio: 16/9; overflow: hidden; }
+.media-thumbnail img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.media-card:hover .media-thumbnail img { transform: scale(1.05); }
 
-.video-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(11,14,18,0.95) 100%); display: flex; align-items: flex-end; justify-content: center; padding: 24px; opacity: 0; transition: opacity 0.3s ease; }
-.video-card:hover .video-overlay { opacity: 1; }
+.media-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(11,14,18,0.95) 100%); display: flex; align-items: flex-end; justify-content: center; padding: 24px; opacity: 0; transition: opacity 0.3s ease; }
+.media-card:hover .media-overlay { opacity: 1; }
 
 .play-btn { background: linear-gradient(135deg, var(--accent), var(--accent-strong)); border: none; border-radius: 50%; width: 72px; height: 72px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 32px rgba(124,77,255,0.4); }
 .play-btn:hover { transform: scale(1.15); box-shadow: 0 12px 48px rgba(124,77,255,0.6); }
@@ -64,9 +64,9 @@ permalink: /media/
 
 .duration { position: absolute; bottom: 12px; right: 12px; background: rgba(0,0,0,0.8); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-family: var(--font-mono); }
 
-.video-info { padding: 16px 20px 20px; }
-.video-info h4 { font-size: 0.9375rem; margin-bottom: 6px; color: var(--fg); line-height: 1.4; }
-.video-meta { font-size: 0.75rem; color: var(--fg-subtle); font-family: var(--font-mono); }
+.media-info { padding: 16px 20px 20px; }
+.media-info h4 { font-size: 0.9375rem; margin-bottom: 6px; color: var(--fg); line-height: 1.4; }
+.media-meta { font-size: 0.75rem; color: var(--fg-subtle); font-family: var(--font-mono); }
 
 .media-footer { text-align: center; margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border); color: var(--fg-subtle); }
 .media-footer a { color: var(--accent); }
@@ -75,6 +75,6 @@ permalink: /media/
 
 @media (max-width: 768px) {
   .media-header { flex-direction: column; text-align: center; gap: 16px; }
-  .video-grid { grid-template-columns: 1fr; }
+  .media-grid { grid-template-columns: 1fr; }
 }
 </style>
