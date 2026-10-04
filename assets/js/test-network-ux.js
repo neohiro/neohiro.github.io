@@ -192,6 +192,8 @@ for (var si = 0; si < SITES.length; si++) {
 // renderInline, escapeHtml, _isSafeUrl, _allowClass — is asserted below.
 section('renderMarkdown (all sites)');
 var mdDomSkipped = 0;
+var mdSitesSkipped = 0;
+var mdGroupActive = true;
 for (var si2 = 0; si2 < SITES.length; si2++) {
   var site2 = SITES[si2];
   var jsFile2 = PATH.join(REPO, site2, 'assets', 'js', 'network-ux.js');
@@ -200,8 +202,9 @@ for (var si2 = 0; si2 < SITES.length; si2++) {
 
   var probe = runMarkdown(src2, 'probe.');
   if (probe === undefined) {
-    // 25 assertions per site in this group.
-    mdDomSkipped += 25;
+    // Bare Node: this group needs a real DOM. The block below is not entered,
+    // so the count is derived from the source rather than tallied at runtime.
+    mdSitesSkipped++;
     continue;
   }
 
@@ -253,6 +256,8 @@ for (var si2 = 0; si2 < SITES.length; si2++) {
   ok(inlineInBlock.indexOf('<code>code</code>') >= 0, site2 + ' -- code inside step');
   ok(inlineInBlock.indexOf('href="https://example.com"') >= 0, site2 + ' -- link inside step');
 }
+var mdGroupActive = false;
+mdDomSkipped = mdSitesSkipped;
 
 // ===== _allowClass tests (all sites) =====
 section('_allowClass (all sites)');
@@ -862,11 +867,284 @@ for (var x = 0; x < SITES.length; x++) {
   ok(/var\(--font-mono/.test(xcss), xs + ' -- counter uses monospace font');
 }
 
+// --- Bottom bar: main-page section anchors (neohiro) ---
+// The persistent dock carries one anchor per top-level section of the home page.
+// These assertions pin the four things that can silently break it: the list can
+// drift away from index.md, the href can come out as "##home", the data
+// attribute can carry the "#" (which getElementById would never match), and the
+// active-section highlighter can start claiming a value that misdescribes the
+// element to assistive tech.
+section('Dock section anchors (neohiro)');
+(function () {
+  var siteDir = 'neohiro.github.io';
+  var cfgFile = PATH.join(REPO, siteDir, '_config.yml');
+  var incFile = PATH.join(REPO, siteDir, '_includes', 'auth-bar.html');
+  var idxFile = PATH.join(REPO, siteDir, 'index.md');
+  var uxFile = PATH.join(REPO, siteDir, 'assets', 'js', 'network-ux.js');
+  if (!FS.existsSync(cfgFile) || !FS.existsSync(incFile) || !FS.existsSync(idxFile)) return;
+
+  var cfg = FS.readFileSync(cfgFile, 'utf8');
+  var inc = FS.readFileSync(incFile, 'utf8');
+  var idx = FS.readFileSync(idxFile, 'utf8');
+  var ux = FS.existsSync(uxFile) ? FS.readFileSync(uxFile, 'utf8') : '';
+
+  ok(/- "Home\|#home"/.test(cfg), siteDir + ' -- _config.yml declares main_sections');
+  ok(/main_sections:/.test(cfg), siteDir + ' -- main_sections is a first-class config key');
+
+  // Every configured section must resolve to a real id in index.md. Parse the
+  // ids out of the page and the fragments out of the config and intersect them,
+  // so adding a section to one and forgetting the other fails here rather than
+  // shipping a pill that jumps nowhere.
+  var indexIds = idx.match(/<(?:section|div)[^>]*\bid="([^"]+)"/g) || [];
+  indexIds = indexIds.map(function (t) { return (t.match(/id="([^"]+)"/) || [])[1]; })
+                      .filter(Boolean);
+  var configured = cfg.match(/- "[^"]*\|#[^"]*"/g) || [];
+  configured.forEach(function (entry) {
+    var frag = (entry.match(/\|#([^"]+)"/) || [])[1];
+    ok(!!frag && indexIds.indexOf(frag) !== -1,
+       siteDir + ' -- configured section #' + frag + ' exists as an id in index.md');
+  });
+  ok(indexIds.length >= configured.length,
+     siteDir + ' -- index.md declares at least as many section ids as are configured');
+
+  // href must not double up the hash, and must be page-aware.
+  ok(/href="\{% if on_home %\}\{\{ sec_frag \}\}\{% else %\}\/\{\{ sec_frag \}\}\{% endif %\}"/.test(inc),
+     siteDir + ' -- section href uses the fragment verbatim (no doubled "#")');
+  ok(/data-section-anchor="\{\{ sec_frag \| remove_first: '#' \}\}"/.test(inc),
+     siteDir + ' -- data-section-anchor carries the bare id getElementById can use');
+  ok(/on_home/.test(inc), siteDir + ' -- anchors are page-aware (fragment on home, absolute elsewhere)');
+
+  // JS: the highlighter must key off the bare id and must not use an
+  // aria-current value that claims the element IS the page.
+  if (ux) {
+    ok(/function trackDockSections\(\)/.test(ux), siteDir + ' -- trackDockSections() exists');
+    ok(/data-section-anchor/.test(ux), siteDir + ' -- trackDockSections() reads data-section-anchor');
+    ok(/getElementById\(id\)/.test(ux), siteDir + ' -- trackDockSections() resolves anchors by id');
+    ok(/setAttribute\('aria-current',\s*'true'\)/.test(ux), siteDir + ' -- active section sets aria-current="true"');
+    ok(!/setAttribute\('aria-current',\s*'(?:location|page)'/.test(ux),
+       siteDir + ' -- active section never claims aria-current="location"/"page"');
+    ok(/mountAssistantBar\(\);[\s\S]{0,400}trackDockSections\(\)/.test(ux),
+       siteDir + ' -- trackDockSections() is wired into boot()');
+    // Single source of truth. A second writer (an IntersectionObserver sharing
+    // aria-current with a scroll listener) can mark two sections current and
+    // then unset the right one, and can leave the final pill permanently dead.
+    var tsBody = (ux.match(/function trackDockSections\(\)\s*\{[\s\S]*?\n  \}\n/) || [''])[0];
+    ok(tsBody.length > 0, siteDir + ' -- trackDockSections() body is extractable');
+    ok(!/IntersectionObserver/.test(tsBody),
+       siteDir + ' -- trackDockSections() has no second state writer (no IntersectionObserver)');
+    ok(/addEventListener\('scroll',\s*schedule,\s*\{\s*passive:\s*true\s*\}\)/.test(tsBody),
+       siteDir + ' -- scroll listener is passive (does not block scrolling)');
+    ok(/addEventListener\('resize'/.test(tsBody), siteDir + ' -- tracks resize (probe line depends on innerHeight)');
+    ok(/requestAnimationFrame/.test(tsBody), siteDir + ' -- scroll work is rAF-throttled');
+    ok(/paint\(\);\s*\/\/ initial paint/.test(tsBody),
+       siteDir + ' -- paints once on load, not only after the first scroll');
+  }
+})();
+
+// --- Dock section tracking: behaviour (neohiro) ---
+// The regex checks above pin the shape; these pin the behaviour, which is where
+// the bug actually lived. An IntersectionObserver band cannot mark a final
+// section that never reaches the band, and the final section of a page has
+// nothing below it to scroll it into place — so the last pill never lit. No
+// DOM library is available or needed: trackDockSections() only touches
+// querySelectorAll, getElementById, getBoundingClientRect and addEventListener,
+// all of which are trivially mockable, so this does not join the skipped set.
+section('Dock section tracking behaviour (neohiro)');
+(function () {
+  var VM = require('vm');
+  var uxPath = PATH.join(REPO, 'neohiro.github.io', 'assets', 'js', 'network-ux.js');
+  if (!FS.existsSync(uxPath)) return;
+  var ux = FS.readFileSync(uxPath, 'utf8');
+  var body = (ux.match(/function trackDockSections\(\)\s*\{[\s\S]*?\n  \}\n/) || [])[0];
+  if (!body) { ok(false, 'trackDockSections() body not extractable'); return; }
+
+  // ids: anchor ids in dock order. tops: their viewport-relative tops.
+  // docHeight: scrollHeight, for the "scrolled to the end" case.
+  function mount(ids, tops, opts) {
+    opts = opts || {};
+    var els = {}, links = [];
+    ids.forEach(function (id, i) {
+      els[id] = { id: id,
+        getBoundingClientRect: function () { return { top: this._top }; },
+        _top: tops[id] };
+      var a = { _id: id, attrs: { 'data-section-anchor': id },
+        getAttribute: function (k) { return this.attrs[k]; },
+        setAttribute: function (k, v) { this.attrs[k] = v; },
+        removeAttribute: function (k) { delete this.attrs[k]; } };
+      links.push(a);
+    });
+    var pending = null;
+    var handlers = {};
+    var win = {
+      innerHeight: opts.vh || 800,
+      scrollY: opts.scrollY || 0,
+      requestAnimationFrame: function (fn) { pending = fn; return 1; },
+      addEventListener: function (t, fn) { handlers[t] = fn; }
+    };
+    var sb = {
+      window: win,
+      document: {
+        scrollHeight: opts.docHeight || 10000,
+        documentElement: { scrollHeight: opts.docHeight || 10000 },
+        querySelectorAll: function (s) {
+          return s === '.ai-dock__sec[data-section-anchor]' ? links : [];
+        },
+        getElementById: function (id) { return els[id] || null; },
+        addEventListener: function (t, fn) { handlers[t] = fn; }
+      },
+      setTimeout: setTimeout
+    };
+    vm2run(body, sb);
+    return {
+      links: links,
+      current: function () {
+        return links.filter(function (l) { return l.attrs['aria-current'] === 'true'; })
+                    .map(function (l) { return l._id; });
+      },
+      setTop: function (id, v) { els[id]._top = v; },
+      // Fire a real scroll: dispatch to the registered handler, then flush the
+      // rAF it scheduled. Calling the rAF directly would pass even if the
+      // handler were never registered, which is the bug this suite exists for.
+      scroll: function (scrollY) {
+        if (scrollY !== undefined) win.scrollY = scrollY;
+        if (handlers.scroll) handlers.scroll();
+        if (pending) { var p = pending; pending = null; p(); }
+      }
+    };
+  }
+  function vm2run(code, sb) {
+    VM.createContext(sb);
+    VM.runInContext(code + '\ntrackDockSections();', sb);
+  }
+
+  // A realistic 6-section home page, viewport 800, probe line at 400.
+  // Reachable because the page is scrolled; tops are viewport-relative.
+  var ids = ['home', 'quotes', 'featured-tools', 'hardening-guides', 'community', 'live-data'];
+  function page(tops, opts) { return mount(ids, tops, opts); }
+
+  ok(true, 'dock behaviour harness built');
+
+  // 1. Exactly one pill is current, always. With quotes.top=-300 and
+  //    featured-tools.top=200 on an 800px viewport the probe line (y=400) sits
+  //    inside featured-tools, so that is the section being read.
+  var t = page({ 'home': -900, 'quotes': -300, 'featured-tools': 200,
+                 'hardening-guides': 900, 'community': 1600, 'live-data': 2300 });
+  ok(t.current().length === 1, 'exactly one section is current on load (got ' + t.current() + ')');
+  ok(t.current()[0] === 'featured-tools',
+     'current is the section crossing the probe line (got ' + t.current() + ')');
+
+  // 2. Nothing has reached the line yet, and we are NOT at the document end —
+  //    a viewport taller than the content above the probe line. (docHeight must
+  //    exceed scrollY + innerHeight, otherwise the document-end branch below
+  //    owns the answer and this branch is never exercised.)
+  var s = page({ 'home': 500, 'quotes': 1300, 'featured-tools': 2000,
+                 'hardening-guides': 2700, 'community': 3400, 'live-data': 4100 },
+                { vh: 800, docHeight: 5000, scrollY: 0 });
+  ok(s.current().length === 1, 'a section is still current when none has passed the line (got ' + s.current() + ')');
+  ok(s.current()[0] === 'home', 'that section is the first one (got ' + s.current() + ')');
+
+  // 2b. A page shorter than the viewport is at its end, so the final section is
+  //     the one being read — not the first.
+  var short = page({ 'home': -100, 'quotes': 200, 'live-data': 600 },
+                    { vh: 800, docHeight: 500, scrollY: 0 });
+  ok(short.current()[0] === 'live-data',
+     'a page shorter than the viewport marks the final section (got ' + short.current() + ')');
+
+  // 3. THE REGRESSION: the last section can never reach the probe line at the
+  //    bottom of the document, because there is nothing below it to scroll.
+  //    It must still light, or the final pill in the bar is permanently dead.
+  //    live-data.top=700 is BELOW the line (400), so position alone would say
+  //    community — only the scrolled-to-the-end case marks live-data.
+  var b = page({ 'home': -4000, 'quotes': -3000, 'featured-tools': -2000,
+                 'hardening-guides': -1000, 'community': 300, 'live-data': 700 },
+                { vh: 800, docHeight: 1700, scrollY: 900 });
+  ok(b.current().length === 1, 'exactly one section at the document end (got ' + b.current() + ')');
+  ok(b.current()[0] === 'live-data',
+     'last section lights at the bottom of the document (got ' + b.current() + ')');
+
+  // 4. Scrolling between two tall sections keeps exactly one marked.
+  t.setTop('quotes', -1200); t.setTop('featured-tools', -300);
+  t.scroll();
+  ok(t.current().length === 1 && t.current()[0] === 'featured-tools',
+     'handover between sections marks exactly one (got ' + t.current() + ')');
+
+  // 5. Scrolling back up restores the earlier section.
+  t.setTop('quotes', -200); t.setTop('featured-tools', 900);
+  t.scroll();
+  ok(t.current()[0] === 'quotes', 'scrolling back up restores the previous section (got ' + t.current() + ')');
+
+  // 5b. Reaching the end of the document hands over to the final section, and
+  //     leaving the end hands control back to position. Positions are set
+  //     BEFORE the dispatch — a repaint is what reads them.
+  t.scroll(99999);
+  ok(t.current()[0] === 'live-data',
+     'scrolling to the document end marks the final section (got ' + t.current() + ')');
+  t.setTop('community', 300); t.setTop('live-data', 800);
+  t.scroll(0);
+  ok(t.current()[0] === 'community',
+     'leaving the document end returns to position-based selection (got ' + t.current() + ')');
+
+  // 6. main_sections out of document order must not produce a wrong answer.
+  //    The fixture is built so that "last qualifying in CONFIG order" and
+  //    "largest top at or above the line" name DIFFERENT sections:
+  //      config order  quotes(300), featured-tools(100), home(-900)
+  //      position order home(-900) < featured-tools(100) < quotes(300)
+  //    Qualifying at line=400: all three. Config-last says 'home';
+  //    position-correct says 'quotes'. Only the latter is right.
+  var o = mount(['quotes', 'featured-tools', 'home'],
+                { 'home': -900, 'quotes': 300, 'featured-tools': 100 });
+  ok(o.current()[0] === 'quotes',
+     'selection is by measured position, not config order (got ' + o.current() + ')');
+
+  // 6b. Same discrimination at the document end, where "the last section" must
+  //     mean last by POSITION. Config order is live-data, quotes, home while
+  //     position order is home < quotes < live-data — so config-last is 'home'
+  //     and only position gives 'live-data'.
+  var o2 = mount(['live-data', 'quotes', 'home'],
+                 { 'home': -900, 'quotes': -300, 'live-data': 700 },
+                 { vh: 800, docHeight: 1700, scrollY: 900 });
+  ok(o2.current()[0] === 'live-data',
+     'document-end picks the last section by position, not config order (got ' + o2.current() + ')');
+
+  // 7. An anchor whose target is absent from this document is dropped, and the
+  //    rest of the bar keeps working. (A tool page has no #community.)
+  var m = mount(['home', 'community', 'live-data'],
+                { 'home': -900, 'live-data': 100 });
+  ok(m.current().length === 1 && m.current()[0] === 'live-data',
+     'a dead anchor does not break the working ones (got ' + m.current() + ')');
+  ok(m.links[1].attrs['aria-current'] === undefined,
+     'the dead anchor itself is never marked current');
+
+  // 8. No anchors at all (a page that renders the bar with nothing to track).
+  var threw = null;
+  try { mount([], {}); } catch (e) { threw = e; }
+  ok(!threw, 'zero anchors does not throw (' + (threw && threw.message) + ')');
+})();
+
+// --- Godadmin escalation on voicemail triage (all sites) ---
+// The AI bar's fallback path is a message to a human. It has to declare that
+// routing to the bridge, and the form has to tell the visitor where the text is
+// going, because that is the difference between "queued" and "sent to God".
+section('Voicemail escalates to godadmin (all sites)');
+for (var g = 0; g < SITES.length; g++) {
+  var gs = SITES[g];
+  var gfile = PATH.join(REPO, gs, 'assets', 'js', 'network-ux.js');
+  if (!FS.existsSync(gfile)) continue;
+  var gsrc = FS.readFileSync(gfile, 'utf8');
+  ok(/escalate:\s*'godadmin'/.test(gsrc), gs + ' -- voicemail payload declares escalate=godadmin');
+  ok(/reach:\s*'any'/.test(gsrc), gs + ' -- voicemail payload leaves channel choice to the bridge');
+  ok(/ai-conv__triage-reach/.test(gsrc), gs + ' -- triage form states the escalation path');
+  ok(/godadmin/.test(gsrc), gs + ' -- the notice names who reads it');
+}
+
 console.error('\n' + Array(50).join('-'));
-console.error('Results: ' + pass + ' passed, ' + fail + ' failed, ' + mdDomSkipped + ' skipped (need DOM)');
+console.error('Results: ' + pass + ' passed, ' + fail + ' failed');
+if (mdDomSkipped > 0) {
+  console.error('        + renderMarkdown group SKIPPED for ' + mdDomSkipped + ' site(s) (needs a real DOM)');
+}
 if (mdDomSkipped > 0) {
   console.error('');
-  console.error('!! ' + mdDomSkipped + ' renderMarkdown assertions were NOT executed.');
+  console.error('!! The renderMarkdown group was NOT executed for ' + mdDomSkipped + ' site(s).');
   console.error('!! They need a real DOM (DocumentFragment -> innerHTML) and this repo');
   console.error('!! ships no jsdom/Playwright. They are skipped, NOT passing. Run');
   console.error('!! assets/js/test-engine.html in a browser to cover them, or re-run');
