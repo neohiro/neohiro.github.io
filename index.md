@@ -385,14 +385,6 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
       ripple.style.top = (e.clientY - rect.top - size / 2) + "px";
       target.appendChild(ripple);
       setTimeout(() => ripple.remove(), 700);
-
-      if (target.classList.contains("community-card")) {
-        const href = target.dataset.href;
-        if (href) {
-          e.preventDefault();
-          setTimeout(() => window.open(href, "_blank", "noopener"), 120);
-        }
-      }
     });
 
     const loginBtn = document.getElementById("login-btn");

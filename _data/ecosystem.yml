@@ -1,0 +1,35 @@
+# Ecosystem entries surfaced in the home-page Featured Tools grid.
+#
+# These are not neohiro repositories, so they are kept out of _data/repos.yml
+# (which is a strict mirror of _tools/*.md and drives /repositories/). They render
+# as the same .tool-card so the grid stays visually uniform, with the accent and
+# pill colours driven by the same CSS variables as the rest of the site.
+entries:
+  - name: transhumanists
+    title: Transhumanists (H+)
+    tagline: "Human Progress, quantified. A live world map of scored breakthroughs across biotech, AGI, quantum, energy, cyber, space and defense."
+    platform: Web (GitHub Pages)
+    language: JavaScript / Python
+    pill: Research Portal
+    accent: purple
+    icon: |
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="2.5"/>
+        <ellipse cx="12" cy="12" rx="10" ry="4.5"/>
+        <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(60 12 12)"/>
+        <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(120 12 12)"/>
+      </svg>
+    repo_url: "https://github.com/frenzypenguin-media"
+    repo_label: Organization
+    repo_note: github.com/frenzypenguin-media
+    live_url: "https://transhumanists.github.io/"
+    live_label: Live data
+    stats:
+      - "7 verticals"
+      - "110+ milestones"
+      - "Updated daily"
+    highlights:
+      - "Scored milestone pipeline — every event carries a metric, a category and a source link"
+      - "Interactive world map with day/night terminator, conflict and crisis layers"
+      - "Conflict zones, fleet movements and human-rights landmarks on toggleable layers"
+      - "Open data: milestones, events and activity published as plain JSON"

@@ -1734,7 +1734,7 @@ p { color: var(--fg-muted); }
 }
 .link-guard-btn-primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
 /* ---------------------------------------------------------------
-   neohiro.github.io ï¿½ interactive enhancements
+   neohiro.github.io — interactive enhancements
    --------------------------------------------------------------
    - Onboarding consent card (3 states: pending, accepted, declined)
    - Click ripple on every interactive element

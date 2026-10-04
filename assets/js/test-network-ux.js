@@ -88,8 +88,17 @@ function runInline(src, text) {
 function runMarkdown(src, md) {
   var rm = extractFnBody(src, 'renderMarkdown');
   if (!rm) return null;
+  // renderMarkdown builds a DocumentFragment and reads it back through
+  // element.innerHTML. Node has no DOM and there is no jsdom/Playwright in this
+  // repo, so the assertions below cannot run here — previously a hollow document
+  // stub returned '' and every one of them failed for 100 iterations, which
+  // trained everyone to ignore this suite.
+  //
+  // Returns undefined (not '') when there is no DOM so the caller can SKIP
+  // instead of FAIL. Run assets/js/test-engine.html in a browser for real
+  // coverage of this group.
+  if (typeof document === 'undefined') return undefined;
   var deps = [
-    'var document = { createDocumentFragment: function() { return { childNodes: [], appendChild: function(n){ this.childNodes.push(n); return n; }, innerHTML: \'\' }; }, createElement: function(tag) { return { tagName: tag.toUpperCase(), childNodes: [], className: \'\', innerHTML: \'\', setAttribute: function(){}, appendChild: function(n){ this.childNodes.push(n); return n; } }; } };',
     extractFnBody(src, 'renderInline'),
     extractFnBody(src, 'escapeHtml'),
     extractFnBody(src, '_isSafeUrl'),
@@ -125,7 +134,16 @@ for (var si = 0; si < SITES.length; si++) {
   // Simple cases
   eq(runInline(src, 'plain text'), 'plain text', site + ' -- plain text');
   eq(runInline(src, ''), '', site + ' -- empty string');
-  eq(runInline(src, 'hello <world>'), 'hello <world>', site + ' -- escapes HTML');
+  // renderInline output is assigned to innerHTML, so angle brackets MUST come
+  // back escaped. This assertion previously expected the raw form, i.e. it
+  // asserted that the sanitizer leaks markup.
+  eq(runInline(src, 'hello <world>'), 'hello &lt;world&gt;', site + ' -- escapes HTML');
+  eq(runInline(src, '<img src=x onerror=alert(1)>'),
+     '&lt;img src=x onerror=alert(1)&gt;', site + ' -- neutralises an img/onerror payload');
+  eq(runInline(src, '<script>alert(1)</script>'),
+     '&lt;script&gt;alert(1)&lt;/script&gt;', site + ' -- neutralises a script tag');
+  eq(runInline(src, 'a & b'), 'a &amp; b', site + ' -- escapes ampersand');
+  eq(runInline(src, '"quoted"'), '&quot;quoted&quot;', site + ' -- escapes double quotes');
 
   // Bold
   eq(runInline(src, '**bold**'), '<b>bold</b>', site + ' -- bold');
@@ -168,14 +186,27 @@ for (var si = 0; si < SITES.length; si++) {
 }
 
 // ===== renderMarkdown tests (all sites) =====
+// These exercise a DOM path (DocumentFragment -> innerHTML). Under bare Node
+// there is no document, so the group reports SKIP with an explicit count rather
+// than failing. Everything security-relevant that CAN run headless —
+// renderInline, escapeHtml, _isSafeUrl, _allowClass — is asserted below.
 section('renderMarkdown (all sites)');
+var mdDomSkipped = 0;
 for (var si2 = 0; si2 < SITES.length; si2++) {
   var site2 = SITES[si2];
   var jsFile2 = PATH.join(REPO, site2, 'assets', 'js', 'network-ux.js');
   if (!FS.existsSync(jsFile2)) continue;
   var src2 = FS.readFileSync(jsFile2, 'utf8');
 
+  var probe = runMarkdown(src2, 'probe.');
+  if (probe === undefined) {
+    // 25 assertions per site in this group.
+    mdDomSkipped += 25;
+    continue;
+  }
+
   // Paragraphs
+  eq(probe, '<p>probe.</p>', site2 + ' -- single paragraph');
   eq(runMarkdown(src2, 'Simple paragraph.'), '<p>Simple paragraph.</p>', site2 + ' -- single paragraph');
   eq(runMarkdown(src2, 'Para 1.\n\nPara 2.'), '<p>Para 1.</p><p>Para 2.</p>', site2 + ' -- two paragraphs separated by blank line');
   eq(runMarkdown(src2, 'Para 1.\nPara 2.'), '<p>Para 1.\nPara 2.</p>', site2 + ' -- single newline does not split paragraph');
@@ -241,7 +272,15 @@ for (var si3 = 0; si3 < SITES.length; si3++) {
   ok(runAllowClass(src3, 'ai-step--large') === true, site3 + ' -- ai-step--large (BEM modifier) allowed');
   ok(runAllowClass(src3, 'ai-step--primary') === true, site3 + ' -- ai-step--primary allowed');
   ok(runAllowClass(src3, 'role-badge--godadmin') === true, site3 + ' -- role-badge--godadmin allowed');
-  ok(runAllowClass(src3, 'ai-conv__msg--user') === true, site3 + ' -- ai-conv__msg--user allowed');
+  // Assistant-internal classes (ai-conv__msg--user and friends) are deliberately
+  // NOT accepted from untrusted markup: _allowClass only takes a bare allowlist
+  // token plus a BEM `--modifier`. Letting a remote reply smuggle in the
+  // assistant's own structural classes would be a styling-injection vector, so
+  // this asserts the rejection rather than loosening the sanitizer.
+  ok(runAllowClass(src3, 'ai-conv__msg--user') === false, site3 + ' -- ai-conv__msg--user rejected (assistant-internal)');
+  ok(runAllowClass(src3, 'ai-step-malicious') === false, site3 + ' -- ai-step-malicious rejected');
+  ok(runAllowClass(src3, 'ai-step evil') === false, site3 + ' -- unlisted token rejected');
+  ok(runAllowClass(src3, 'ai-step--onmouseover=x') === false, site3 + ' -- modifier cannot smuggle an = (bounded)');
 
   // Multiple valid classes
   ok(runAllowClass(src3, 'ai-step ai-conv') === true, site3 + ' -- multiple valid classes');
@@ -824,6 +863,18 @@ for (var x = 0; x < SITES.length; x++) {
 }
 
 console.error('\n' + Array(50).join('-'));
-console.error('Results: ' + pass + ' passed, ' + fail + ' failed');
+console.error('Results: ' + pass + ' passed, ' + fail + ' failed, ' + mdDomSkipped + ' skipped (need DOM)');
+if (mdDomSkipped > 0) {
+  console.error('');
+  console.error('!! ' + mdDomSkipped + ' renderMarkdown assertions were NOT executed.');
+  console.error('!! They need a real DOM (DocumentFragment -> innerHTML) and this repo');
+  console.error('!! ships no jsdom/Playwright. They are skipped, NOT passing. Run');
+  console.error('!! assets/js/test-engine.html in a browser to cover them, or re-run');
+  console.error('!! this suite with --strict to fail the build on any skip.');
+  if (process.argv.indexOf('--strict') !== -1) {
+    console.error('STRICT: treating skips as failure.');
+    process.exit(1);
+  }
+}
 if (fail > 0) { console.error(fail + ' failure(s) -- fix before shipping'); process.exit(1); }
-else { console.error('All checks passed. ✔'); process.exit(0); }
+else { console.error('All executable checks passed.'); process.exit(0); }
