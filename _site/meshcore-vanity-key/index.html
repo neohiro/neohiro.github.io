@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="This tool was renamed to meshcore-meshtastic-vanity-key and now lives at a new address.">
+  <title>Moved — meshcore-vanity-key</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/network-ux.css">
+  <link rel="stylesheet" href="/assets/css/auth-bar.css">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.github.com https://raw.githubusercontent.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+  <!-- Begin Jekyll SEO tag v2.9.1 -->
+<title>Moved — meshcore-vanity-key | neohiro</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Moved — meshcore-vanity-key" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This tool was renamed to meshcore-meshtastic-vanity-key and now lives at a new address." />
+<meta name="twitter:description" property="og:description" content="This tool was renamed to meshcore-meshtastic-vanity-key and now lives at a new address." />
+<link rel="canonical" href="https://neohiro.github.io/meshcore-vanity-key/" />
+<meta property="og:url" content="https://neohiro.github.io/meshcore-vanity-key/" />
+<meta property="og:site_name" content="neohiro" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Moved — meshcore-vanity-key" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"This tool was renamed to meshcore-meshtastic-vanity-key and now lives at a new address.","headline":"Moved — meshcore-vanity-key","url":"https://neohiro.github.io/meshcore-vanity-key/"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <link type="application/atom+xml" rel="alternate" href="https://neohiro.github.io/feed.xml" title="neohiro" />
+  <link rel="stylesheet" href="/assets/css/site-tokens.css">
+  <link rel="stylesheet" href="/assets/css/site-forge.css">
+{# fonts: managed by template-shared/site_forge.py from sites.yaml #}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700|Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+{# decor: managed by template-shared/site_forge.py from sites.yaml #}
+<body class="decor-matrix decor-scanlines decor-grain">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Glitch overlay for page transitions -->
+  <div id="glitch-overlay" class="glitch-overlay" aria-hidden="true">
+    <div class="glitch-text" data-text="NEOHIRO"></div>
+  </div>
+
+  <div class="page-wrapper">
+    <header class="site-header" role="banner">
+      <div class="container">
+        <a class="site-brand" href="/" aria-label="neohiro - Home">
+          <span class="logo-mark" aria-hidden="true">👽</span>
+          <span class="logo-text">neohiro</span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+          <a href="/#featured-tools" class="nav-link">Tools</a>
+          <a href="/#hardening-guides" class="nav-link">Guides</a>
+          <a href="/repositories/" class="nav-link">Repositories</a>
+          <a href="/media/" class="nav-link">Media</a>
+          <div class="nav-dropdown">
+            <button class="nav-link nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
+              Community <span aria-hidden="true">-_</span>
+            </button>
+            <div class="nav-dropdown-menu">
+              <a href="https://github.com/neohiro" class="nav-dropdown-item">Org Overview</a>
+              <a href="https://github.com/neohiro/windows/issues" class="nav-dropdown-item">Bug Reports</a>
+              <a href="https://github.com/neohiro/windows/security" class="nav-dropdown-item">Security Advisories</a>
+              <a href="https://github.com/neohiro/windows/discussions" class="nav-dropdown-item">Discussions</a>
+              <a href="/heartbeats/" class="nav-dropdown-item">Heartbeats</a>
+              <a href="https://github.com/sponsors/neohiro" class="nav-dropdown-item">Sponsor</a>
+            </div>
+          </div>
+          <a href="https://github.com/sponsors/neohiro" class="nav-link nav-sponsor" target="_blank" rel="noopener">Sponsor</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="site-main" role="main" tabindex="-1">
+      <!--
+  Permanent redirect for the project's former address.
+
+  The repository was renamed from `meshcore-vanity-key` to
+  `meshcore-meshtastic-vanity-key`, and GitHub Pages serves a project site from
+  the repository NAME. GitHub redirects the old *repository* URL on its own
+  (github.com/neohiro/meshcore-vanity-key -> .../meshcore-meshtastic-vanity-key),
+  but it does NOT redirect the *Pages* path: renaming the repository moves the
+  site, and the old path becomes a 404 on this user site with nothing behind it.
+
+  This page exists to catch that. It keeps the old URL working for bookmarks,
+  inbound links and anything already indexed, instead of leaving a dead end.
+
+  Three mechanisms, in order of how quickly they fire:
+    1. <meta http-equiv="refresh"> - fires with no JavaScript, which matters
+       because a redirect that depends on JS is a redirect that fails.
+    2. location.replace() - same timing, but replaces the history entry so the
+       back button does not bounce the visitor straight back into a redirect
+       loop. `location.href` would create exactly that trap.
+    3. The visible link below. If both of the above are blocked - a strict
+       Content-Security-Policy, an embedded viewer, a crawler - there is still a
+       real, clickable link rather than a blank page.
+
+  `noindex` keeps a redirect out of search results, since it is not content and
+  duplicates the tool page it points at.
+-->
+
+<meta http-equiv="refresh" content="0; url=https://neohiro.github.io/meshcore-meshtastic-vanity-key/" />
+
+<link rel="canonical" href="https://neohiro.github.io/meshcore-meshtastic-vanity-key/" />
+
+<script>window.location.replace("https://neohiro.github.io/meshcore-meshtastic-vanity-key/");</script>
+
+<div class="container" style="padding:64px 24px;max-width:640px;margin:0 auto;text-align:center">
+  <h1 style="font-size:1.5rem;margin-bottom:12px">This tool has moved</h1>
+  <p style="color:var(--fg-muted,#8b949e);line-height:1.6;margin-bottom:24px">
+    <strong>meshcore-vanity-key</strong> was renamed to
+    <strong>meshcore-meshtastic-vanity-key</strong>. You should be redirected
+    automatically. If not, use the link below.
+  </p>
+  <p>
+    <a href="https://neohiro.github.io/meshcore-meshtastic-vanity-key/" style="display:inline-block;padding:12px 24px;border-radius:6px;
+              background:var(--accent,#58a6ff);color:#0d1117;font-weight:600;
+              text-decoration:none">
+      Open meshcore-meshtastic-vanity-key &rarr;
+    </a>
+  </p>
+  <p style="margin-top:24px;font-size:0.8125rem;color:var(--fg-subtle,#6e7681)">
+    Repository:
+    <a href="https://github.com/neohiro/meshcore-meshtastic-vanity-key">github.com/neohiro/meshcore-meshtastic-vanity-key</a>
+  </p>
+</div>
+
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="container">
+        <div class="footer-unified">
+  <!-- Philosophy Quote -->
+  <div class="footer-quote-wrap">
+    <blockquote class="footer-quote">
+      “Every body has organs. Every system has dependencies. We built this stack so nothing breaks quietly.”
+    </blockquote>
+  </div>
+
+  {# The Ecosystem Network grid lives in ecosystem-network.html and is included once
+     by _layouts/default.html directly after this file. It used to be duplicated in
+     both places, which rendered six ecosystem cards per page. #}
+
+  <!-- Quick Links & Legal Directory -->
+  <div class="footer-columns">
+    <div class="footer-column">
+      <h4>Tooling &amp; Systems</h4>
+      <ul>
+        <li><a href="/#featured-tools">Hardening Tools</a></li>
+        <li><a href="/#hardening-guides">Implementation Guides</a></li>
+        <li><a href="/repositories/">All Public Repositories</a></li>
+        <li><a href="/media/">Media &amp; Deep Dives</a></li>
+        <li><a href="/heartbeats/">System Heartbeats (Live SVGs)</a></li>
+        <li><a href="/onboard/">Onboarding &amp; Setup</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Trust &amp; Governance</h4>
+      <ul>
+        <li><a href="/privacy/">Privacy Policy (Zero Telemetry)</a></li>
+        <li><a href="/tos/">Terms of Service</a></li>
+        <li><a href="/LICENSE/">Open Source Licensing</a></li>
+        <li><a href="https://github.com/neohiro/windows/security" target="_blank" rel="noopener">Security Advisories</a></li>
+        <li><a href="https://github.com/neohiro/neohiro.github.io/blob/main/CODE_OF_CONDUCT.md" target="_blank" rel="noopener">Code of Conduct</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column footer-column-community">
+      <h4>Support &amp; Community</h4>
+      <p class="footer-support-text">Open-source defense engineering funded independently without telemetry, analytics, or trackers.</p>
+      <a href="https://github.com/sponsors/neohiro" class="footer-sponsor-button" target="_blank" rel="noopener">
+        <span class="heart-pulse" aria-hidden="true">♥</span> Sponsor neohiro on GitHub
+      </a>
+      <div class="footer-community-links">
+        <a href="https://github.com/neohiro/windows/issues" target="_blank" rel="noopener">Bug Reports</a> ·
+        <a href="https://github.com/neohiro/windows/discussions" target="_blank" rel="noopener">Discussions</a> ·
+        <a href="https://github.com/neohiro" target="_blank" rel="noopener">Org Overview</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Tagline & Micro-Legal -->
+  <div class="footer-bottom-bar">
+    <p class="footer-tagline">
+      Made with <span class="heart" aria-hidden="true">♥</span> by neohiro · Defense is the best defense.
+    </p>
+    <p class="footer-micro">
+      © 2026 FrenzyPenguin Media &amp; neohiro · All tools released under FOSS licenses (GPL-3.0 / MIT).
+    </p>
+  </div>
+</div>
+<!-- ecosystem-network.html — the unified Ecosystem Network frame.
+     SSOT: template-shared/_includes/ecosystem-network.html
+
+     Every *.github.io site includes this once per page, after
+     footer-button-row.html, so the frame sits at the very bottom of the
+     footer with clear space above it. It lists all four network sites in a
+     fixed order, including the one the visitor is already on.
+
+     Parameter:
+       current — the site rendering this file. One of: neohiro | fpm |
+                 transhumanists | openstageisland. Omit it and every card
+                 links out normally.
+
+     The matching card drops its links (name and host become plain text) and
+     gains .is-current, so "you are here" is conveyed by the card's shape
+     rather than by colour alone.
+
+     The frame's own heading is an <h2>, not an <h3>. The frame is a sibling of
+     the page's content sections, not a subsection of the last one, and <h3>
+     only passed the heading-order gate on pages whose content happened to end
+     in an <h2> — on a page ending in the <h1> it read as a skipped level.
+     Every page has exactly one <h1> and uses <h2> for sections, so <h2> is
+     correct everywhere.
+
+     Cross-site links are absolute on purpose: the frame is a directory of
+     other origins, so a relative_url would resolve against whichever site
+     happens to be rendering it. --><!-- Ecosystem Network -->
+<section class="footer-ecosystem" aria-labelledby="ecosystem-network-title">
+  <div class="footer-ecosystem-header">
+    <span class="footer-badge">ECOSYSTEM NETWORK</span>
+    <h2 class="footer-ecosystem-title" id="ecosystem-network-title">Interconnected Media, Research &amp; Tooling</h2>
+  </div>
+
+  <div class="footer-ecosystem-grid">
+
+    <!-- neohiro -->
+    <div class="ecosystem-card">
+      <div class="ecosystem-card-top">
+        <div class="ecosystem-icon" aria-hidden="true">👽</div>
+        <div class="ecosystem-info">
+          <div class="ecosystem-name-row"><a href="https://neohiro.github.io/" target="_blank" rel="noopener" class="ecosystem-name">neohiro</a>
+            <span class="ecosystem-pill ecosystem-pill-hub">Hardening Hub</span>
+          </div><a href="https://neohiro.github.io/" target="_blank" rel="noopener" class="ecosystem-url">neohiro.github.io</a>
+        </div>
+      </div>
+      <p class="ecosystem-desc">Production-grade security hardening for Windows &amp; Linux. STIG compliance and zero telemetry.</p>
+      <div class="ecosystem-links">
+        <a href="https://neohiro.github.io/repositories/" class="ecosystem-action-btn ecosystem-btn-main">
+          All Repositories &rarr;
+        </a>
+        <a href="https://github.com/neohiro" target="_blank" rel="noopener" class="ecosystem-action-btn ecosystem-btn-alt" title="GitHub Organization">
+          github.com/neohiro &rarr;
+        </a>
+      </div>
+    </div>
+
+    <!-- FrenzyPenguin Media -->
+    <div class="ecosystem-card">
+      <div class="ecosystem-card-top">
+        <div class="ecosystem-icon" aria-hidden="true">🎬</div>
+        <div class="ecosystem-info">
+          <div class="ecosystem-name-row"><a href="https://frenzypenguin.media" target="_blank" rel="noopener" class="ecosystem-name">FrenzyPenguin Media</a>
+            <span class="ecosystem-pill ecosystem-pill-primary">Main Domain</span>
+          </div><a href="https://frenzypenguin.media" target="_blank" rel="noopener" class="ecosystem-url">frenzypenguin.media</a>
+        </div>
+      </div>
+      <p class="ecosystem-desc">Music artist recordings, creative projects, and multimedia content from the makers of neohiro.</p>
+      <div class="ecosystem-links">
+        <a href="https://frenzypenguin.media" class="ecosystem-action-btn ecosystem-btn-main">
+          frenzypenguin.media &rarr;
+        </a>
+        <a href="https://frenzypenguin-media.github.io/" target="_blank" rel="noopener" class="ecosystem-action-btn ecosystem-btn-alt" title="GitHub Pages / Repository Source">
+          gh-pages &rarr;
+        </a>
+      </div>
+    </div>
+
+    <!-- Transhumanists (H+) -->
+    <div class="ecosystem-card">
+      <div class="ecosystem-card-top">
+        <div class="ecosystem-icon" aria-hidden="true">🧬</div>
+        <div class="ecosystem-info">
+          <div class="ecosystem-name-row"><a href="https://transhumanists.github.io/" target="_blank" rel="noopener" class="ecosystem-name">Transhumanists (H+)</a>
+            <span class="ecosystem-pill ecosystem-pill-network">Research Portal</span>
+          </div><a href="https://transhumanists.github.io/" target="_blank" rel="noopener" class="ecosystem-url">transhumanists.github.io</a>
+        </div>
+      </div>
+      <p class="ecosystem-desc">Evolutionary technology, longevity architectures, cognitive research, and transhumanism.</p>
+      <div class="ecosystem-links">
+        <a href="https://transhumanists.github.io/" class="ecosystem-action-btn ecosystem-btn-main">
+          transhumanists.github.io &rarr;
+        </a>
+        <a href="https://github.com/transhumanists" target="_blank" rel="noopener" class="ecosystem-action-btn ecosystem-btn-alt" title="GitHub Organization">
+          GitHub Org &rarr;
+        </a>
+      </div>
+    </div>
+
+    <!-- Open Stage Island -->
+    <div class="ecosystem-card">
+      <div class="ecosystem-card-top">
+        <div class="ecosystem-icon" aria-hidden="true">🏝️</div>
+        <div class="ecosystem-info">
+          <div class="ecosystem-name-row"><a href="https://openstageisland.github.io/" target="_blank" rel="noopener" class="ecosystem-name">Open Stage Island</a>
+            <span class="ecosystem-pill ecosystem-pill-stage">Second Life Venue</span>
+          </div><a href="https://openstageisland.github.io/" target="_blank" rel="noopener" class="ecosystem-url">openstageisland.github.io</a>
+        </div>
+      </div>
+      <p class="ecosystem-desc">Free 24/7 open-air electronic music stage in Second Life. Any artist can take the stage — no booking, no fee.</p>
+      <div class="ecosystem-links">
+        <a href="https://openstageisland.github.io/" class="ecosystem-action-btn ecosystem-btn-main">openstageisland.github.io &rarr;
+        </a>
+        <a href="https://github.com/openstageisland" target="_blank" rel="noopener" class="ecosystem-action-btn ecosystem-btn-alt" title="GitHub Organization">
+          GitHub Org &rarr;
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+        <div align="center">
+  <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1631173/t/1" defer></script>
+  <noscript>
+    <a href="https://www.freevisitorcounters.com/">View visitor counter</a>
+  </noscript>
+</div>
+      </div>
+    </footer>
+  </div>
+
+  {# auth-bar.html — the persistent lower bar ("dock").
+
+   CONTRACT (keep in sync across neohiro / frenzypenguin-media / openstageisland /
+   transhumanists):
+
+   1. AI and Contact are ONE thing here. There is no separate Contact tab and no
+      separate chat form. The only composer is the assistant ask bar that
+      network-ux.js mounts (#ai-bar), which talks to the real Mouth endpoint via
+      /.well-known/ask. The previous dock-local form POSTed to '/api/contact',
+      which does not exist on GitHub Pages, so every message silently failed.
+   2. Login lives in the TOP bar (see nav.html). The dock only surfaces the
+      signed-in state (Dashboard / avatar) and the sign-out control.
+   3. Selecting "Assistant" hands off to network-ux.js, which slides this dock
+      down and slides the screenwide conversation sheet up behind it. The page
+      behind stays scrollable and interactive.
+   4. THE RAIL IS THE PERSISTENT NAVBAR FOR THE MAIN PAGE. Its leftmost item is
+      the AI-bar button (#ai-dock__tab--ai) — network-ux.js routes it to the
+      mainframe bridge for an answer, and to the voicemail queue for triage that
+      reaches godadmin. To its right, every top-level section of index.md appears
+      as an in-page anchor, driven by the `main_sections` list in _config.yml so
+      this template cannot drift from the page. Anchor targets are same-document
+      on the home page; from any other page they become "/" + fragment, so the
+      rail never links to a section that is not on the document it is rendered in.
+
+   The remaining panels are kept because auth-bar.js wires them by id and the
+   top-bar Login button calls AuthBar.selectTab('login'). #}
+<div class="ai-dock" id="ai-dock" role="navigation" aria-label="Assistant and page sections">
+  <div class="ai-dock__rail">
+
+    {# ── LEFT: the AI bar. Assistant answers via the mainframe bridge
+           (/.well-known/ask) and escalates to voicemail triage
+           (/.well-known/voicemail) that reaches godadmin. #}
+    <button class="ai-dock__tab ai-dock__tab--ai"
+            role="tab"
+            aria-selected="false"
+            aria-controls="ai-dock__panel--ai"
+            id="ai-dock__tab--ai"
+            title="Talk to the assistant — questions, bug reports, access requests">
+      <span class="ai-dock__tab-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+          <path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm0 2a8 8 0 110 16 8 8 0 010-16zm-1 3v4.586l-2.707 2.707-1.414-1.414L11.293 9.88 8.586 7.172A1 1 0 009.586 6.172l3 3A1 1 0 0112 10.586V7a1 1 0 012 0v3a1 1 0 01-1 1h-3z"/>
+        </svg>
+      </span>
+      <span class="ai-dock__tab-label">Assistant</span>
+    </button>
+
+    {# ── MIDDLE: every top-level section of the main page, as anchors.
+           `on_home` is true only when the current document IS the main page, so
+           the hrefs are bare fragments here and absolute everywhere else.
+
+           There is deliberately NO hardcoded fallback list. This template is
+           shared by four sites whose home pages carry different section ids, so
+           a baked-in list would put pills in every site's bottom bar pointing
+           at fragments that do not exist there — dead links are worse than no
+           links. A site that does not declare `main_sections` gets a clean bar
+           (AI bar + account); declare the list in _config.yml to switch the
+           group on. #}<div class="ai-dock__sep" aria-hidden="true"></div>
+    <nav class="ai-dock__sections" aria-label="Main page sections">{# `sec_frag` arrives as "#home" (the config spells it as a fragment so it
+           is unambiguous there). The href needs it verbatim; the data attribute
+           needs the bare id, because that is what getElementById() takes. #}
+        <a class="ai-dock__sec"
+           href="/#home"
+           data-section-anchor="home">Home</a>{# `sec_frag` arrives as "#home" (the config spells it as a fragment so it
+           is unambiguous there). The href needs it verbatim; the data attribute
+           needs the bare id, because that is what getElementById() takes. #}
+        <a class="ai-dock__sec"
+           href="/#quotes"
+           data-section-anchor="quotes">Signal</a>{# `sec_frag` arrives as "#home" (the config spells it as a fragment so it
+           is unambiguous there). The href needs it verbatim; the data attribute
+           needs the bare id, because that is what getElementById() takes. #}
+        <a class="ai-dock__sec"
+           href="/#featured-tools"
+           data-section-anchor="featured-tools">Tools</a>{# `sec_frag` arrives as "#home" (the config spells it as a fragment so it
+           is unambiguous there). The href needs it verbatim; the data attribute
+           needs the bare id, because that is what getElementById() takes. #}
+        <a class="ai-dock__sec"
+           href="/#hardening-guides"
+           data-section-anchor="hardening-guides">Guides</a>{# `sec_frag` arrives as "#home" (the config spells it as a fragment so it
+           is unambiguous there). The href needs it verbatim; the data attribute
+           needs the bare id, because that is what getElementById() takes. #}
+        <a class="ai-dock__sec"
+           href="/#community"
+           data-section-anchor="community">Community</a></nav><a class="ai-dock__tab ai-dock__tab--dashboard hidden"
+       id="ai-dock__tab--dashboard"
+       title="Dashboard"
+       href="https://github.com/neohiro/dashboard" target="_blank" rel="noopener">
+      <span class="ai-dock__tab-icon" aria-hidden="true">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+          <path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+      </span>
+      <span class="ai-dock__tab-label">Dashboard</span>
+    </a>
+
+    <button class="ai-dock__tab ai-dock__tab--user hidden"
+            role="tab"
+            aria-selected="false"
+            aria-controls="ai-dock__panel--user"
+            id="ai-dock__tab--user">
+      <img id="ai-dock__avatar" src="" alt="" width="20" height="20" style="border-radius:50%" loading="lazy">
+      <span id="ai-dock__username"></span>
+      <span class="ai-dock__role-badge" id="ai-dock__role"></span>
+    </button>
+
+  </div>
+
+  <div class="ai-dock__panels">
+
+    {# Placeholder panel — the real conversation UI is the screenwide sheet that
+       network-ux.js mounts (#ai-conv). Kept so aria-controls resolves. #}
+    <div class="ai-dock__panel ai-dock__panel--ai"
+         id="ai-dock__panel--ai"
+         role="tabpanel"
+         aria-labelledby="ai-dock__tab--ai"
+         hidden>
+      <div class="ai-dock__ai-chat">
+        <p>The assistant opens as a full-width sheet above this bar. The site stays scrollable behind it.</p>
+      </div>
+    </div>
+
+    <div class="ai-dock__panel ai-dock__panel--login"
+         id="ai-dock__panel--login"
+         role="tabpanel"
+         aria-labelledby="nav-auth__login"
+         hidden>
+      <div class="ai-dock__login">
+        <p>Sign in with GitHub to reach the dashboard, request features, or let the assistant know who you are.</p>
+        <button id="ai-dock__gh-btn" class="ai-dock__btn ai-dock__btn--github">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+          </svg>
+          Continue with GitHub
+        </button>
+        <p class="ai-dock__login-note">Read-only access to your GitHub profile. No write permissions.</p>
+      </div>
+    </div>
+
+    <div class="ai-dock__panel ai-dock__panel--user"
+         id="ai-dock__panel--user"
+         role="tabpanel"
+         aria-labelledby="ai-dock__tab--user"
+         hidden>
+      <div class="ai-dock__user-menu">
+        <div class="ai-dock__user-info">
+          <img id="ai-dock__user-avatar-lg" src="" alt="" width="36" height="36" style="border-radius:50%">
+          <div>
+            <div id="ai-dock__user-name"></div>
+            <div class="ai-dock__user-login" id="ai-dock__user-login"></div>
+          </div>
+        </div>
+        <div class="ai-dock__user-actions">
+          <a id="ai-dock__user-dashboard-link" href="https://github.com/neohiro/dashboard" class="ai-dock__btn ai-dock__btn--ghost" target="_blank" rel="noopener">
+            Dashboard
+          </a>
+          <button id="ai-dock__user-logout" class="ai-dock__btn ai-dock__btn--ghost">
+            Sign out
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ai-dock__backdrop" id="ai-dock__backdrop" hidden></div>
+</div>
+
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/network-ux.js"></script>
+  <script src="/assets/js/auth-bar.js" defer></script>
+</body>
+</html>

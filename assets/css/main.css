@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --bg: #0b0e12;
   --bg-elevated: #161e26;
   --bg-card: #111820;
@@ -1871,3 +1871,225 @@ p { color: var(--fg-muted); }
   pointer-events: auto;
 }
 
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   meshcore-meshtastic-vanity-key tool page
+   Scoped under .tool-page and prefixed .vk- so nothing here can leak into
+   another page or be hit by accident. Colours are the site tokens, so the
+   accent palette stays defined in exactly one place.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Call-to-action strip ───────────────────────────────────────────────── */
+.tool-page .vk-cta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 24px 0 36px;
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(120% 160% at 0% 0%, var(--accent-dim) 0%, transparent 62%),
+    var(--bg-card);
+}
+.tool-page .vk-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--fg-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color var(--transition), background var(--transition),
+              border-color var(--transition), transform var(--transition);
+}
+.tool-page .vk-cta__btn:hover {
+  color: var(--fg);
+  border-color: var(--border-hover);
+  transform: translateY(-1px);
+}
+.tool-page .vk-cta__btn--primary {
+  background: var(--accent);
+  border-color: transparent;
+  color: #fff;
+}
+.tool-page .vk-cta__btn--primary:hover { background: var(--accent-strong); color: #fff; }
+.tool-page .vk-cta__note {
+  flex: 1 1 100%;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--fg-subtle);
+}
+
+/* ── Feature grid ───────────────────────────────────────────────────────── */
+.tool-page .vk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin: 20px 0 12px;
+}
+.tool-page .vk-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  transition: border-color var(--transition), transform var(--transition);
+}
+.tool-page .vk-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.tool-page .vk-card__glyph {
+  font-size: 1.25rem;
+  line-height: 1;
+  /* Decorative: the heading next to it carries the meaning. */
+  filter: saturate(0.85);
+}
+.tool-page .vk-card h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--fg);
+}
+.tool-page .vk-card p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--fg-subtle);
+}
+
+/* ── Tables ──────────────────────────────────────────────────────────────── */
+.tool-page .vk-table {
+  width: 100%;
+  margin: 18px 0;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.tool-page .vk-table th,
+.tool-page .vk-table td {
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.55;
+}
+.tool-page .vk-table thead th {
+  background: var(--bg);
+  color: var(--fg);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.tool-page .vk-table tbody th {
+  background: var(--bg);
+  color: var(--fg-muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.tool-page .vk-table td { color: var(--fg-muted); background: var(--bg-card); }
+.tool-page .vk-table code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* A table wider than a phone scrolls rather than forcing the whole page
+   sideways — the page is the document, not the table. */
+@media (max-width: 640px) {
+  .tool-page .vk-table { display: block; overflow-x: auto; white-space: nowrap; }
+  .tool-page .vk-table tbody th { white-space: normal; }
+}
+
+/* ── Derivation diagram ─────────────────────────────────────────────────── */
+.tool-page .vk-diagram {
+  margin: 18px 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+}
+.tool-page .vk-diagram code {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: var(--fg);
+  background: none;
+  padding: 0;
+  white-space: pre;
+}
+
+/* ── Constraint notes ────────────────────────────────────────────────────── */
+.tool-page .vk-notes {
+  margin: 18px 0;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+}
+.tool-page .vk-notes ul { margin: 0; padding-left: 20px; }
+.tool-page .vk-notes li {
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--fg-muted);
+}
+.tool-page .vk-notes li:last-child { margin-bottom: 0; }
+.tool-page .vk-notes strong { color: var(--fg); }
+.tool-page .vk-notes code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* ── Sibling repositories ───────────────────────────────────────────────── */
+.tool-page .vk-related { display: grid; gap: 10px; margin: 18px 0; }
+.tool-page .vk-related__item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  text-decoration: none;
+  transition: border-color var(--transition), transform var(--transition);
+}
+.tool-page .vk-related__item:hover {
+  border-color: var(--accent);
+  transform: translateX(3px);
+}
+.tool-page .vk-related__item strong {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--accent);
+}
+.tool-page .vk-related__item span {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--fg-subtle);
+}
+
+/* ── Copy the generic .tool-content rules under-serve ───────────────────── */
+.tool-page .tool-content blockquote {
+  margin: 20px 0;
+  padding: 14px 18px;
+  border-left: 3px solid var(--amber, #ffb74d);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: rgba(255, 183, 77, 0.06);
+}
+.tool-page .tool-content blockquote p { margin: 0; font-size: 0.875rem; }
+.tool-page .tool-content h4 {
+  margin: 24px 0 10px;
+  font-size: 1.05rem;
+  color: var(--fg);
+}

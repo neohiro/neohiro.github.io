@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Complete index of neohiro public repositories — security tools, privacy utilities, games, and developer tools">
+  <title>All Repositories</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/network-ux.css">
+  <link rel="stylesheet" href="/assets/css/auth-bar.css">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.github.com https://raw.githubusercontent.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+  <!-- Begin Jekyll SEO tag v2.9.1 -->
+<title>All Repositories | neohiro</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="All Repositories" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Complete index of neohiro public repositories — security tools, privacy utilities, games, and developer tools" />
+<meta name="twitter:description" property="og:description" content="Complete index of neohiro public repositories — security tools, privacy utilities, games, and developer tools" />
+<link rel="canonical" href="https://neohiro.github.io/repositories/" />
+<meta property="og:url" content="https://neohiro.github.io/repositories/" />
+<meta property="og:site_name" content="neohiro" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="All Repositories" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Complete index of neohiro public repositories — security tools, privacy utilities, games, and developer tools","headline":"All Repositories","url":"https://neohiro.github.io/repositories/"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <link type="application/atom+xml" rel="alternate" href="https://neohiro.github.io/feed.xml" title="neohiro" />
+  <link rel="stylesheet" href="/assets/css/site-tokens.css">
+  <link rel="stylesheet" href="/assets/css/site-forge.css">
+{# fonts: managed by template-shared/site_forge.py from sites.yaml #}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700|Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+{# decor: managed by template-shared/site_forge.py from sites.yaml #}
+<body class="decor-matrix decor-scanlines decor-grain">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Glitch overlay for page transitions -->
+  <div id="glitch-overlay" class="glitch-overlay" aria-hidden="true">
+    <div class="glitch-text" data-text="NEOHIRO"></div>
+  </div>
+
+  <div class="page-wrapper">
+    <header class="site-header" role="banner">
+      <div class="container">
+        <a class="site-brand" href="/" aria-label="neohiro - Home">
+          <span class="logo-mark" aria-hidden="true">👽</span>
+          <span class="logo-text">neohiro</span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+          <a href="/#featured-tools" class="nav-link">Tools</a>
+          <a href="/#hardening-guides" class="nav-link">Guides</a>
+          <a href="/repositories/" class="nav-link">Repositories</a>
+          <a href="/media/" class="nav-link">Media</a>
+          <div class="nav-dropdown">
+            <button class="nav-link nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
+              Community <span aria-hidden="true">-_</span>
+            </button>
+            <div class="nav-dropdown-menu">
+              <a href="https://github.com/neohiro" class="nav-dropdown-item">Org Overview</a>
+              <a href="https://github.com/neohiro/windows/issues" class="nav-dropdown-item">Bug Reports</a>
+              <a href="https://github.com/neohiro/windows/security" class="nav-dropdown-item">Security Advisories</a>
+              <a href="https://github.com/neohiro/windows/discussions" class="nav-dropdown-item">Discussions</a>
+              <a href="/heartbeats/" class="nav-dropdown-item">Heartbeats</a>
+              <a href="https://github.com/sponsors/neohiro" class="nav-dropdown-item">Sponsor</a>
+            </div>
+          </div>
+          <a href="https://github.com/sponsors/neohiro" class="nav-link nav-sponsor" target="_blank" rel="noopener">Sponsor</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="site-main" role="main" tabindex="-1">
+      <div class="repos-page" id="repositories">
+  <div class="container">
+    <nav class="repos-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">neohiro</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">All Repositories</span>
+    </nav>
+
+    <header class="repos-header">
+      <h1>All Repositories</h1>
+      <p class="repos-subtitle">16 public projects — security, privacy, games, and developer tools</p>
+    </header>
+
+    <div class="repos-toolbar">
+      <div class="repos-filters" role="group" aria-label="Filter repositories">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="security">Security &amp; Privacy</button>
+        <button class="filter-btn" data-filter="network">Network Tools</button>
+        <button class="filter-btn" data-filter="developer">Developer Tools</button>
+        <button class="filter-btn" data-filter="games">Games</button>
+        <button class="filter-btn" data-filter="utilities">Utilities</button>
+        <button class="filter-btn" data-filter="guides">Guides</button>
+        <button class="filter-btn" data-filter="pages">GitHub Pages</button>
+        <button class="filter-btn" data-filter="deprecated" id="filter-deprecated-btn">Deprecated</button>
+      </div>
+
+      <div class="repos-controls">
+        <select class="repo-sort" id="repo-sort" aria-label="Sort repositories">
+          <option value="default">Default order</option>
+          <option value="stars-desc">Most stars ↓</option>
+          <option value="stars-asc">Fewest stars ↑</option>
+          <option value="forks-desc">Most forks ↓</option>
+          <option value="forks-asc">Fewest forks ↑</option>
+          <option value="issues-desc">Most open issues ↓</option>
+          <option value="updated-desc">Recently updated</option>
+          <option value="updated-asc">Least recently updated</option>
+          <option value="created-desc">Recently created</option>
+          <option value="created-asc">Oldest created</option>
+          <option value="name-asc">Name A → Z</option>
+          <option value="name-desc">Name Z → A</option>
+          <option value="year-2026">Created 2026</option>
+          <option value="year-2025">Created 2025</option>
+          <option value="year-2024">Created 2024 or earlier</option>
+        </select>
+
+        <input type="search" class="repo-search" id="repo-search" placeholder="Search repositories..." aria-label="Search repositories" />
+      </div>
+    </div>
+
+    <div class="repos-stats" aria-live="polite">
+      <span class="stat"><strong id="count-all">16</strong> repositories</span>
+      <span class="stat"><strong id="count-featured">6</strong> featured</span>
+      <span class="stat"><strong id="count-deprecated">0</strong> deprecated</span>
+      <span class="stat"><strong id="count-stars">—</strong> total stars</span>
+    </div>
+
+    <div class="repos-grid" id="repos-grid">
+      
+      
+        
+        
+        <article class="repo-card visible" data-category="System Hardening" data-name="harden-windows" data-language="powershell" data-repo="windows" data-stars="1" data-forks="0" data-issues="2" data-pushed="2026-09-18T05:07:14Z" data-created="2025-04-04T18:32:39Z" data-deprecated="false" itemscope="" itemtype="https://schema.org/SoftwareApplication">
+          
+          <div class="repo-card-icon" aria-hidden="true">
+            
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3" /><path d="M9 12h6M12 9v6" /></svg>
+            
+          </div>
+          <h3 class="repo-card-name" itemprop="name">
+            <a href="https://github.com/neohiro/windows" target="_blank" rel="noopener">Harden-Windows</a>
+            
+              <span class="featured-badge" title="Featured">★</span>
+            
+          </h3>
+          <p class="repo-card-desc" itemprop="description">One-command Windows 10/11 hardening with 18 modules, 4 profiles, allow-lists, rollback &amp; dry-run</p>
+          
+          <div class="repo-card-meta">
+            <span class="repo-platform" itemprop="operatingSystem">Windows 10/11</span>
+            
+              <span class="repo-lang">PowerShell</span>
+            
+            
+              <span class="repo-category">System Hardening</span>
+            
+          </div>
+          
+          <div class="repo-card-stats">
+            <span class="stat-item" title="Stars"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z" /></svg> 1</span>
+            <span class="stat-item" title="Forks"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z" /></svg> 0</span>
+            
+            <span class="stat-item" title="Open Issues"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" /><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z" /></svg> 2</span>
+            
+          </div>
+          
+          <div class="repo-card-links">
+            <a href="https://github.com/neohiro/windows" class="repo-link" itemprop="url">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              Details
+            </a>
+            <a href="https://github.com/neohiro/windows" class="repo-link repo-link-external" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" /></svg>
+              GitHub
+            </a>
+          </div>
+          <div class="repo-card-actions">
+            <a href="https://github.com/neohiro/windows/issues" class="repo-action-btn repo-action-bug" target="_blank" rel="noopener" title="Bug Reports">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12h2a8 8 0 1 0 16 0H2c0-4.41 3.59-8 8-8z" /></svg>
+              Bug
+            </a>
+            <a href="https://github.com/neohiro/windows/security" class="repo-action-btn repo-action-sec" target="_blank" rel="noopener" title="Security / Vulnerabilities">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" /></svg>
+              Sec
+            </a>
+            <a href="https://github.com/neohiro/windows/discussions" class="repo-action-btn repo-action-disc" target="_blank" rel="noopener" title="Discussions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              Discuss
+            </a>
+          </div>
+        </article>
+      
+        
+        
+        <article class="repo-card visible" data-category="Network Security" data-name="cripple-netstrip" data-language="python" data-repo="Cripple-NetStrip" data-stars="4" data-forks="0" data-issues="1" data-pushed="2026-09-18T06:23:13Z" data-created="2026-07-22T01:33:11Z" data-deprecated="false" itemscope="" itemtype="https://schema.org/SoftwareApplication">
+          
+          <div class="repo-card-icon" aria-hidden="true">
+            
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>
+            
+          </div>
+          <h3 class="repo-card-name" itemprop="name">
+            <a href="https://github.com/neohiro/Cripple-NetStrip" target="_blank" rel="noopener">Cripple-NetStrip</a>
+            
+              <span class="featured-badge" title="Featured">★</span>
+            
+          </h3>
+          <p class="repo-card-desc" itemprop="description">Network hardening · DNS sinkhole · Encrypted DNS · Firewall · Traffic classification</p>
+          
+          <div class="repo-card-meta">
+            <span class="repo-platform" itemprop="operatingSystem">Windows / Linux</span>
+            
+              <span class="repo-lang">Python</span>
+            
+            
+              <span class="repo-category">Network Security</span>
+            
+          </div>
+          
+          <div class="repo-card-stats">
+            <span class="stat-item" title="Stars"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z" /></svg> 4</span>
+            <span class="stat-item" title="Forks"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z" /></svg> 0</span>
+            
+            <span class="stat-item" title="Open Issues"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" /><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z" /></svg> 1</span>
+            
+          </div>
+          
+          <div class="repo-card-links">
+            <a href="https://github.com/neohiro/Cripple-NetStrip" class="repo-link" itemprop="url">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              Details
+            </a>
+            <a href="https://github.com/neohiro/Cripple-NetStrip" class="repo-link repo-link-external" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" /></svg>
+              GitHub
+            </a>
+          </div>
+          <div class="repo-card-actions">
+            <a href="https://github.com/neohiro/Cripple-NetStrip/issues" class="repo-action-btn repo-action-bug" target="_blank" rel="noopener" title="Bug Reports">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12h2a8 8 0 1 0 16 0H2c0-4.41 3.59-8 8-8z" /></svg>
+              Bug
+            </a>
+            <a href="https://github.com/neohiro/Cripple-NetStrip/security" class="repo-action-btn repo-action-sec" target="_blank" rel="noopener" title="Security / Vulnerabilities">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" /></svg>
+              Sec
+            </a>
+            <a href="https://github.com/neohiro/Cripple-NetStrip/discussions" class="repo-action-btn repo-action-disc" target="_blank" rel="noopener" title="Discussions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              Discuss
+            </a>
+          </div>
+        </article>
+      
+        
+        
+        <article class="repo-card visible" data-category="Security &amp; Exploit Mitigation" data-name="exploitprotection" data-language="powershell / c#" data-repo="ExploitProtection" data-stars="85" data-forks="10" data-issues="2" data-pushed="2026-09-18T06:13:32Z" data-created="2023-09-29T03:50:13Z" data-deprecated="false" itemscope="" itemtype="https://schema.org/SoftwareApplication">
+          
+          <div class="repo-card-icon" aria-hidden="true">
+            
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>
+            
+          </div>
+          <h3 class="repo-card-name" itemprop="name">
+            <a href="https://github.com/neohiro/ExploitProtection" target="_blank" rel="noopener">ExploitProtection</a>
+            
+              <span class="featured-badge" title="Featured">★</span>
+            
+          </h3>
+          <p class="repo-card-desc" itemprop="description">Windows Exploit Protection (Ultimate) GUI — ASR rules, CFG, DEP, SEHOP, arbitrary code guard</p>
+          
+          <div class="repo-card-meta">
+            <span class="repo-platform" itemprop="operatingSystem">Windows 10/11</span>
+            
+              <span class="repo-lang">PowerShell / C#</span>
+            
+            
+              <span class="repo-category">Security &amp; Exploit Mitigation</span>
+            
+          </div>
+          
+          <div class="repo-card-stats">
+            <span class="stat-item" title="Stars"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z" /></svg> 85</span>
+            <span class="stat-item" title="Forks"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z" /></svg> 10</span>
+            
+            <span class="stat-item" title="Open Issues"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" /><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z" /></svg> 2</span>
+            
+          </div>
+          
+          <div class="repo-card-links">
+            <a href="https://github.com/neohiro/ExploitProtection" class="repo-link" itemprop="url">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              Details
+            </a>
+            <a href="https://github.com/neohiro/ExploitProtection" class="repo-link repo-link-external" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" /></svg>
+              GitHub
+            </a>
+          </div>
+          <div class="repo-card-actions">
+            <a href="https://github.com/neohiro/ExploitProtection/issues" class="repo-action-btn repo-action-bug" target="_blank" rel="noopener" title="Bug Reports">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12h2a8 8 0 1 0 16 0H2c0-4.41 3.59-8 8-8z" /></svg>
+              Bug
+            </a>
+            <a href="https://github.com/neohiro/ExploitProtection/security" class="repo-action-btn repo-action-sec" target="_blank" rel="noopener" title="Security / Vulnerabilities">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" /></svg>
+              Sec
+            </a>
+            <a href="https://github.com/neohiro/ExploitProtection/discussions" class="repo-action-btn repo-action-disc" target="_blank" rel="noopener" title="Discussions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              Discuss
+            </a>
+          </div>
+        </article>
+      
+        
+        
+        <article class="repo-card visible" data-category="Cryptography" data-name="meshcore vanity key generator" data-language="python / javascript" data-repo="meshcore-meshtastic-vanity-key" data-stars="0" data-forks="0" data-issues="0" data-pushed="2026-09-30T09:48:42Z" data-created="2026-09-29T20:48:19Z" data-deprecated="false" itemscope="" itemtype="https://schema.org/SoftwareApplication">
+          
+          <div class="repo-card-icon" aria-hidden="true">
+            
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3" /><path d="M9 12h6M12 9v6" /></svg>
+            
+          </div>
+          <h3 class="repo-card-name" itemprop="name">
+            <a href="https://github.com/neohiro/meshcore-meshtastic-vanity-key" target="_blank" rel="noopener">MeshCore Vanity Key Generator</a>
+            
+              <span class="featured-badge" title="Featured">★</span>
+            
+          </h3>
+          <p class="repo-card-desc" itemprop="description">Browser-based Ed25519 vanity key generator — GPU-powered, scalar-walk optimized, prefix/suffix matching</p>
+          
+          <div class="repo-card-meta">
+            <span class="repo-platform" itemprop="operatingSystem">Web (GitHub Pages)</span>
+            
+              <span class="repo-lang">Python / JavaScript</span>
+            
+            
+              <span class="repo-category">Cryptography</span>
+            
+          </div>
+          
+          <div class="repo-card-stats">
+            <span class="stat-item" title="Stars"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z" /></svg> 0</span>
+            <span class="stat-item" title="Forks"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z" /></svg> 0</span>
+            
+          </div>
+          
+          <div class="repo-card-links">
+            <a href="https://github.com/neohiro/meshcore-meshtastic-vanity-key" class="repo-link" itemprop="url">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              Details
+            </a>
+            <a href="https://github.com/neohiro/meshcore-meshtastic-vanity-key" class="repo-link repo-link-external" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" /></svg>
+              GitHub
+            </a>
+          </div>
+          <div class="repo-card-actions">
+            <a href="https://github.com/neohiro/meshcore-meshtastic-vanity-key/issues" class="repo-action-btn repo-action-bug" target="_blank" rel="noopener" title="Bug Reports">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12h2a8 8 0 1 0 16 0H2c0-4.41 3.59-8 8-8z" /></svg>
+              Bug
+            </a>
+            <a href="https://github.com/neohiro/meshcore-meshtastic-vanity-key/security" class="repo-action-btn repo-action-sec" target="_blank" rel="noopener" title="Security / Vulnerabilities">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" /></svg>
+              Sec
+            </a>
+            <a href="https://github.com/neohiro/meshcore-meshtastic-vanity-key/discussions" class="repo-action-btn repo-action-disc" target="_blank" rel="noopener" title="Discussions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              Discuss
+            </a>
+          </div>
+        </article>
+      
+        
+        
+        <article class="repo-card visible" data-category="Developer Tools" data-name="auto-resume" data-language="typescript" data-repo="auto-resume" data-stars="0" data-forks="0" data-issues="1" data-pushed="2026-09-18T05:04:10Z" data-created="2026-08-24T13:51:39Z" data-deprecated="false" itemscope="" itemtype="https://schema.org/SoftwareApplication">
+          
+          <div class="repo-card-icon" aria-hidden="true">
+            
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 18l6-6-6-6" /><path d="M8 6l-6 6 6 6" /></svg>
+            
+          </div>
+          <h3 class="repo-card-name" itemprop="name">
+            <a href="https://github.com/neohiro/auto-resume" target="_blank" rel="noopener">auto-resume</a>
+            
+              <span class="featured-badge" title="Featured">★</span>
+            
+          </h3>
+          <p class="repo-card-desc" itemprop="description">Self-healing OpenCode sessions — automatic retries, model rotation on quota/outages, permission autopilot &amp; walk-away task autonomy</p>
+          
+          <div class="repo-card-meta">
+            <span class="repo-platform" itemprop="operatingSystem">Cross-platform (Node.js)</span>
+            
+              <span class="repo-lang">TypeScript</span>
+            
+            
+              <span class="repo-category">Developer Tools</span>
+            
+          </div>
+          
+          <div class="repo-card-stats">
+            <span class="stat-item" title="Stars"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z" /></svg> 0</span>
+            <span class="stat-item" title="Forks"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z" /></svg> 0</span>
+            
+            <span class="stat-item" title="Open Issues"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" /><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z" /></svg> 1</span>
+            
+          </div>
+          
+          <div class="repo-card-links">
+            <a href="https://github.com/neohiro/auto-resume" class="repo-link" itemprop="url">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              Details
+            </a>
+            <a href="https://github.com/neohiro/auto-resume" class="repo-link repo-link-external" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" /></svg>
+              GitHub
+            </a>
+          </div>
+          <div class="repo-card-actions">
+            <a href="https://github.com/neohiro/auto-resume/issues" class="repo-action-btn repo-action-bug" target="_blank" rel="noopener" title="Bug Reports">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12h2a8 8 0 1 0 16 0H2c0-4.41 3.59-8 8-8z" /></svg>
+              Bug
+            </a>
+            <a href="https://github.com/neohiro/auto-resume/security" class="repo-action-btn repo-action-sec" target="_blank" rel="noopener" title="Security / Vulnerabilities">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" /></svg>
+              Sec
+            </a>
+            <a href="https://github.com/neohiro/auto-resume/discussions" class="repo-action-btn repo-action-disc" target="_blank" rel="noopener" title="Discussions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              Discuss
+            </a>
+          </div>
+        </article>
+      
+        
+        
+        <article class="repo-card visible" data-category="System Utilities" data-name="systemmonitor" data-language="python (pyside6/qt) / c++" data-repo="SystemMonitor" data-stars="0" data-forks="0" data-issues="0" data-pushed="2026-09-18T05:06:50Z" data-created="2025-08-06T18:10:44Z" data-deprecated="false" itemscope="" itemtype="https://schema.org/SoftwareApplication">
+          
+          <div class="repo-card-icon" aria-hidden="true">
+            
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3" /><path d="M9 12h6M12 9v6" /></svg>
+            
+          </div>
+          <h3 class="repo-card-name" itemprop="name">
+            <a href="https://github.com/neohiro/SystemMonitor" target="_blank" rel="noopener">SystemMonitor</a>
+            
+              <span class="featured-badge" title="Featured">★</span>
+            
+          </h3>
+          <p class="repo-card-desc" itemprop="description">Live system health on your desktop — CPU, RAM, disk, network, GPU, sensors with alerts</p>
+          
+          <div class="repo-card-meta">
+            <span class="repo-platform" itemprop="operatingSystem">Windows / Linux</span>
+            
+              <span class="repo-lang">Python (PySide6/Qt) / C++</span>
+            
+            
+              <span class="repo-category">System Utilities</span>
+            
+          </div>
+          
+          <div class="repo-card-stats">
+            <span class="stat-item" title="Stars"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z" /></svg> 0</span>
+            <span class="stat-item" title="Forks"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z" /></svg> 0</span>
+            
+          </div>
+          
+          <div class="repo-card-links">
+            <a href="https://github.com/neohiro/SystemMonitor" class="repo-link" itemprop="url">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              Details
+            </a>
+            <a href="https://github.com/neohiro/SystemMonitor" class="repo-link repo-link-external" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" /></svg>
+              GitHub
+            </a>
+          </div>
+          <div class="repo-card-actions">
+            <a href="https://github.com/neohiro/SystemMonitor/issues" class="repo-action-btn repo-action-bug" target="_blank" rel="noopener" title="Bug Reports">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12h2a8 8 0 1 0 16 0H2c0-4.41 3.59-8 8-8z" /></svg>
+              Bug
+            </a>
+            <a href="https://github.com/neohiro/SystemMonitor/security" class="repo-action-btn repo-action-sec" target="_blank" rel="noopener" title="Security / Vulnerabilities">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" /></svg>
+              Sec
+            </a>
+            <a href="https://github.com/neohiro/SystemMonitor/discussions" class="repo-action-btn repo-action-disc" target="_blank" rel="noopener" title="Discussions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              Discuss
+            </a>
+          </div>
+        </article>
+      
+        
+        
+        <article class="repo-card visible" data-category="Security Guides" data-name="linux" data-language="shell / bash" data-repo="linux" data-stars="2" data-forks="0" data-issues="0" data-pushed="2026-09-18T05:01:11Z" data-created="2026-08-28T14:32:01Z" data-deprecated="false" itemscope="" itemtype="https://schema.org/SoftwareApplication">
+          
+          <div class="repo-card-icon" aria-hidden="true">
+            
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>
+            
+          </div>
+          <h3 class="repo-card-name" itemprop="name">
+            <a href="https://github.com/neohiro/linux" target="_blank" rel="noopener">linux</a>
+            
+          </h3>
+          <p class="repo-card-desc" itemprop="description">Cross-distro Linux hardening guide — UFW firewall, DNSCrypt, Tor routing, fail2ban, AppArmor/SELinux, sysctl, SSH hardening</p>
+          
+          <div class="repo-card-meta">
+            <span class="repo-platform" itemprop="operatingSystem">Linux (Debian/Ubuntu/RHEL/Fedora/SUSE/Arch/Manjaro)</span>
+            
+              <span class="repo-lang">Shell / Bash</span>
+            
+            
+              <span class="repo-category">Security Guides</span>
+            
+          </div>
+          
+          <div class="repo-card-stats">
+            <span class="stat-item" title="Stars"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z" /></svg> 2</span>
+            <span class="stat-item" title="Forks"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z" /></svg> 0</span>
+            
+          </div>
+          
+          <div class="repo-card-links">
+            <a href="https://github.com/neohiro/linux" class="repo-link" itemprop="url">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              Details
+            </a>
+            <a href="https://github.com/neohiro/linux" class="repo-link repo-link-external" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" /></svg>
+              GitHub
+            </a>
+          </div>
+          <div class="repo-card-actions">
+            <a href="https://github.com/neohiro/linux/issues" class="repo-action-btn repo-action-bug" target="_blank" rel="noopener" title="Bug Reports">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12h2a8 8 0 1 0 16 0H2c0-4.41 3.59-8 8-8z" /></svg>
+              Bug
+            </a>
+            <a href="https://github.com/neohiro/linux/security" class="repo-action-btn repo-action-sec" target="_blank" rel="noopener" title="Security / Vulnerabilities">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" /></svg>
+              Sec
+            </a>
+            <a href="https://github.com/neohiro/linux/discussions" class="repo-action-btn repo-action-disc" target="_blank" rel="noopener" title="Discussions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              Discuss
+            </a>
+          </div>
+        </article>
+      
+        
+        
+        <article class="repo-card visible" data-category="Security Guides" data-name="ubuntu" data-language="shell / python" data-repo="ubuntu" data-stars="1" data-forks="0" data-issues="4" data-pushed="2026-09-18T06:16:20Z" data-created="2025-03-30T06:55:22Z" data-deprecated="false" itemscope="" itemtype="https://schema.org/SoftwareApplication">
+          
+          <div class="repo-card-icon" aria-hidden="true">
+            
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>
+            
+          </div>
+          <h3 class="repo-card-name" itemprop="name">
+            <a href="https://github.com/neohiro/ubuntu" target="_blank" rel="noopener">ubuntu</a>
+            
+          </h3>
+          <p class="repo-card-desc" itemprop="description">Ubuntu post-install hardening — firewall, encrypted DNS, Tor, AppArmor, snap/flatpak control, GNOME privacy</p>
+          
+          <div class="repo-card-meta">
+            <span class="repo-platform" itemprop="operatingSystem">Ubuntu 20.04 / 22.04 / 24.04</span>
+            
+              <span class="repo-lang">Shell / Python</span>
+            
+            
+              <span class="repo-category">Security Guides</span>
+            
+          </div>
+          
+          <div class="repo-card-stats">
+            <span class="stat-item" title="Stars"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z" /></svg> 1</span>
+            <span class="stat-item" title="Forks"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z" /></svg> 0</span>
+            
+            <span class="stat-item" title="Open Issues"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" /><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z" /></svg> 4</span>
+            
+          </div>
+          
+          <div class="repo-card-links">
+            <a href="https://github.com/neohiro/ubuntu" class="repo-link" itemprop="url">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              Details
+            </a>
+            <a href="https://github.com/neohiro/ubuntu" class="repo-link repo-link-external" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" /></svg>
+              GitHub
+            </a>
+          </div>
+          <div class="repo-card-actions">
+            <a href="https://github.com/neohiro/ubuntu/issues" class="repo-action-btn repo-action-bug" target="_blank" rel="noopener" title="Bug Reports">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12h2a8 8 0 1 0 16 0H2c0-4.41 3.59-8 8-8z" /></svg>
+              Bug
+            </a>
+            <a href="https://github.com/neohiro/ubuntu/security" class="repo-action-btn repo-action-sec" target="_blank" rel="noopener" title="Security / Vulnerabilities">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" /></svg>
+              Sec
+            </a>
+            <a href="https://github.com/neohiro/ubuntu/discussions" class="repo-action-btn repo-action-disc" target="_blank" rel="noopener" title="Discussions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              Discuss
+            </a>
+          </div>
+        </article>
+      
+        
+        
+        <article class="repo-card visible" data-category="Developer Tools" data-name="mobile-sync" data-language="typescript" data-repo="mobile-sync" data-stars="0" data-forks="0" data-issues="2" data-pushed="2026-09-18T05:05:48Z" data-created="2026-08-26T21:50:03Z" data-deprecated="false" itemscope="" itemtype="https://schema.org/SoftwareApplication">
+          
+          <div class="repo-card-icon" aria-hidden="true">
+            
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 18l6-6-6-6" /><path d="M8 6l-6 6 6 6" /></svg>
+            
+          </div>
+          <h3 class="repo-card-name" itemprop="name">
+            <a href="https://github.com/neohiro/mobile-sync" target="_blank" rel="noopener">mobile-sync</a>
+            
+          </h3>
+          <p class="repo-card-desc" itemprop="description">OpenCode plugin — makes your desktop or CLI server accessible via Tailscale Funnel for mobile sync</p>
+          
+          <div class="repo-card-meta">
+            <span class="repo-platform" itemprop="operatingSystem">Cross-platform (Node.js)</span>
+            
+              <span class="repo-lang">TypeScript</span>
+            
+            
+              <span class="repo-category">Developer Tools</span>
+            
+          </div>
+          
+          <div class="repo-card-stats">
+            <span class="stat-item" title="Stars"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z" /></svg> 0</span>
+            <span class="stat-item" title="Forks"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z" /></svg> 0</span>
+            
+            <span class="stat-item" title="Open Issues"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" /><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z" /></svg> 2</span>
+            
+          </div>
+          
+          <div class="repo-card-links">
+            <a href="https://github.com/neohiro/mobile-sync" class="repo-link" itemprop="url">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              Details
+            </a>
+            <a href="https://github.com/neohiro/mobile-sync" class="repo-link repo-link-external" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" /></svg>
+              GitHub
+            </a>
+          </div>
+          <div class="repo-card-actions">
+            <a href="https://github.com/neohiro/mobile-sync/issues" class="repo-action-btn repo-action-bug" target="_blank" rel="noopener" title="Bug Reports">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12h2a8 8 0 1 0 16 0H2c0-4.41 3.59-8 8-8z" /></svg>
+              Bug
+            </a>
+            <a href="https://github.com/neohiro/mobile-sync/security" class="repo-action-btn repo-action-sec" target="_blank" rel="noopener" title="Security / Vulnerabilities">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" /></svg>
+              Sec
+            </a>
+            <a href="https://github.com/neohiro/mobile-sync/discussions" class="repo-action-btn repo-action-disc" target="_blank" rel="noopener" title="Discussions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              Discuss
+            </a>
+          </div>
+        </article>
+      
+        
+        
+        <article class="repo-card visible" data-category="Privacy Tools" data-name="dnscrypt-proxy-gui" data-language="python (pyside6/qt)" data-repo="dnscrypt-proxy-gui" data-stars="29" data-forks="1" data-issues="1" data-pushed="2026-09-18T06:23:09Z" data-created="2025-09-11T10:22:19Z" data-deprecated="false" itemscope="" itemtype="https://schema.org/SoftwareApplication">
+          
+          <div class="repo-card-icon" aria-hidden="true">
+            
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3" /><path d="M9 12h6M12 9v6" /></svg>
+            
+          </div>
+          <h3 class="repo-card-name" itemprop="name">
+            <a href="https://github.com/neohiro/dnscrypt-proxy-gui" target="_blank" rel="noopener">dnscrypt-proxy-gui</a>
+            
+          </h3>
+          <p class="repo-card-desc" itemprop="description">Cross-platform GUI for dnscrypt-proxy — encrypted DNS management made simple</p>
+          
+          <div class="repo-card-meta">
+            <span class="repo-platform" itemprop="operatingSystem">Windows / Linux / macOS</span>
+            
+              <span class="repo-lang">Python (PySide6/Qt)</span>
+            
+            
+              <span class="repo-category">Privacy Tools</span>
+            
+          </div>
+          
+          <div class="repo-card-stats">
+            <span class="stat-item" title="Stars"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z" /></svg> 29</span>
+            <span class="stat-item" title="Forks"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z" /></svg> 1</span>
+            
+            <span class="stat-item" title="Open Issues"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" /><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z" /></svg> 1</span>
+            
+          </div>
+          
+          <div class="repo-card-links">
+            <a href="https://github.com/neohiro/dnscrypt-proxy-gui" class="repo-link" itemprop="url">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              Details
+            </a>
+            <a href="https://github.com/neohiro/dnscrypt-proxy-gui" class="repo-link repo-link-external" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" /></svg>
+              GitHub
+            </a>
+          </div>
+          <div class="repo-card-actions">
+            <a href="https://github.com/neohiro/dnscrypt-proxy-gui/issues" class="repo-action-btn repo-action-bug" target="_blank" rel="noopener" title="Bug Reports">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12h2a8 8 0 1 0 16 0H2c0-4.41 3.59-8 8-8z" /></svg>
+              Bug
+            </a>
+            <a href="https://github.com/neohiro/dnscrypt-proxy-gui/security" class="repo-action-btn repo-action-sec" target="_blank" rel="noopener" title="Security / Vulnerabilities">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" /></svg>
+              Sec
+            </a>
+            <a href="https://github.com/neohiro/dnscrypt-proxy-gui/discussions" class="repo-action-btn repo-action-disc" target="_blank" rel="noopener" title="Discussions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              Discuss
+            </a>
+          </div>
+        </article>
+      
+        
+        
+        <article class="repo-card visible" data-category="Communication" data-name="blackglass" data-language="python (pyside6/qt)" data-repo="BlackGlass" data-stars="9" data-forks="3" data-issues="0" data-pushed="2026-09-18T05:04:17Z" data-created="2025-12-13T22:07:22Z" data-deprecated="false" itemscope="" itemtype="https://schema.org/SoftwareApplication">
+          
+          <div class="repo-card-icon" aria-hidden="true">
+            
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3" /><path d="M9 12h6M12 9v6" /></svg>
+            
+          </div>
+          <h3 class="repo-card-name" itemprop="name">
+            <a href="https://github.com/neohiro/BlackGlass" target="_blank" rel="noopener">BlackGlass</a>
+            
+          </h3>
+          <p class="repo-card-desc" itemprop="description">Multi-client chat viewer for Second Life — unified IM, local chat, group chat with history search</p>
+          
+          <div class="repo-card-meta">
+            <span class="repo-platform" itemprop="operatingSystem">Windows / Linux / macOS</span>
+            
+              <span class="repo-lang">Python (PySide6/Qt)</span>
+            
+            
+              <span class="repo-category">Communication</span>
+            
+          </div>
+          
+          <div class="repo-card-stats">
+            <span class="stat-item" title="Stars"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z" /></svg> 9</span>
+            <span class="stat-item" title="Forks"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z" /></svg> 3</span>
+            
+          </div>
+          
+          <div class="repo-card-links">
+            <a href="https://github.com/neohiro/BlackGlass" class="repo-link" itemprop="url">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              Details
+            </a>
+            <a href="https://github.com/neohiro/BlackGlass" class="repo-link repo-link-external" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" /></svg>
+              GitHub
+            </a>
+          </div>
+          <div class="repo-card-actions">
+            <a href="https://github.com/neohiro/BlackGlass/issues" class="repo-action-btn repo-action-bug" target="_blank" rel="noopener" title="Bug Reports">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12h2a8 8 0 1 0 16 0H2c0-4.41 3.59-8 8-8z" /></svg>
+              Bug
+            </a>
+            <a href="https://github.com/neohiro/BlackGlass/security" class="repo-action-btn repo-action-sec" target="_blank" rel="noopener" title="Security / Vulnerabilities">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" /></svg>
+              Sec
+            </a>
+            <a href="https://github.com/neohiro/BlackGlass/discussions" class="repo-action-btn repo-action-disc" target="_blank" rel="noopener" title="Discussions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              Discuss
+            </a>
+          </div>
+        </article>
+      
+        
+        
+        <article class="repo-card visible" data-category="Network Security" data-name="honeyscan" data-language="python / shell" data-repo="HoneyScan" data-stars="2" data-forks="0" data-issues="0" data-pushed="2026-09-18T05:05:18Z" data-created="2025-08-06T16:17:54Z" data-deprecated="false" itemscope="" itemtype="https://schema.org/SoftwareApplication">
+          
+          <div class="repo-card-icon" aria-hidden="true">
+            
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>
+            
+          </div>
+          <h3 class="repo-card-name" itemprop="name">
+            <a href="https://github.com/neohiro/HoneyScan" target="_blank" rel="noopener">HoneyScan</a>
+            
+          </h3>
+          <p class="repo-card-desc" itemprop="description">Passive honeypot for home networks — detects scans, brute-force, IoT malware with zero config</p>
+          
+          <div class="repo-card-meta">
+            <span class="repo-platform" itemprop="operatingSystem">Linux (Raspberry Pi, VM, bare metal)</span>
+            
+              <span class="repo-lang">Python / Shell</span>
+            
+            
+              <span class="repo-category">Network Security</span>
+            
+          </div>
+          
+          <div class="repo-card-stats">
+            <span class="stat-item" title="Stars"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z" /></svg> 2</span>
+            <span class="stat-item" title="Forks"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z" /></svg> 0</span>
+            
+          </div>
+          
+          <div class="repo-card-links">
+            <a href="https://github.com/neohiro/HoneyScan" class="repo-link" itemprop="url">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              Details
+            </a>
+            <a href="https://github.com/neohiro/HoneyScan" class="repo-link repo-link-external" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" /></svg>
+              GitHub
+            </a>
+          </div>
+          <div class="repo-card-actions">
+            <a href="https://github.com/neohiro/HoneyScan/issues" class="repo-action-btn repo-action-bug" target="_blank" rel="noopener" title="Bug Reports">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12h2a8 8 0 1 0 16 0H2c0-4.41 3.59-8 8-8z" /></svg>
+              Bug
+            </a>
+            <a href="https://github.com/neohiro/HoneyScan/security" class="repo-action-btn repo-action-sec" target="_blank" rel="noopener" title="Security / Vulnerabilities">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" /></svg>
+              Sec
+            </a>
+            <a href="https://github.com/neohiro/HoneyScan/discussions" class="repo-action-btn repo-action-disc" target="_blank" rel="noopener" title="Discussions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              Discuss
+            </a>
+          </div>
+        </article>
+      
+        
+        
+        <article class="repo-card visible" data-category="Information" data-name="newsaggregator" data-language="python (pyside6/qt)" data-repo="NewsAggregator" data-stars="0" data-forks="0" data-issues="0" data-pushed="2026-09-18T05:06:20Z" data-created="2025-08-14T23:25:13Z" data-deprecated="false" itemscope="" itemtype="https://schema.org/SoftwareApplication">
+          
+          <div class="repo-card-icon" aria-hidden="true">
+            
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3" /><path d="M9 12h6M12 9v6" /></svg>
+            
+          </div>
+          <h3 class="repo-card-name" itemprop="name">
+            <a href="https://github.com/neohiro/NewsAggregator" target="_blank" rel="noopener">NewsAggregator</a>
+            
+          </h3>
+          <p class="repo-card-desc" itemprop="description">Global news feed with search — RSS/Atom/JSON Feed aggregation, offline reading, cross-platform</p>
+          
+          <div class="repo-card-meta">
+            <span class="repo-platform" itemprop="operatingSystem">Windows / Linux / macOS</span>
+            
+              <span class="repo-lang">Python (PySide6/Qt)</span>
+            
+            
+              <span class="repo-category">Information</span>
+            
+          </div>
+          
+          <div class="repo-card-stats">
+            <span class="stat-item" title="Stars"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z" /></svg> 0</span>
+            <span class="stat-item" title="Forks"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z" /></svg> 0</span>
+            
+          </div>
+          
+          <div class="repo-card-links">
+            <a href="https://github.com/neohiro/NewsAggregator" class="repo-link" itemprop="url">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              Details
+            </a>
+            <a href="https://github.com/neohiro/NewsAggregator" class="repo-link repo-link-external" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" /></svg>
+              GitHub
+            </a>
+          </div>
+          <div class="repo-card-actions">
+            <a href="https://github.com/neohiro/NewsAggregator/issues" class="repo-action-btn repo-action-bug" target="_blank" rel="noopener" title="Bug Reports">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12h2a8 8 0 1 0 16 0H2c0-4.41 3.59-8 8-8z" /></svg>
+              Bug
+            </a>
+            <a href="https://github.com/neohiro/NewsAggregator/security" class="repo-action-btn repo-action-sec" target="_blank" rel="noopener" title="Security / Vulnerabilities">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" /></svg>
+              Sec
+            </a>
+            <a href="https://github.com/neohiro/NewsAggregator/discussions" class="repo-action-btn repo-action-disc" target="_blank" rel="noopener" title="Discussions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              Discuss
+            </a>
+          </div>
+        </article>
+      
+        
+        
+        <article class="repo-card visible" data-category="Games" data-name="zombieshoot" data-language="python (pygame) / c++" data-repo="ZombieShoot" data-stars="0" data-forks="0" data-issues="0" data-pushed="2026-09-18T05:07:30Z" data-created="2025-08-21T02:31:28Z" data-deprecated="false" itemscope="" itemtype="https://schema.org/SoftwareApplication">
+          
+          <div class="repo-card-icon" aria-hidden="true">
+            
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M12 12h.01" /><path d="M17 12h.01" /><path d="M7 12h.01" /></svg>
+            
+          </div>
+          <h3 class="repo-card-name" itemprop="name">
+            <a href="https://github.com/neohiro/ZombieShoot" target="_blank" rel="noopener">ZombieShoot</a>
+            
+          </h3>
+          <p class="repo-card-desc" itemprop="description">Top-down zombie shooter — procedural levels, permadeath, moddable (Windows/Linux)</p>
+          
+          <div class="repo-card-meta">
+            <span class="repo-platform" itemprop="operatingSystem">Windows / Linux</span>
+            
+              <span class="repo-lang">Python (PyGame) / C++</span>
+            
+            
+              <span class="repo-category">Games</span>
+            
+          </div>
+          
+          <div class="repo-card-stats">
+            <span class="stat-item" title="Stars"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z" /></svg> 0</span>
+            <span class="stat-item" title="Forks"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z" /></svg> 0</span>
+            
+          </div>
+          
+          <div class="repo-card-links">
+            <a href="https://github.com/neohiro/ZombieShoot" class="repo-link" itemprop="url">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              Details
+            </a>
+            <a href="https://github.com/neohiro/ZombieShoot" class="repo-link repo-link-external" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" /></svg>
+              GitHub
+            </a>
+          </div>
+          <div class="repo-card-actions">
+            <a href="https://github.com/neohiro/ZombieShoot/issues" class="repo-action-btn repo-action-bug" target="_blank" rel="noopener" title="Bug Reports">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12h2a8 8 0 1 0 16 0H2c0-4.41 3.59-8 8-8z" /></svg>
+              Bug
+            </a>
+            <a href="https://github.com/neohiro/ZombieShoot/security" class="repo-action-btn repo-action-sec" target="_blank" rel="noopener" title="Security / Vulnerabilities">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" /></svg>
+              Sec
+            </a>
+            <a href="https://github.com/neohiro/ZombieShoot/discussions" class="repo-action-btn repo-action-disc" target="_blank" rel="noopener" title="Discussions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              Discuss
+            </a>
+          </div>
+        </article>
+      
+        
+        
+        <article class="repo-card visible" data-category="Games" data-name="tristarmania" data-language="rust (bevy) / webassembly" data-repo="tristar-mania" data-stars="0" data-forks="0" data-issues="0" data-pushed="2026-08-22T20:29:56Z" data-created="2025-08-20T18:19:08Z" data-deprecated="false" itemscope="" itemtype="https://schema.org/SoftwareApplication">
+          
+          <div class="repo-card-icon" aria-hidden="true">
+            
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M12 12h.01" /><path d="M17 12h.01" /><path d="M7 12h.01" /></svg>
+            
+          </div>
+          <h3 class="repo-card-name" itemprop="name">
+            <a href="https://github.com/frenzypenguin-media/tristar-mania" target="_blank" rel="noopener">TristarMania</a>
+            
+          </h3>
+          <p class="repo-card-desc" itemprop="description">Addictive space shooter — procedural waves, ship customization, online leaderboards</p>
+          
+          <div class="repo-card-meta">
+            <span class="repo-platform" itemprop="operatingSystem">Windows / Linux / macOS</span>
+            
+              <span class="repo-lang">Rust (Bevy) / WebAssembly</span>
+            
+            
+              <span class="repo-category">Games</span>
+            
+          </div>
+          
+          <div class="repo-card-stats">
+            <span class="stat-item" title="Stars"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z" /></svg> 0</span>
+            <span class="stat-item" title="Forks"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z" /></svg> 0</span>
+            
+          </div>
+          
+          <div class="repo-card-links">
+            <a href="https://github.com/frenzypenguin-media/tristar-mania" class="repo-link" itemprop="url">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              Details
+            </a>
+            <a href="https://github.com/frenzypenguin-media/tristar-mania" class="repo-link repo-link-external" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" /></svg>
+              GitHub
+            </a>
+          </div>
+          <div class="repo-card-actions">
+            <a href="https://github.com/frenzypenguin-media/tristar-mania/issues" class="repo-action-btn repo-action-bug" target="_blank" rel="noopener" title="Bug Reports">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12h2a8 8 0 1 0 16 0H2c0-4.41 3.59-8 8-8z" /></svg>
+              Bug
+            </a>
+            <a href="https://github.com/frenzypenguin-media/tristar-mania/security" class="repo-action-btn repo-action-sec" target="_blank" rel="noopener" title="Security / Vulnerabilities">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" /></svg>
+              Sec
+            </a>
+            <a href="https://github.com/frenzypenguin-media/tristar-mania/discussions" class="repo-action-btn repo-action-disc" target="_blank" rel="noopener" title="Discussions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              Discuss
+            </a>
+          </div>
+        </article>
+      
+        
+        
+        <article class="repo-card visible" data-category="Games" data-name="tetris" data-language="rust (macroquad) / typescript" data-repo="Tetris" data-stars="0" data-forks="1" data-issues="0" data-pushed="2026-09-18T05:06:58Z" data-created="2025-08-27T01:09:44Z" data-deprecated="false" itemscope="" itemtype="https://schema.org/SoftwareApplication">
+          
+          <div class="repo-card-icon" aria-hidden="true">
+            
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M12 12h.01" /><path d="M17 12h.01" /><path d="M7 12h.01" /></svg>
+            
+          </div>
+          <h3 class="repo-card-name" itemprop="name">
+            <a href="https://github.com/neohiro/Tetris" target="_blank" rel="noopener">Tetris</a>
+            
+          </h3>
+          <p class="repo-card-desc" itemprop="description">Classic Tetris — guideline-compliant, T-spin detection, replay system, vs AI</p>
+          
+          <div class="repo-card-meta">
+            <span class="repo-platform" itemprop="operatingSystem">Windows / Linux / macOS / Web</span>
+            
+              <span class="repo-lang">Rust (macroquad) / TypeScript</span>
+            
+            
+              <span class="repo-category">Games</span>
+            
+          </div>
+          
+          <div class="repo-card-stats">
+            <span class="stat-item" title="Stars"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z" /></svg> 0</span>
+            <span class="stat-item" title="Forks"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM5 3.25a.75.75 0 10-1.5 0 .75.75 0 001.5 0zm6.75.75a.75.75 0 100-1.5.75.75 0 000 1.5zm-3 8.75a.75.75 0 10-1.5 0 .75.75 0 001.5 0z" /></svg> 1</span>
+            
+          </div>
+          
+          <div class="repo-card-links">
+            <a href="https://github.com/neohiro/Tetris" class="repo-link" itemprop="url">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              Details
+            </a>
+            <a href="https://github.com/neohiro/Tetris" class="repo-link repo-link-external" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" /></svg>
+              GitHub
+            </a>
+          </div>
+          <div class="repo-card-actions">
+            <a href="https://github.com/neohiro/Tetris/issues" class="repo-action-btn repo-action-bug" target="_blank" rel="noopener" title="Bug Reports">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12h2a8 8 0 1 0 16 0H2c0-4.41 3.59-8 8-8z" /></svg>
+              Bug
+            </a>
+            <a href="https://github.com/neohiro/Tetris/security" class="repo-action-btn repo-action-sec" target="_blank" rel="noopener" title="Security / Vulnerabilities">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" /></svg>
+              Sec
+            </a>
+            <a href="https://github.com/neohiro/Tetris/discussions" class="repo-action-btn repo-action-disc" target="_blank" rel="noopener" title="Discussions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              Discuss
+            </a>
+          </div>
+        </article>
+      
+    </div>
+
+    <div class="repos-footer">
+      <p>Part of <a href="https://github.com/neohiro" target="_blank" rel="noopener">neohiro</a> — Security hardening &amp; privacy tools for Windows and Linux.</p>
+      <p><a href="/">← Back to Home</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+  document.addEventListener('DOMContentLoaded', function() {
+    var grid = document.getElementById('repos-grid');
+    if (!grid) return;
+    var cards = Array.from(grid.querySelectorAll('.repo-card'));
+    var filterBtns = document.querySelectorAll('.filter-btn');
+    var searchInput = document.getElementById('repo-search');
+    var sortSelect = document.getElementById('repo-sort');
+    var countAll = document.getElementById('count-all');
+    var countFeatured = document.getElementById('count-featured');
+    var countDeprecated = document.getElementById('count-deprecated');
+    var countStars = document.getElementById('count-stars');
+
+    // ── Make all cards visible immediately ──────────────────────────────────
+    cards.forEach(function(c) { c.classList.add('visible'); });
+
+    // ── Stats ────────────────────────────────────────────────────────────────
+    if (countAll) countAll.textContent = cards.length;
+    if (countFeatured) {
+      countFeatured.textContent = grid.querySelectorAll('.featured-badge').length;
+    }
+    if (countDeprecated) {
+      countDeprecated.textContent = cards.filter(function(c) {
+        return c.dataset.deprecated === 'True' || c.dataset.deprecated === 'true';
+      }).length;
+    }
+    if (countStars) {
+      var totalStars = cards.reduce(function(s, c) {
+        return s + (parseInt(c.dataset.stars || '0', 10) || 0);
+      }, 0);
+      countStars.textContent = totalStars;
+    }
+
+    // ── State ────────────────────────────────────────────────────────────
+    var activeFilter = 'all';
+    var activeQuery = '';
+    var activeSort = 'default';
+
+    function applyFilters() {
+      cards.forEach(function(card) {
+        var cats = (card.dataset.category || '').toLowerCase();
+        var name = (card.dataset.name || '').toLowerCase();
+        var desc = (card.querySelector('.repo-card-desc') || {}).textContent || '';
+        var lang = (card.dataset.language || '').toLowerCase();
+        var repo = (card.dataset.repo || '').toLowerCase();
+        var isDeprecated = card.dataset.deprecated === 'True' || card.dataset.deprecated === 'true';
+        desc = desc.toLowerCase();
+        var q = activeQuery.toLowerCase().trim();
+
+        var show = true;
+        if (activeFilter !== 'all') {
+          if (activeFilter === 'deprecated') {
+            show = isDeprecated;
+          } else {
+            show = cats.includes(activeFilter);
+          }
+        }
+        if (show && q) {
+          show = name.includes(q) || desc.includes(q) || lang.includes(q) || cats.includes(q) || repo.includes(q);
+        }
+        card.style.display = show ? '' : 'none';
+        if (show) {
+          card.style.animation = '';
+          void card.offsetWidth;
+          card.style.animation = 'fadeInUp 0.35s ease forwards';
+        }
+      });
+
+      // Update count
+      var visibleCount = cards.filter(function(c) { return c.style.display !== 'none'; }).length;
+      if (countAll) countAll.textContent = visibleCount;
+
+      // Apply sort to visible cards
+      applySort();
+    }
+
+    function applySort() {
+      var visible = cards.filter(function(c) { return c.style.display !== 'none'; });
+      if (activeSort === 'default') return;
+      visible.sort(function(a, b) {
+        var va = 0, vb = 0;
+        switch (activeSort) {
+          case 'stars-desc':   va = parseInt(a.dataset.stars||'0',10); vb = parseInt(b.dataset.stars||'0',10); return vb - va;
+          case 'stars-asc':   va = parseInt(a.dataset.stars||'0',10); vb = parseInt(b.dataset.stars||'0',10); return va - vb;
+          case 'forks-desc':  va = parseInt(a.dataset.forks||'0',10);  vb = parseInt(b.dataset.forks||'0',10);  return vb - va;
+          case 'forks-asc':   va = parseInt(a.dataset.forks||'0',10);  vb = parseInt(b.dataset.forks||'0',10);  return va - vb;
+          case 'issues-desc': va = parseInt(a.dataset.issues||'0',10); vb = parseInt(b.dataset.issues||'0',10); return vb - va;
+          case 'updated-desc':va = a.dataset.pushed || ''; vb = b.dataset.pushed || ''; return vb.localeCompare(va);
+          case 'updated-asc': va = a.dataset.pushed || ''; vb = b.dataset.pushed || ''; return va.localeCompare(vb);
+          case 'created-desc':va = a.dataset.created || ''; vb = b.dataset.created || ''; return vb.localeCompare(va);
+          case 'created-asc': va = a.dataset.created || ''; vb = b.dataset.created || ''; return va.localeCompare(vb);
+          case 'name-asc':   va = a.dataset.name || ''; vb = b.dataset.name || ''; return va.localeCompare(vb);
+          case 'name-desc':  va = a.dataset.name || ''; vb = b.dataset.name || ''; return vb.localeCompare(va);
+          case 'year-2026': va = (a.dataset.created||'').startsWith('2026'); vb = (b.dataset.created||'').startsWith('2026'); return vb - va;
+          case 'year-2025': va = (a.dataset.created||'').startsWith('2025'); vb = (b.dataset.created||'').startsWith('2025'); return vb - va;
+          case 'year-2024': va = !(a.dataset.created||'').startsWith('2025') && !(a.dataset.created||'').startsWith('2026'); vb = !(b.dataset.created||'').startsWith('2025') && !(b.dataset.created||'').startsWith('2026'); return vb - va;
+        }
+        return 0;
+      });
+      visible.forEach(function(c) { grid.appendChild(c); });
+    }
+
+    // ── Filter buttons ─────────────────────────────────────────────────
+    filterBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        activeFilter = this.dataset.filter;
+        filterBtns.forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        applyFilters();
+      });
+    });
+
+    // ── Search ──────────────────────────────────────────────────────
+    var searchDebounce;
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        clearTimeout(searchDebounce);
+        searchDebounce = setTimeout(function() {
+          activeQuery = searchInput.value;
+          applyFilters();
+        }, 200);
+      });
+    }
+
+    // ── Sort ────────────────────────────────────────────────────────
+    if (sortSelect) {
+      sortSelect.addEventListener('change', function() {
+        activeSort = sortSelect.value;
+        applyFilters();
+      });
+    }
+
+    // ── Initial render ───────────────────────────────────────────────
+    applyFilters();
+  });
+})();
+</script>
+
+<style>
+.repos-page { padding: 40px 0 80px; }
+.repos-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.875rem; color: var(--fg-subtle); margin-bottom: 40px; }
+.repos-breadcrumb a { color: var(--fg-subtle); }
+.repos-breadcrumb a:hover { color: var(--accent); }
+.repos-breadcrumb span[aria-current] { color: var(--fg); font-weight: 500; }
+
+.repos-header { text-align: center; margin-bottom: 32px; }
+.repos-header h1 { margin-bottom: 12px; }
+.repos-subtitle { font-size: 1.125rem; color: var(--fg-muted); max-width: 600px; margin: 0 auto; }
+
+.repos-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 24px; flex-wrap: wrap; }
+.repos-filters { display: flex; gap: 10px; flex-wrap: wrap; }
+.filter-btn { padding: 8px 18px; font-size: 0.8125rem; font-weight: 500; color: var(--fg-muted); background: var(--bg-card); border: 1px solid var(--border); border-radius: 999px; cursor: pointer; transition: all var(--transition); }
+.filter-btn:hover { color: var(--fg); border-color: var(--border-hover); }
+.filter-btn.active { color: white; background: var(--accent); border-color: var(--accent); }
+
+.repo-search { padding: 10px 16px; font-size: 0.875rem; color: var(--fg); background: var(--bg-card); border: 1px solid var(--border); border-radius: 999px; min-width: 240px; }
+.repo-search:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+.repo-search::placeholder { color: var(--fg-subtle); }
+
+.repos-controls { display: flex; gap: 10px; flex-wrap: wrap; }
+.repo-sort { padding: 9px 14px; font-size: 0.85rem; color: var(--fg); background: var(--bg-card); border: 1px solid var(--border); border-radius: 999px; cursor: pointer; appearance: none; -webkit-appearance: none; min-width: 200px; font-family: var(--font-ui); transition: border-color var(--transition); }
+.repo-sort:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+.repo-sort:hover { border-color: var(--border-hover); }
+
+.repos-stats { display: flex; justify-content: center; gap: 32px; margin-bottom: 32px; font-size: 0.875rem; color: var(--fg-subtle); flex-wrap: wrap; }
+.repos-stats .stat { display: flex; align-items: center; gap: 6px; }
+.repos-stats strong { color: var(--fg); font-family: var(--font-mono); }
+
+.repos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.repo-card { display: flex; flex-direction: column; padding: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); transition: all var(--transition); position: relative; opacity: 0; }
+.repo-card.visible { opacity: 1; }
+.repo-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-strong)); border-radius: var(--radius) var(--radius) 0 0; opacity: 0; transition: opacity var(--transition); }
+.repo-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.repo-card:hover::before { opacity: 1; }
+
+.repo-card-deprecated-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; font-size: 0.68rem; font-weight: 700; font-family: var(--font-mono); color: #f59e0b; background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.4); border-radius: 4px; margin-bottom: 8px; }
+.repo-card-successor { font-size: 0.78rem; color: var(--fg-muted); margin-bottom: 8px; }
+.repo-card-successor a { color: var(--accent); }
+.repo-card-successor a:hover { text-decoration: underline; }
+
+.repo-card-icon { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: var(--radius-sm); background: var(--accent-dim); color: var(--accent); margin-bottom: 16px; }
+.repo-card-icon svg { width: 24px; height: 24px; }
+
+.repo-card-name { margin-bottom: 10px; font-size: 1.0625rem; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.repo-card-name a { color: var(--fg); text-decoration: none; transition: color var(--transition); }
+.repo-card-name a:hover { color: var(--accent); }
+.featured-badge { font-size: 0.75rem; color: var(--orange); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+
+.repo-card-desc { font-size: 0.875rem; line-height: 1.5; color: var(--fg-muted); margin-bottom: 16px; flex: 1; }
+
+.repo-card-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; font-size: 0.75rem; font-family: var(--font-mono); }
+.repo-platform, .repo-lang, .repo-category { padding: 3px 8px; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--fg-subtle); }
+
+.repo-card-stats { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
+.stat-item { display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; font-family: var(--font-mono); color: var(--fg-muted); }
+.stat-item svg { opacity: 0.7; }
+
+.repo-card-links { display: flex; gap: 10px; margin-top: auto; }
+.repo-link { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; font-size: 0.8125rem; font-weight: 600; border-radius: var(--radius-sm); background: var(--accent-dim); color: var(--accent); border: 1px solid transparent; transition: all var(--transition); text-decoration: none; }
+.repo-link:hover { background: var(--accent); color: white; }
+.repo-link-external { background: transparent; color: var(--fg-muted); border-color: var(--border); }
+.repo-link-external:hover { background: var(--bg); color: var(--fg); border-color: var(--border-hover); }
+
+.repo-card-actions { display: flex; gap: 6px; margin-top: 10px; }
+.repo-action-btn { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; font-size: 0.72rem; font-weight: 600; border-radius: 4px; text-decoration: none; border: 1px solid; transition: all var(--transition); }
+.repo-action-bug { color: var(--orange); border-color: var(--orange); background: rgba(255,167,38,0.06); }
+.repo-action-bug:hover { background: rgba(255,167,38,0.15); }
+.repo-action-sec { color: var(--red); border-color: var(--red); background: rgba(239,83,80,0.06); }
+.repo-action-sec:hover { background: rgba(239,83,80,0.15); }
+.repo-action-disc { color: var(--green); border-color: var(--green); background: rgba(102,187,106,0.06); }
+.repo-action-disc:hover { background: rgba(102,187,106,0.15); }
+
+.repos-footer { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--fg-subtle); font-size: 0.875rem; }
+.repos-footer a { color: var(--fg-subtle); }
+.repos-footer a:hover { color: var(--accent); }
+
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 768px) {
+  .repos-grid { grid-template-columns: 1fr; }
+  .repos-toolbar { flex-direction: column; align-items: stretch; }
+  .repos-filters { justify-content: center; }
+  .repo-search { width: 100%; min-width: 0; }
+  .repos-stats { gap: 16px; font-size: 0.8125rem; }
+}
+</style>
+
+
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="container">
+        <div class="footer-unified">
+  <!-- Philosophy Quote -->
+  <div class="footer-quote-wrap">
+    <blockquote class="footer-quote">
+      “Every body has organs. Every system has dependencies. We built this stack so nothing breaks quietly.”
+    </blockquote>
+  </div>
+
+  {# The Ecosystem Network grid lives in ecosystem-network.html and is included once
+     by _layouts/default.html directly after this file. It used to be duplicated in
+     both places, which rendered six ecosystem cards per page. #}
+
+  <!-- Quick Links & Legal Directory -->
+  <div class="footer-columns">
+    <div class="footer-column">
+      <h4>Tooling &amp; Systems</h4>
+      <ul>
+        <li><a href="/#featured-tools">Hardening Tools</a></li>
+        <li><a href="/#hardening-guides">Implementation Guides</a></li>
+        <li><a href="/repositories/">All Public Repositories</a></li>
+        <li><a href="/media/">Media &amp; Deep Dives</a></li>
+        <li><a href="/heartbeats/">System Heartbeats (Live SVGs)</a></li>
+        <li><a href="/onboard/">Onboarding &amp; Setup</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Trust &amp; Governance</h4>
+      <ul>
+        <li><a href="/privacy/">Privacy Policy (Zero Telemetry)</a></li>
+        <li><a href="/tos/">Terms of Service</a></li>
+        <li><a href="/LICENSE/">Open Source Licensing</a></li>
+        <li><a href="https://github.com/neohiro/windows/security" target="_blank" rel="noopener">Security Advisories</a></li>
+        <li><a href="https://github.com/neohiro/neohiro.github.io/blob/main/CODE_OF_CONDUCT.md" target="_blank" rel="noopener">Code of Conduct</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column footer-column-community">
+      <h4>Support &amp; Community</h4>
+      <p class="footer-support-text">Open-source defense engineering funded independently without telemetry, analytics, or trackers.</p>
+      <a href="https://github.com/sponsors/neohiro" class="footer-sponsor-button" target="_blank" rel="noopener">
+        <span class="heart-pulse" aria-hidden="true">♥</span> Sponsor neohiro on GitHub
+      </a>
+      <div class="footer-community-links">
+        <a href="https://github.com/neohiro/windows/issues" target="_blank" rel="noopener">Bug Reports</a> ·
+        <a href="https://github.com/neohiro/windows/discussions" target="_blank" rel="noopener">Discussions</a> ·
+        <a href="https://github.com/neohiro" target="_blank" rel="noopener">Org Overview</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Tagline & Micro-Legal -->
+  <div class="footer-bottom-bar">
+    <p class="footer-tagline">
+      Made with <span class="heart" aria-hidden="true">♥</span> by neohiro · Defense is the best defense.
+    </p>
+    <p class="footer-micro">
+      © 2026 FrenzyPenguin Media &amp; neohiro · All tools released under FOSS licenses (GPL-3.0 / MIT).
+    </p>
+  </div>
+</div>
+<!-- ecosystem-network.html — the unified Ecosystem Network frame.
+     SSOT: template-shared/_includes/ecosystem-network.html
+
+     Every *.github.io site includes this once per page, after
+     footer-button-row.html, so the frame sits at the very bottom of the
+     footer with clear space above it. It lists all four network sites in a
+     fixed order, including the one the visitor is already on.
+
+     Parameter:
+       current — the site rendering this file. One of: neohiro | fpm |
+                 transhumanists | openstageisland. Omit it and every card
+                 links out normally.
+
+     The matching card drops its links (name and host become plain text) and
+     gains .is-current, so "you are here" is conveyed by the card's shape
+     rather than by colour alone.
+
+     The frame's own heading is an <h2>, not an <h3>. The frame is a sibling of
+     the page's content sections, not a subsection of the last one, and <h3>
+     only passed the heading-order gate on pages whose content happened to end
+     in an <h2> — on a page ending in the <h1> it read as a skipped level.
+     Every page has exactly one <h1> and uses <h2> for sections, so <h2> is
+     correct everywhere.
+
+     Cross-site links are absolute on purpose: the frame is a directory of
+     other origins, so a relative_url would resolve against whichever site
+     happens to be rendering it. --><!-- Ecosystem Network -->
+<section class="footer-ecosystem" aria-labelledby="ecosystem-network-title">
+  <div class="footer-ecosystem-header">
+    <span class="footer-badge">ECOSYSTEM NETWORK</span>
+    <h2 class="footer-ecosystem-title" id="ecosystem-network-title">Interconnected Media, Research &amp; Tooling</h2>
+  </div>
+
+  <div class="footer-ecosystem-grid">
+
+    <!-- neohiro -->
+    <div class="ecosystem-card">
+      <div class="ecosystem-card-top">
+        <div class="ecosystem-icon" aria-hidden="true">👽</div>
+        <div class="ecosystem-info">
+          <div class="ecosystem-name-row"><a href="https://neohiro.github.io/" target="_blank" rel="noopener" class="ecosystem-name">neohiro</a>
+            <span class="ecosystem-pill ecosystem-pill-hub">Hardening Hub</span>
+          </div><a href="https://neohiro.github.io/" target="_blank" rel="noopener" class="ecosystem-url">neohiro.github.io</a>
+        </div>
+      </div>
+      <p class="ecosystem-desc">Production-grade security hardening for Windows &amp; Linux. STIG compliance and zero telemetry.</p>
+      <div class="ecosystem-links">
+        <a href="https://neohiro.github.io/repositories/" class="ecosystem-action-btn ecosystem-btn-main">
+          All Repositories &rarr;
+        </a>
+        <a href="https://github.com/neohiro" target="_blank" rel="noopener" class="ecosystem-action-btn ecosystem-btn-alt" title="GitHub Organization">
+          github.com/neohiro &rarr;
+        </a>
+      </div>
+    </div>
+
+    <!-- FrenzyPenguin Media -->
+    <div class="ecosystem-card">
+      <div class="ecosystem-card-top">
+        <div class="ecosystem-icon" aria-hidden="true">🎬</div>
+        <div class="ecosystem-info">
+          <div class="ecosystem-name-row"><a href="https://frenzypenguin.media" target="_blank" rel="noopener" class="ecosystem-name">FrenzyPenguin Media</a>
+            <span class="ecosystem-pill ecosystem-pill-primary">Main Domain</span>
+          </div><a href="https://frenzypenguin.media" target="_blank" rel="noopener" class="ecosystem-url">frenzypenguin.media</a>
+        </div>
+      </div>
+      <p class="ecosystem-desc">Music artist recordings, creative projects, and multimedia content from the makers of neohiro.</p>
+      <div class="ecosystem-links">
+        <a href="https://frenzypenguin.media" class="ecosystem-action-btn ecosystem-btn-main">
+          frenzypenguin.media &rarr;
+        </a>
+        <a href="https://frenzypenguin-media.github.io/" target="_blank" rel="noopener" class="ecosystem-action-btn ecosystem-btn-alt" title="GitHub Pages / Repository Source">
+          gh-pages &rarr;
+        </a>
+      </div>
+    </div>
+
+    <!-- Transhumanists (H+) -->
+    <div class="ecosystem-card">
+      <div class="ecosystem-card-top">
+        <div class="ecosystem-icon" aria-hidden="true">🧬</div>
+        <div class="ecosystem-info">
+          <div class="ecosystem-name-row"><a href="https://transhumanists.github.io/" target="_blank" rel="noopener" class="ecosystem-name">Transhumanists (H+)</a>
+            <span class="ecosystem-pill ecosystem-pill-network">Research Portal</span>
+          </div><a href="https://transhumanists.github.io/" target="_blank" rel="noopener" class="ecosystem-url">transhumanists.github.io</a>
+        </div>
+      </div>
+      <p class="ecosystem-desc">Evolutionary technology, longevity architectures, cognitive research, and transhumanism.</p>
+      <div class="ecosystem-links">
+        <a href="https://transhumanists.github.io/" class="ecosystem-action-btn ecosystem-btn-main">
+          transhumanists.github.io &rarr;
+        </a>
+        <a href="https://github.com/transhumanists" target="_blank" rel="noopener" class="ecosystem-action-btn ecosystem-btn-alt" title="GitHub Organization">
+          GitHub Org &rarr;
+        </a>
+      </div>
+    </div>
+
+    <!-- Open Stage Island -->
+    <div class="ecosystem-card">
+      <div class="ecosystem-card-top">
+        <div class="ecosystem-icon" aria-hidden="true">🏝️</div>
+        <div class="ecosystem-info">
+          <div class="ecosystem-name-row"><a href="https://openstageisland.github.io/" target="_blank" rel="noopener" class="ecosystem-name">Open Stage Island</a>
+            <span class="ecosystem-pill ecosystem-pill-stage">Second Life Venue</span>
+          </div><a href="https://openstageisland.github.io/" target="_blank" rel="noopener" class="ecosystem-url">openstageisland.github.io</a>
+        </div>
+      </div>
+      <p class="ecosystem-desc">Free 24/7 open-air electronic music stage in Second Life. Any artist can take the stage — no booking, no fee.</p>
+      <div class="ecosystem-links">
+        <a href="https://openstageisland.github.io/" class="ecosystem-action-btn ecosystem-btn-main">openstageisland.github.io &rarr;
+        </a>
+        <a href="https://github.com/openstageisland" target="_blank" rel="noopener" class="ecosystem-action-btn ecosystem-btn-alt" title="GitHub Organization">
+          GitHub Org &rarr;
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+        <div align="center">
+  <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1631173/t/1" defer></script>
+  <noscript>
+    <a href="https://www.freevisitorcounters.com/">View visitor counter</a>
+  </noscript>
+</div>
+      </div>
+    </footer>
+  </div>
+
+  {# auth-bar.html — the persistent lower bar ("dock").
+
+   CONTRACT (keep in sync across neohiro / frenzypenguin-media / openstageisland /
+   transhumanists):
+
+   1. AI and Contact are ONE thing here. There is no separate Contact tab and no
+      separate chat form. The only composer is the assistant ask bar that
+      network-ux.js mounts (#ai-bar), which talks to the real Mouth endpoint via
+      /.well-known/ask. The previous dock-local form POSTed to '/api/contact',
+      which does not exist on GitHub Pages, so every message silently failed.
+   2. Login lives in the TOP bar (see nav.html). The dock only surfaces the
+      signed-in state (Dashboard / avatar) and the sign-out control.
+   3. Selecting "Assistant" hands off to network-ux.js, which slides this dock
+      down and slides the screenwide conversation sheet up behind it. The page
+      behind stays scrollable and interactive.
+   4. THE RAIL IS THE PERSISTENT NAVBAR FOR THE MAIN PAGE. Its leftmost item is
+      the AI-bar button (#ai-dock__tab--ai) — network-ux.js routes it to the
+      mainframe bridge for an answer, and to the voicemail queue for triage that
+      reaches godadmin. To its right, every top-level section of index.md appears
+      as an in-page anchor, driven by the `main_sections` list in _config.yml so
+      this template cannot drift from the page. Anchor targets are same-document
+      on the home page; from any other page they become "/" + fragment, so the
+      rail never links to a section that is not on the document it is rendered in.
+
+   The remaining panels are kept because auth-bar.js wires them by id and the
+   top-bar Login button calls AuthBar.selectTab('login'). #}
+<div class="ai-dock" id="ai-dock" role="navigation" aria-label="Assistant and page sections">
+  <div class="ai-dock__rail">
+
+    {# ── LEFT: the AI bar. Assistant answers via the mainframe bridge
+           (/.well-known/ask) and escalates to voicemail triage
+           (/.well-known/voicemail) that reaches godadmin. #}
+    <button class="ai-dock__tab ai-dock__tab--ai"
+            role="tab"
+            aria-selected="false"
+            aria-controls="ai-dock__panel--ai"
+            id="ai-dock__tab--ai"
+            title="Talk to the assistant — questions, bug reports, access requests">
+      <span class="ai-dock__tab-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+          <path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm0 2a8 8 0 110 16 8 8 0 010-16zm-1 3v4.586l-2.707 2.707-1.414-1.414L11.293 9.88 8.586 7.172A1 1 0 009.586 6.172l3 3A1 1 0 0112 10.586V7a1 1 0 012 0v3a1 1 0 01-1 1h-3z"/>
+        </svg>
+      </span>
+      <span class="ai-dock__tab-label">Assistant</span>
+    </button>
+
+    {# ── MIDDLE: every top-level section of the main page, as anchors.
+           `on_home` is true only when the current document IS the main page, so
+           the hrefs are bare fragments here and absolute everywhere else.
+
+           There is deliberately NO hardcoded fallback list. This template is
+           shared by four sites whose home pages carry different section ids, so
+           a baked-in list would put pills in every site's bottom bar pointing
+           at fragments that do not exist there — dead links are worse than no
+           links. A site that does not declare `main_sections` gets a clean bar
+           (AI bar + account); declare the list in _config.yml to switch the
+           group on. #}<div class="ai-dock__sep" aria-hidden="true"></div>
+    <nav class="ai-dock__sections" aria-label="Main page sections">{# `sec_frag` arrives as "#home" (the config spells it as a fragment so it
+           is unambiguous there). The href needs it verbatim; the data attribute
+           needs the bare id, because that is what getElementById() takes. #}
+        <a class="ai-dock__sec"
+           href="/#home"
+           data-section-anchor="home">Home</a>{# `sec_frag` arrives as "#home" (the config spells it as a fragment so it
+           is unambiguous there). The href needs it verbatim; the data attribute
+           needs the bare id, because that is what getElementById() takes. #}
+        <a class="ai-dock__sec"
+           href="/#quotes"
+           data-section-anchor="quotes">Signal</a>{# `sec_frag` arrives as "#home" (the config spells it as a fragment so it
+           is unambiguous there). The href needs it verbatim; the data attribute
+           needs the bare id, because that is what getElementById() takes. #}
+        <a class="ai-dock__sec"
+           href="/#featured-tools"
+           data-section-anchor="featured-tools">Tools</a>{# `sec_frag` arrives as "#home" (the config spells it as a fragment so it
+           is unambiguous there). The href needs it verbatim; the data attribute
+           needs the bare id, because that is what getElementById() takes. #}
+        <a class="ai-dock__sec"
+           href="/#hardening-guides"
+           data-section-anchor="hardening-guides">Guides</a>{# `sec_frag` arrives as "#home" (the config spells it as a fragment so it
+           is unambiguous there). The href needs it verbatim; the data attribute
+           needs the bare id, because that is what getElementById() takes. #}
+        <a class="ai-dock__sec"
+           href="/#community"
+           data-section-anchor="community">Community</a></nav><a class="ai-dock__tab ai-dock__tab--dashboard hidden"
+       id="ai-dock__tab--dashboard"
+       title="Dashboard"
+       href="https://github.com/neohiro/dashboard" target="_blank" rel="noopener">
+      <span class="ai-dock__tab-icon" aria-hidden="true">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+          <path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+      </span>
+      <span class="ai-dock__tab-label">Dashboard</span>
+    </a>
+
+    <button class="ai-dock__tab ai-dock__tab--user hidden"
+            role="tab"
+            aria-selected="false"
+            aria-controls="ai-dock__panel--user"
+            id="ai-dock__tab--user">
+      <img id="ai-dock__avatar" src="" alt="" width="20" height="20" style="border-radius:50%" loading="lazy">
+      <span id="ai-dock__username"></span>
+      <span class="ai-dock__role-badge" id="ai-dock__role"></span>
+    </button>
+
+  </div>
+
+  <div class="ai-dock__panels">
+
+    {# Placeholder panel — the real conversation UI is the screenwide sheet that
+       network-ux.js mounts (#ai-conv). Kept so aria-controls resolves. #}
+    <div class="ai-dock__panel ai-dock__panel--ai"
+         id="ai-dock__panel--ai"
+         role="tabpanel"
+         aria-labelledby="ai-dock__tab--ai"
+         hidden>
+      <div class="ai-dock__ai-chat">
+        <p>The assistant opens as a full-width sheet above this bar. The site stays scrollable behind it.</p>
+      </div>
+    </div>
+
+    <div class="ai-dock__panel ai-dock__panel--login"
+         id="ai-dock__panel--login"
+         role="tabpanel"
+         aria-labelledby="nav-auth__login"
+         hidden>
+      <div class="ai-dock__login">
+        <p>Sign in with GitHub to reach the dashboard, request features, or let the assistant know who you are.</p>
+        <button id="ai-dock__gh-btn" class="ai-dock__btn ai-dock__btn--github">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+          </svg>
+          Continue with GitHub
+        </button>
+        <p class="ai-dock__login-note">Read-only access to your GitHub profile. No write permissions.</p>
+      </div>
+    </div>
+
+    <div class="ai-dock__panel ai-dock__panel--user"
+         id="ai-dock__panel--user"
+         role="tabpanel"
+         aria-labelledby="ai-dock__tab--user"
+         hidden>
+      <div class="ai-dock__user-menu">
+        <div class="ai-dock__user-info">
+          <img id="ai-dock__user-avatar-lg" src="" alt="" width="36" height="36" style="border-radius:50%">
+          <div>
+            <div id="ai-dock__user-name"></div>
+            <div class="ai-dock__user-login" id="ai-dock__user-login"></div>
+          </div>
+        </div>
+        <div class="ai-dock__user-actions">
+          <a id="ai-dock__user-dashboard-link" href="https://github.com/neohiro/dashboard" class="ai-dock__btn ai-dock__btn--ghost" target="_blank" rel="noopener">
+            Dashboard
+          </a>
+          <button id="ai-dock__user-logout" class="ai-dock__btn ai-dock__btn--ghost">
+            Sign out
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ai-dock__backdrop" id="ai-dock__backdrop" hidden></div>
+</div>
+
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/network-ux.js"></script>
+  <script src="/assets/js/auth-bar.js" defer></script>
+</body>
+</html>

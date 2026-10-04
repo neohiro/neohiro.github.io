@@ -1,4 +1,4 @@
-﻿/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
  * neohiro-network :: Universal cross-site UX module
  *   - AI assistant input bar (full width, dynamic cursor, typing indicator)
  *   - Conversation modal (sway-down, user/assistant bubbles, typing indicator)
@@ -24,17 +24,107 @@
     if (document.readyState !== 'loading') boot();
   }
 
-  function boot() {
-    mountStarfield();
-    mountPreviousButton();
-    mountConversationModal();
-    mountAssistantBar();
-    fillAvatarSlots(document.body); // ai-dock chat avatar (site identity)
-    injectNavAuth();
-    detectStranger();
-    wireInteractions();
-    runDiagnostics();
-  }
+function boot() {
+      mountStarfield();
+      mountPreviousButton();
+      mountConversationModal();
+      mountAssistantBar();
+      fillAvatarSlots(document.body); // ai-dock chat avatar (site identity)
+      injectNavAuth();
+      trackDockSections();
+      detectStranger();
+      wireInteractions();
+      runDiagnostics();
+    }
+
+    /* ── Dock section anchors: which main-page section am I in? ─────────────
+       The persistent bottom bar carries one anchor per top-level section of the
+       main page (`main_sections` in _config.yml, matching the ids in index.md).
+       This marks the one being read.
+
+       One source of truth on purpose. An earlier revision used an
+       IntersectionObserver with a -45%/-45% band, which is cheaper per frame but
+       cannot mark a section that never reaches the band — and the last section
+       of a page usually cannot, because there is nothing below it to scroll it
+       up into place. The final pill was therefore permanently dead.
+
+       aria-current is "true" only, never "location"/"page": those tell assistive
+       tech the element IS the page, which is false here.
+
+       Anchors whose target is absent from this document are dropped, so a page
+       with no #community simply does not highlight that pill. */
+    function trackDockSections() {
+      var links = Array.prototype.slice.call(
+        document.querySelectorAll('.ai-dock__sec[data-section-anchor]'));
+      var targets = links
+        .map(function (a) {
+          var id = a.getAttribute('data-section-anchor');
+          var el = id ? document.getElementById(id) : null;
+          return el ? { link: a, el: el } : null;
+        })
+        .filter(Boolean);
+      if (!targets.length) return;
+
+      // Selection is by measured position, never by iteration order, so a
+      // `main_sections` list that is out of document order cannot be wrong.
+      function resolve() {
+        var vh = window.innerHeight;
+        var line = vh / 2;
+        var doc = document.documentElement;
+        var pos = [], i;
+        for (i = 0; i < targets.length; i++) {
+          pos.push(targets[i].el.getBoundingClientRect().top);
+        }
+
+        // Scrolled to the end of the document: the final section's top can
+        // never reach the line, so treat "the end" as "reading the last
+        // section". Without this the last pill never lights.
+        if (doc && window.scrollY + vh >= doc.scrollHeight - 2) {
+          var last = 0;
+          for (i = 1; i < pos.length; i++) if (pos[i] > pos[last]) last = i;
+          return targets[last];
+        }
+
+        // Otherwise: the section whose top most recently passed the line.
+        var best = -1, bestTop = -Infinity;
+        for (i = 0; i < pos.length; i++) {
+          if (pos[i] <= line && pos[i] > bestTop) { best = i; bestTop = pos[i]; }
+        }
+        // Nothing has reached the line yet (page shorter than the viewport, or
+        // the very top). Light exactly one rather than none.
+        return targets[best === -1 ? 0 : best];
+      }
+
+      // Writes are guarded on change: resolve() must run every frame because it
+      // reads layout, but re-setting an unchanged attribute still invalidates
+      // style and can restart the pill's colour transition.
+      var painted = null;
+      function paint() {
+        var current = resolve();
+        if (current === painted) return;
+        painted = current;
+        for (var i = 0; i < targets.length; i++) {
+          if (targets[i] === current) targets[i].link.setAttribute('aria-current', 'true');
+          else targets[i].link.removeAttribute('aria-current');
+        }
+      }
+
+      // rAF-throttled: scroll fires far more often than layout is usefully
+      // readable, and getBoundingClientRect forces layout. Passive throughout.
+      var ticking = false;
+      var raf = window.requestAnimationFrame
+        ? function (fn) { window.requestAnimationFrame(fn); }
+        : function (fn) { window.setTimeout(fn, 16); };
+      function schedule() {
+        if (ticking) return;
+        ticking = true;
+        raf(function () { ticking = false; paint(); });
+      }
+
+      window.addEventListener('scroll', schedule, { passive: true });
+      window.addEventListener('resize', schedule, { passive: true });
+      paint();
+    }
 
   /* â”€â”€ Universal interaction wiring (ripples, tilt, reveal) â”€â”€â”€ */
   function wireInteractions() {
@@ -194,11 +284,15 @@
   }
   function hostOf(url) { try { return new URL(url).hostname; } catch (_) { return ''; } }
   function labelFor(host) {
-    if (host.startsWith('transhumanists')) return 'transhumanists';
-    if (host.startsWith('frenzypenguin'))   return 'FrenzyPenguin Media';
-    if (host.startsWith('openstageisland')) return 'Open Stage Island';
-    return 'neohiro';
-  }
+  if (!host) return "Unknown";
+  return host
+    .replace(/^www\./i, "")
+    .replace(/\.github\.io$/i, "")
+    .replace(/^neohiro$/, "neohiro")
+    .replace(/^frenzypenguin-media$/, "fpm")
+    .replace(/^transhumanists$/, "transhumanists")
+    .replace(/^openstageisland$/, "openstageisland");
+}
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }

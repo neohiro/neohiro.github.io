@@ -88,8 +88,41 @@ function runInline(src, text) {
 function runMarkdown(src, md) {
   var rm = extractFnBody(src, 'renderMarkdown');
   if (!rm) return null;
+  // A DOM shim with a REAL serialiser. renderMarkdown() builds nodes and then
+  // returns `parent.innerHTML`, so `innerHTML` has to reflect the children:
+  // a shim whose innerHTML is a plain writable property never updates on
+  // appendChild, and every renderMarkdown assertion then compares "" against
+  // the expected HTML. `_raw` records an innerHTML that was assigned outright
+  // (the common case: `el.innerHTML = renderInline(...)`), which must win over
+  // serialising children.
+  var dom = [
+    'var document = (function () {',
+    '  function ser(n) {',
+    '    var tag = String(n.tagName || "").toLowerCase();',
+    '    if (n._raw !== undefined) {',
+    '      return tag ? "<" + tag + (n.className ? \' class="\' + n.className + \'"\' : "") + ">" + n._raw + "</" + tag + ">" : n._raw;',
+    '    }',
+    '    var inner = (n.childNodes || []).map(ser).join("");',
+    '    if (!tag) return inner;',
+    '    return "<" + tag + (n.className ? \' class="\' + n.className + \'"\' : "") + ">" + inner + "</" + tag + ">";',
+    '  }',
+    '  function mk(tag) {',
+    '    return {',
+    '      tagName: String(tag).toUpperCase(),',
+    '      className: "",',
+    '      childNodes: [],',
+    '      _raw: undefined,',
+    '      get innerHTML() { return this._raw !== undefined ? this._raw : (this.childNodes || []).map(ser).join(""); },',
+    '      set innerHTML(v) { this._raw = v; this.childNodes = []; },',
+    '      appendChild: function (c) { this.childNodes.push(c); return c; },',
+    '      setAttribute: function () {}',
+    '    };',
+    '  }',
+    '  return { createElement: mk, createDocumentFragment: function () { return mk(""); } };',
+    '})();'
+  ].join('\n');
   var deps = [
-    'var document = { createDocumentFragment: function() { return { childNodes: [], appendChild: function(n){ this.childNodes.push(n); return n; }, innerHTML: \'\' }; }, createElement: function(tag) { return { tagName: tag.toUpperCase(), childNodes: [], className: \'\', innerHTML: \'\', setAttribute: function(){}, appendChild: function(n){ this.childNodes.push(n); return n; } }; } };',
+    dom,
     extractFnBody(src, 'renderInline'),
     extractFnBody(src, 'escapeHtml'),
     extractFnBody(src, '_isSafeUrl'),
@@ -125,7 +158,13 @@ for (var si = 0; si < SITES.length; si++) {
   // Simple cases
   eq(runInline(src, 'plain text'), 'plain text', site + ' -- plain text');
   eq(runInline(src, ''), '', site + ' -- empty string');
-  eq(runInline(src, 'hello <world>'), 'hello <world>', site + ' -- escapes HTML');
+  // Escaping is the point. renderInline() feeds innerHTML, and the
+  // _allowClass/_isSafeUrl machinery exists to keep untrusted text out of the
+  // attribute and URL sinks — so < and > must come back encoded. This
+  // previously asserted the *unescaped* string, which contradicted its own name
+  // and would have passed while XSS protection was absent.
+  eq(runInline(src, 'hello <world>'), 'hello &lt;world&gt;', site + ' -- escapes HTML');
+  eq(runInline(src, 'a & b'), 'a &amp; b', site + ' -- escapes ampersand');
 
   // Bold
   eq(runInline(src, '**bold**'), '<b>bold</b>', site + ' -- bold');
@@ -241,7 +280,13 @@ for (var si3 = 0; si3 < SITES.length; si3++) {
   ok(runAllowClass(src3, 'ai-step--large') === true, site3 + ' -- ai-step--large (BEM modifier) allowed');
   ok(runAllowClass(src3, 'ai-step--primary') === true, site3 + ' -- ai-step--primary allowed');
   ok(runAllowClass(src3, 'role-badge--godadmin') === true, site3 + ' -- role-badge--godadmin allowed');
-  ok(runAllowClass(src3, 'ai-conv__msg--user') === true, site3 + ' -- ai-conv__msg--user allowed');
+  // A `__` sub-element is not a BEM modifier. The allowlist permits
+    // `prefix--modifier` only, so `ai-conv__msg--user` is rejected — nothing
+    // emits that class any more, and this previously asserted it was allowed,
+    // which would have failed as soon as the allowlist was tightened to the BEM
+    // grammar it documents.
+    ok(runAllowClass(src3, 'ai-conv__msg--user') === false,
+       site3 + ' -- ai-conv__msg--user (BEM sub-element, not a modifier) rejected');
 
   // Multiple valid classes
   ok(runAllowClass(src3, 'ai-step ai-conv') === true, site3 + ' -- multiple valid classes');
@@ -823,6 +868,259 @@ for (var x = 0; x < SITES.length; x++) {
   ok(/var\(--font-mono/.test(xcss), xs + ' -- counter uses monospace font');
 }
 
+// --- Bottom bar: main-page section anchors (neohiro) ---
+// The persistent dock carries one anchor per top-level section of the home page.
+// These pin the four things that can silently break it: the config list drifting
+// from index.md, the href coming out as "##home", the data attribute carrying
+// the "#" (which getElementById would never match), and the highlighter claiming
+// an aria-current value that misdescribes the element to assistive tech.
+section('Dock section anchors (neohiro)');
+(function () {
+  var siteDir = 'neohiro.github.io';
+  var cfgFile = PATH.join(REPO, siteDir, '_config.yml');
+  var incFile = PATH.join(REPO, siteDir, '_includes', 'auth-bar.html');
+  var idxFile = PATH.join(REPO, siteDir, 'index.md');
+  var cssFile = PATH.join(REPO, siteDir, 'assets', 'css', 'auth-bar.css');
+  var uxFile = PATH.join(REPO, siteDir, 'assets', 'js', 'network-ux.js');
+  if (!FS.existsSync(cfgFile) || !FS.existsSync(incFile) || !FS.existsSync(idxFile)) return;
+
+  var cfg = FS.readFileSync(cfgFile, 'utf8');
+  var inc = FS.readFileSync(incFile, 'utf8');
+  var idx = FS.readFileSync(idxFile, 'utf8');
+  var css = FS.existsSync(cssFile) ? FS.readFileSync(cssFile, 'utf8') : '';
+  var ux = FS.existsSync(uxFile) ? FS.readFileSync(uxFile, 'utf8') : '';
+
+  ok(/- "Home\|#home"/.test(cfg), siteDir + ' -- _config.yml declares main_sections');
+  ok(/main_sections:/.test(cfg), siteDir + ' -- main_sections is a first-class config key');
+
+  // Every configured section must resolve to a real id in the site's index.md.
+  // Checked across ALL sites that declare main_sections, not just neohiro:
+  // the list is generated into each _config.yml from template-shared/sites.yaml,
+  // so a pill can go stale on any of them. A pill whose fragment no longer
+  // exists is a dead link in the persistent bar on that site's every page.
+  // (Regression: `Live|#live-data` shipped for a `#live-data` id that index.md
+  // has never had — git log -S confirms it was never present.)
+  SITES.forEach(function (s) {
+    var scfg = PATH.join(REPO, s, '_config.yml');
+    var sidx = PATH.join(REPO, s, 'index.md');
+    if (!FS.existsSync(scfg) || !FS.existsSync(sidx)) return;
+    var src = FS.readFileSync(scfg, 'utf8');
+    var frags = (src.match(/^\s*- "[^"]*\|#([^"]+)"/gm) || [])
+      .map(function (l) { return (l.match(/\|#([^"]+)"/) || [])[1]; })
+      .filter(Boolean);
+    if (!frags.length) return; // declares none: renders a clean bar by design
+    var sIds = (FS.readFileSync(sidx, 'utf8')
+      .match(/<(?:section|div)[^>]*\bid="([^"]+)"/g) || [])
+      .map(function (t) { return (t.match(/id="([^"]+)"/) || [])[1]; })
+      .filter(Boolean);
+    frags.forEach(function (frag) {
+      ok(sIds.indexOf(frag) !== -1,
+         s + ' -- main_sections #' + frag + ' resolves to a real id in index.md');
+    });
+  });
+
+  // href must not double the hash; the data attribute must be the bare id.
+  ok(/href="\{% if on_home %\}\{\{ sec_frag \}\}\{% else %\}\/\{\{ sec_frag \}\}\{% endif %\}"/.test(inc),
+     siteDir + ' -- section href uses the fragment verbatim (no doubled "#")');
+  ok(/data-section-anchor="\{\{ sec_frag \| remove_first: '#' \}\}"/.test(inc),
+     siteDir + ' -- data-section-anchor carries the bare id getElementById can use');
+  ok(/on_home/.test(inc), siteDir + ' -- anchors are page-aware (fragment on home, absolute elsewhere)');
+  // Fail closed: a site with no main_sections must render no pills, not this
+  // site's ids. The other three sites in the network share this template.
+  ok(!/main_sections\s*=\s*site\.main_sections\s*\|\s*default:/.test(inc),
+     siteDir + ' -- no hardcoded fallback list (shared template would leak ids across sites)');
+
+  // CSS: the middle group must be shrinkable or overflow-x never engages and
+  // the outer pills spill off both edges of a centred row.
+  if (css) {
+    ok(/\.ai-dock__sections\s*\{[^}]*flex:\s*1 1 auto/.test(css),
+       siteDir + ' -- .ai-dock__sections is shrinkable (flex: 1 1 auto)');
+    ok(/\.ai-dock__sections\s*\{[^}]*min-width:\s*0/.test(css),
+       siteDir + ' -- .ai-dock__sections has min-width: 0 (flex min-size is auto)');
+    ok(/\.ai-dock__sec\s*\{[^}]*overflow|__sections\s*\{[^}]*overflow-x:\s*auto/.test(css),
+       siteDir + ' -- the section group scrolls horizontally');
+    ok(/\.ai-dock__sec\[aria-current="true"\]/.test(css),
+       siteDir + ' -- active section is styled');
+  }
+
+  if (ux) {
+    ok(/function trackDockSections\(\)/.test(ux), siteDir + ' -- trackDockSections() exists');
+    ok(/data-section-anchor/.test(ux), siteDir + ' -- trackDockSections() reads data-section-anchor');
+    ok(/getElementById\(id\)/.test(ux), siteDir + ' -- trackDockSections() resolves anchors by id');
+    ok(/setAttribute\('aria-current',\s*'true'\)/.test(ux), siteDir + ' -- active section sets aria-current="true"');
+    ok(!/setAttribute\('aria-current',\s*'(?:location|page)'/.test(ux),
+       siteDir + ' -- active section never claims aria-current="location"/"page"');
+    ok(/mountAssistantBar\(\);[\s\S]{0,400}trackDockSections\(\)/.test(ux),
+       siteDir + ' -- trackDockSections() is wired into boot()');
+
+    var tsBody = (ux.match(/function trackDockSections\(\)\s*\{[\s\S]*?\n {4}\}\n/) || [''])[0];
+    ok(tsBody.length > 0, siteDir + ' -- trackDockSections() body is extractable');
+    // One writer only. A second (an IntersectionObserver) can mark two sections
+    // current and unset the right one.
+    ok(!/IntersectionObserver/.test(tsBody),
+       siteDir + ' -- trackDockSections() has no second state writer');
+    ok(/addEventListener\('scroll',\s*schedule,\s*\{\s*passive:\s*true\s*\}\)/.test(tsBody),
+       siteDir + ' -- scroll listener is passive');
+    ok(/addEventListener\('resize'/.test(tsBody), siteDir + ' -- tracks resize (probe line uses innerHeight)');
+    ok(/requestAnimationFrame/.test(tsBody), siteDir + ' -- scroll work is rAF-throttled');
+    ok((tsBody.match(/paint\(\)/g) || []).length >= 3,
+       siteDir + ' -- paint() runs on load and from the rAF callback');
+    ok(/if \(current === painted\) return;/.test(tsBody),
+       siteDir + ' -- paint() skips DOM writes when the section has not changed');
+    // The final section cannot reach the probe line at the end of the document.
+    ok(/scrollHeight/.test(tsBody),
+       siteDir + ' -- handles the scrolled-to-end case (last section)');
+  }
+})();
+
+// --- Dock section tracking: behaviour (neohiro) ---
+// The regex checks pin the shape; these pin the behaviour, which is where the
+// bug lived. No DOM library is needed: trackDockSections() only touches
+// querySelectorAll, getElementById, getBoundingClientRect and addEventListener,
+// so this does not join the skipped-without-DOM set.
+section('Dock section tracking behaviour (neohiro)');
+(function () {
+  var VM = require('vm');
+  var uxPath = PATH.join(REPO, 'neohiro.github.io', 'assets', 'js', 'network-ux.js');
+  if (!FS.existsSync(uxPath)) return;
+  var ux = FS.readFileSync(uxPath, 'utf8');
+  var body = (ux.match(/function trackDockSections\(\)\s*\{[\s\S]*?\n {4}\}\n/) || [])[0];
+  if (!body) { ok(false, 'trackDockSections() body not extractable'); return; }
+
+  // ids: anchor ids in dock order. tops: viewport-relative tops.
+  function mount(ids, tops, opts) {
+    opts = opts || {};
+    var vh = opts.vh || 800, docH = opts.docHeight || 10000;
+    var els = {}, links = [], pending = null, handlers = {};
+    ids.forEach(function (id) {
+      els[id] = { id: id,
+        getBoundingClientRect: function () { return { top: this._top }; },
+        _top: tops[id] };
+      links.push({ _id: id, attrs: { 'data-section-anchor': id },
+        getAttribute: function (k) { return this.attrs[k]; },
+        setAttribute: function (k, v) { this.attrs[k] = v; },
+        removeAttribute: function (k) { delete this.attrs[k]; } });
+    });
+    var win = {
+      innerHeight: vh,
+      scrollY: opts.scrollY || 0,
+      requestAnimationFrame: function (fn) { pending = fn; return 1; },
+      addEventListener: function (t, fn) { handlers[t] = fn; }
+    };
+    var sb = { window: win, setTimeout: setTimeout,
+      document: {
+        scrollHeight: docH,
+        documentElement: { scrollHeight: docH },
+        querySelectorAll: function (s) {
+          return s === '.ai-dock__sec[data-section-anchor]' ? links : [];
+        },
+        getElementById: function (id) { return els[id] || null; },
+        addEventListener: function (t, fn) { handlers[t] = fn; }
+      }
+    };
+    VM.createContext(sb);
+    VM.runInContext(body + '\ntrackDockSections();', sb);
+    return {
+      links: links,
+      current: function () {
+        return links.filter(function (l) { return l.attrs['aria-current'] === 'true'; })
+                    .map(function (l) { return l._id; });
+      },
+      setTop: function (id, v) { els[id]._top = v; },
+      // Fire a real scroll: dispatch to the registered handler, then flush the
+      // rAF it scheduled. Flushing the rAF alone would pass even if the handler
+      // were never registered, which is the bug this suite exists for.
+      scroll: function (y) {
+        if (y !== undefined) win.scrollY = y;
+        if (handlers.scroll) handlers.scroll();
+        if (pending) { var p = pending; pending = null; p(); }
+      }
+    };
+  }
+
+  var ids = ['home', 'quotes', 'featured-tools', 'hardening-guides', 'community', 'live-data'];
+  function page(tops, opts) { return mount(ids, tops, opts); }
+
+  // 1. Exactly one pill, always. With quotes.top=-300 and featured-tools.top=200
+  //    on an 800px viewport the probe line (y=400) is inside featured-tools.
+  var t = page({ 'home': -900, 'quotes': -300, 'featured-tools': 200,
+                 'hardening-guides': 900, 'community': 1600, 'live-data': 2300 });
+  ok(t.current().length === 1, 'exactly one section is current on load (got ' + t.current() + ')');
+  ok(t.current()[0] === 'featured-tools',
+     'current is the section crossing the probe line (got ' + t.current() + ')');
+
+  // 2. Nothing has reached the line and we are NOT at the document end.
+  //    docHeight must exceed scrollY + innerHeight, else the end branch owns it.
+  var s = page({ 'home': 500, 'quotes': 1300, 'featured-tools': 2000,
+                 'hardening-guides': 2700, 'community': 3400, 'live-data': 4100 },
+                { vh: 800, docHeight: 5000, scrollY: 0 });
+  ok(s.current().length === 1, 'a section is current when none has passed the line (got ' + s.current() + ')');
+  ok(s.current()[0] === 'home', 'that section is the first one (got ' + s.current() + ')');
+
+  // 2b. A page shorter than the viewport is at its end, so the last section wins.
+  var short = page({ 'home': -100, 'quotes': 200, 'live-data': 600 },
+                    { vh: 800, docHeight: 500, scrollY: 0 });
+  ok(short.current()[0] === 'live-data',
+     'a page shorter than the viewport marks the final section (got ' + short.current() + ')');
+
+  // 3. THE REGRESSION. live-data.top=700 is BELOW the line (400), so position
+  //    alone would say community; only the end-of-document case marks live-data.
+  var b = page({ 'home': -4000, 'quotes': -3000, 'featured-tools': -2000,
+                 'hardening-guides': -1000, 'community': 300, 'live-data': 700 },
+                { vh: 800, docHeight: 1700, scrollY: 900 });
+  ok(b.current().length === 1, 'exactly one section at the document end (got ' + b.current() + ')');
+  ok(b.current()[0] === 'live-data',
+     'last section lights at the bottom of the document (got ' + b.current() + ')');
+
+  // 4/5. Handover between tall sections, and back again.
+  t.setTop('quotes', -1200); t.setTop('featured-tools', -300);
+  t.scroll();
+  ok(t.current().length === 1 && t.current()[0] === 'featured-tools',
+     'handover between sections marks exactly one (got ' + t.current() + ')');
+  t.setTop('quotes', -200); t.setTop('featured-tools', 900);
+  t.scroll();
+  ok(t.current()[0] === 'quotes', 'scrolling back up restores the previous section (got ' + t.current() + ')');
+
+  // 5b. End of document hands over to the last section, leaving it returns to
+  //     position. Positions are set BEFORE dispatch — the repaint reads them.
+  t.scroll(99999);
+  ok(t.current()[0] === 'live-data',
+     'scrolling to the document end marks the final section (got ' + t.current() + ')');
+  t.setTop('community', 300); t.setTop('live-data', 800);
+  t.scroll(0);
+  ok(t.current()[0] === 'community',
+     'leaving the document end returns to position-based selection (got ' + t.current() + ')');
+
+  // 6. Config order vs document order. Built so that "last qualifying in CONFIG
+  //    order" and "largest top at or above the line" name DIFFERENT sections:
+  //      config  quotes(300), featured-tools(100), home(-900)
+  //      position home(-900) < featured-tools(100) < quotes(300)
+  var o = mount(['quotes', 'featured-tools', 'home'],
+                { 'home': -900, 'quotes': 300, 'featured-tools': 100 });
+  ok(o.current()[0] === 'quotes',
+     'selection is by measured position, not config order (got ' + o.current() + ')');
+
+  // 6b. Same discrimination at the document end: config-last is home, and only
+  //     position gives live-data.
+  var o2 = mount(['live-data', 'quotes', 'home'],
+                 { 'home': -900, 'quotes': -300, 'live-data': 700 },
+                 { vh: 800, docHeight: 1700, scrollY: 900 });
+  ok(o2.current()[0] === 'live-data',
+     'document-end picks last by position, not config order (got ' + o2.current() + ')');
+
+  // 7. An anchor whose target is absent from this document is dropped; the rest
+  //    of the bar keeps working. (A tool page has no #community.)
+  var m = mount(['home', 'community', 'live-data'], { 'home': -900, 'live-data': 100 });
+  ok(m.current().length === 1 && m.current()[0] === 'live-data',
+     'a dead anchor does not break the working ones (got ' + m.current() + ')');
+  ok(m.links[1].attrs['aria-current'] === undefined,
+     'the dead anchor itself is never marked current');
+
+  // 8. No anchors at all.
+  var threw = null;
+  try { mount([], {}); } catch (e) { threw = e; }
+  ok(!threw, 'zero anchors does not throw (' + (threw && threw.message) + ')');
+})();
 console.error('\n' + Array(50).join('-'));
 console.error('Results: ' + pass + ' passed, ' + fail + ' failed');
 if (fail > 0) { console.error(fail + ' failure(s) -- fix before shipping'); process.exit(1); }

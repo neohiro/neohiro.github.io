@@ -1,6 +1,6 @@
 {% comment %}
 counter-widget.html — unified visitor counter partial for the neohiro/FPM/OSI/H+ Jekyll sites.
-   Include with:   {% include counter-widget.html %}
+   Include with:   include counter-widget.html %}
    Reads counter_id from site config (preferred) or a local override:
      - site.counter_id (set in _config.yml) — auto-populated for all sites
      - include counter_id="1234567"          — manual override (rare)
@@ -17,7 +17,12 @@ counter-widget.html — unified visitor counter partial for the neohiro/FPM/OSI/
      2. Synced to 4 sites via template-shared/sync-shared.sh
      3. Sites expose counter_id via _config.yml (site.counter_id)
      4. Validator + CI ensure no other embed pattern ships.
+      NOTE: usage lines above are written WITHOUT Liquid tag braces on purpose.
+      Liquid parses tags inside a brace-comment and inside an HTML comment, so a
+      self-referential include in this header is a live infinite recursion. It only
+      looks dormant because no built page currently reaches this partial.
 {% endcomment %}
+
 {%- assign _id = include.counter_id | default: site.counter_id -%}
 {%- if _id -%}
 <div align="center">

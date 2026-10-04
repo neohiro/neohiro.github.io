@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Security hardening & privacy tools for Windows and Linux.">
+  <title>MeshCore Vanity Key Generator</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/network-ux.css">
+  <link rel="stylesheet" href="/assets/css/auth-bar.css">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.github.com https://raw.githubusercontent.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+  <!-- Begin Jekyll SEO tag v2.9.1 -->
+<title>MeshCore Vanity Key Generator | neohiro</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="MeshCore Vanity Key Generator" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="MeshCore Vanity Key Generator is a browser-based, GPU-accelerated Ed25519 vanity key generator designed for Meshtastic, MeshCore, Nostr, and cryptographic identity keys. It mines real keypairs — not fake strings — until the encoded public key matches a pattern you chose, then hands you the matching private key." />
+<meta name="twitter:description" property="og:description" content="MeshCore Vanity Key Generator is a browser-based, GPU-accelerated Ed25519 vanity key generator designed for Meshtastic, MeshCore, Nostr, and cryptographic identity keys. It mines real keypairs — not fake strings — until the encoded public key matches a pattern you chose, then hands you the matching private key." />
+<link rel="canonical" href="https://neohiro.github.io/tools/meshcore-meshtastic-vanity-key/" />
+<meta property="og:url" content="https://neohiro.github.io/tools/meshcore-meshtastic-vanity-key/" />
+<meta property="og:site_name" content="neohiro" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-10-04T13:45:16+02:00" />
+<meta property="article:modified_time" content="2026-10-04T13:45:16+02:00" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="MeshCore Vanity Key Generator" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-10-04T13:45:16+02:00","datePublished":"2026-10-04T13:45:16+02:00","description":"MeshCore Vanity Key Generator is a browser-based, GPU-accelerated Ed25519 vanity key generator designed for Meshtastic, MeshCore, Nostr, and cryptographic identity keys. It mines real keypairs — not fake strings — until the encoded public key matches a pattern you chose, then hands you the matching private key.","headline":"MeshCore Vanity Key Generator","mainEntityOfPage":{"@type":"WebPage","@id":"https://neohiro.github.io/tools/meshcore-meshtastic-vanity-key/"},"url":"https://neohiro.github.io/tools/meshcore-meshtastic-vanity-key/"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <link type="application/atom+xml" rel="alternate" href="https://neohiro.github.io/feed.xml" title="neohiro" />
+  <link rel="stylesheet" href="/assets/css/site-tokens.css">
+  <link rel="stylesheet" href="/assets/css/site-forge.css">
+{# fonts: managed by template-shared/site_forge.py from sites.yaml #}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700|Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+{# decor: managed by template-shared/site_forge.py from sites.yaml #}
+<body class="decor-matrix decor-scanlines decor-grain">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Glitch overlay for page transitions -->
+  <div id="glitch-overlay" class="glitch-overlay" aria-hidden="true">
+    <div class="glitch-text" data-text="NEOHIRO"></div>
+  </div>
+
+  <div class="page-wrapper">
+    <header class="site-header" role="banner">
+      <div class="container">
+        <a class="site-brand" href="/" aria-label="neohiro - Home">
+          <span class="logo-mark" aria-hidden="true">👽</span>
+          <span class="logo-text">neohiro</span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+          <a href="/#featured-tools" class="nav-link">Tools</a>
+          <a href="/#hardening-guides" class="nav-link">Guides</a>
+          <a href="/repositories/" class="nav-link">Repositories</a>
+          <a href="/media/" class="nav-link">Media</a>
+          <div class="nav-dropdown">
+            <button class="nav-link nav-dropdown-btn" aria-haspopup="true" aria-expanded="false">
+              Community <span aria-hidden="true">-_</span>
+            </button>
+            <div class="nav-dropdown-menu">
+              <a href="https://github.com/neohiro" class="nav-dropdown-item">Org Overview</a>
+              <a href="https://github.com/neohiro/windows/issues" class="nav-dropdown-item">Bug Reports</a>
+              <a href="https://github.com/neohiro/windows/security" class="nav-dropdown-item">Security Advisories</a>
+              <a href="https://github.com/neohiro/windows/discussions" class="nav-dropdown-item">Discussions</a>
+              <a href="/heartbeats/" class="nav-dropdown-item">Heartbeats</a>
+              <a href="https://github.com/sponsors/neohiro" class="nav-dropdown-item">Sponsor</a>
+            </div>
+          </div>
+          <a href="https://github.com/sponsors/neohiro" class="nav-link nav-sponsor" target="_blank" rel="noopener">Sponsor</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="site-main" role="main" tabindex="-1">
+      <div class="tool-page" id="tool-page">
+  <div class="container">
+    <nav class="tool-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">neohiro</a>
+      <span aria-hidden="true">/</span>
+      <a href="/repositories/">All Repositories</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">MeshCore Vanity Key Generator</span>
+    </nav>
+
+    <article class="tool-detail">
+      <header class="tool-header">
+        <div class="tool-icon-large" aria-hidden="true">
+          
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+  <path d="M7 11V7a5 5 0 0110 0v4"/>
+</svg>
+
+          
+        </div>
+        <div class="tool-header-content">
+          <h1 class="tool-title" itemprop="name">MeshCore Vanity Key Generator</h1>
+          <p class="tool-tagline" itemprop="description">Browser-based Ed25519 vanity key generator — GPU-powered, scalar-walk optimized, prefix/suffix matching, with Meshtastic PSK and node-key mining</p>
+          <div class="tool-meta">
+            <span class="tool-platform" itemprop="operatingSystem">Web (GitHub Pages)</span>
+            
+              <span class="tool-lang">Python / JavaScript</span>
+            
+            
+              <span class="tool-category">Cryptography</span>
+            
+          </div>
+        </div>
+      </header>
+
+      <div class="tool-links-row">
+        <a href="https://github.com/neohiro/meshcore-meshtastic-vanity-key" class="tool-link tool-link-primary" target="_blank" rel="noopener" itemprop="url">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          View on GitHub
+        </a>
+        
+          <a href="https://neohiro.github.io/meshcore-meshtastic-vanity-key/" class="tool-link tool-link-secondary" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Live Demo
+          </a>
+        
+        
+          <a href="https://github.com/neohiro/meshcore-meshtastic-vanity-key#readme" class="tool-link tool-link-secondary" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            Documentation
+          </a>
+        
+      </div>
+
+      <div class="tool-content" itemprop="description">
+        <p><strong>MeshCore Vanity Key Generator</strong> is a browser-based, GPU-accelerated Ed25519
+vanity key generator designed for Meshtastic, MeshCore, Nostr, and cryptographic
+identity keys. It mines real keypairs — not fake strings — until the <em>encoded</em>
+public key matches a pattern you chose, then hands you the matching private key.</p>
+
+<p>Everything runs on your own hardware. There is no server, no account, no key ever
+transmitted, and no telemetry of any kind.</p>
+
+<div class="vk-cta">
+  <a class="vk-cta__btn vk-cta__btn--primary" href="https://neohiro.github.io/meshcore-meshtastic-vanity-key/" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
+    Open the miner
+  </a>
+  <a class="vk-cta__btn" href="https://github.com/neohiro/meshcore-meshtastic-vanity-key" target="_blank" rel="noopener">Source on GitHub</a>
+  <span class="vk-cta__note">Works offline once loaded · installable PWA · nothing leaves the tab</span>
+</div>
+
+<h2 id="features">Features</h2>
+
+<div class="vk-grid">
+  <div class="vk-card">
+    <span class="vk-card__glyph" aria-hidden="true">&#9889;</span>
+    <h3>GPU-Powered (WebGPU)</h3>
+    <p>Parallel search across thousands of shader threads, with Web Workers and libsodium WASM as the fallback. Every logical core is used, capped at 32.</p>
+  </div>
+  <div class="vk-card">
+    <span class="vk-card__glyph" aria-hidden="true">&#128274;</span>
+    <h3>Zero Telemetry</h3>
+    <p>Key derivation runs in browser memory. No network round-trip is needed to mine, so an air-gapped machine is a perfectly good miner.</p>
+  </div>
+  <div class="vk-card">
+    <span class="vk-card__glyph" aria-hidden="true">&#129717;</span>
+    <h3>Scalar-Walk Optimized</h3>
+    <p>A seeded 256-bit counter is incremented in place and fed to libsodium, so a given seed reproduces a search exactly and no CSPRNG syscall is paid per attempt.</p>
+  </div>
+  <div class="vk-card">
+    <span class="vk-card__glyph" aria-hidden="true">&#127919;</span>
+    <h3>Both Ends At Once</h3>
+    <p>Prefix <em>and</em> suffix in a single pass, so a half-transcribed key fails loudly instead of silently becoming a different node.</p>
+  </div>
+  <div class="vk-card">
+    <span class="vk-card__glyph" aria-hidden="true">&#127760;</span>
+    <h3>Five Encodings</h3>
+    <p>hex, base64, base64url, base58 and bech32 — the formats MeshCore, Meshtastic and Nostr actually import.</p>
+  </div>
+  <div class="vk-card">
+    <span class="vk-card__glyph" aria-hidden="true">&#128421;</span>
+    <h3>CLI Too</h3>
+    <p>The Python entry point mines from a terminal or a script, with parallel multiprocessing and an estimator that tells you the cost before you spend it.</p>
+  </div>
+</div>
+
+<h2 id="vanity--functional-keypair-mining">Vanity &amp; Functional Keypair Mining</h2>
+
+<p>A node’s identity is bytes out of a random number generator, and nothing about them
+is designed. <code class="language-plaintext highlighter-rouge">a3f1&amp;hellip;c902</code> is as arbitrary as a Wi-Fi MAC address, and it still
+has to be read off a QR code, dictated over a handheld radio, or pasted into a phone
+by someone who cannot see the screen. Mining is the one case where brute force is
+genuinely the right answer: you pay for the search once, and every later contact with
+that node is cheaper.</p>
+
+<p>Most people ask for the wrong thing, because <em>vanity</em> and <em>functional</em> are two
+different goals that happen to share a command.</p>
+
+<table class="vk-table">
+  <thead>
+    <tr><th></th><th>Vanity</th><th>Functional</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Why</th>
+      <td>The identity reads well and sticks in memory.</td>
+      <td>The identity is <em>checkable</em> by a human under bad conditions.</td>
+    </tr>
+    <tr>
+      <th>Typical target</th>
+      <td><code>mc1qneohiro&hellip;</code>, <code>!a1b2c3&hellip;</code></td>
+      <td>A prefix <strong>and</strong> a suffix, so a half-transcribed key fails loudly.</td>
+    </tr>
+    <tr>
+      <th>Cost</th>
+      <td><code>16&#8319;</code> attempts for <code>n</code> hex characters. 4 is instant, 6 is minutes.</td>
+      <td>That, <strong>squared</strong> — each constrained end multiplies rather than adds.</td>
+    </tr>
+    <tr>
+      <th>Classic mistake</th>
+      <td>Asking for 9+ characters. That is a lottery ticket, not a mnemonic.</td>
+      <td>Mining a <em>reserved</em> prefix and then wondering why the client refuses the key.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Both run the same code path with the same flags. The distinction only matters when
+deciding what to ask for — and in both cases the pattern is matched against the
+<strong>encoded public key</strong>, never the private one, which never leaves your machine.</p>
+
+<blockquote>
+  <p><strong>Reserved prefixes.</strong> Hex <code class="language-plaintext highlighter-rouge">00</code> and <code class="language-plaintext highlighter-rouge">ff</code> belong to MeshCore framework devices. They
+are mined with a warning rather than rejected, because some people deliberately
+want one. Set <code class="language-plaintext highlighter-rouge">MESHCORE_VANITY_STRICT_RESERVED=1</code> to turn the warning back into a
+hard rejection — better to fail than hand someone a key their client refuses.</p>
+</blockquote>
+
+<h3 id="meshtastic-prefix-and-suffix-mining">Meshtastic prefix and suffix mining</h3>
+
+<p>Meshtastic has two unrelated things that people both call “the key”, and they are
+mined by two unrelated means. Conflating them is the usual first mistake.</p>
+
+<h4 id="channel-psk--symmetric-minable-directly">Channel PSK — symmetric, minable directly</h4>
+
+<p>A Meshtastic channel is a name plus a pre-shared key written <code class="language-plaintext highlighter-rouge">base64:&amp;hellip;</code>.
+<code class="language-plaintext highlighter-rouge">AQ==</code> is the single byte <code class="language-plaintext highlighter-rouge">0x01</code> and is the well-known default on every device — it
+is not a secret, and traffic on the default channel is readable by anyone in range
+or on a shared MQTT server. <code class="language-plaintext highlighter-rouge">Ag==</code>–<code class="language-plaintext highlighter-rouge">Cg==</code> are the <code class="language-plaintext highlighter-rouge">simple1</code>–<code class="language-plaintext highlighter-rouge">simple9</code> shorthands. A
+private channel is 16 bytes (AES-128) or 32 bytes (AES-256).</p>
+
+<p>A PSK is raw key material rather than a signing key, so there is no keypair to
+derive — the bytes <em>are</em> the key. That is what makes a vanity PSK a genuinely
+<strong>functional</strong> target rather than a decoration: the pattern you require has to be
+the literal key material.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># starts with "NHI…"</span>
+meshcore-vanity NHI <span class="nt">--encoding</span> <span class="nb">base64</span>
+
+<span class="c"># …and ends with "…0" — two patterns, one search</span>
+meshcore-vanity NHI <span class="nt">--encoding</span> <span class="nb">base64</span> <span class="nt">--suffix</span> 0
+
+<span class="c"># suffix only</span>
+meshcore-vanity <span class="nt">--encoding</span> <span class="nb">base64</span> <span class="nt">--suffix</span> qw
+</code></pre></div></div>
+
+<p>Memorable here means <strong>transcribable</strong>. A group reads a PSK out over an FM handheld
+before anybody has a phone paired, and a key with recognisable ends survives that
+round trip when a bare 24-character base64 blob does not.</p>
+
+<p>One quirk worth knowing before you pick a suffix: 256 bits do not divide evenly into
+6-bit base64 characters, so the 43rd data character carries only 4 significant bits
+and its low two bits are always zero. A base64 suffix must therefore end in one of
+<code class="language-plaintext highlighter-rouge">048AEIMQUYcgkosw</code>. A suffix ending in anything else can never match, and is
+rejected immediately instead of spinning forever.</p>
+
+<h4 id="node-key-and--user-id--a-different-curve-and-one-more-derivation">Node key and <code class="language-plaintext highlighter-rouge">!</code> user ID — a different curve, and one more derivation</h4>
+
+<p>A Meshtastic node’s key is <strong>Curve25519</strong>, not Ed25519, and the <code class="language-plaintext highlighter-rouge">!</code> + hex ID the
+firmware advertises is a <em>further</em> derivation from that node key. Since firmware
+<strong>2.8</strong> that derivation runs from the public-key identity rather than from a hardware
+MAC address, which is what lets a node keep its identity across a factory reset. Two
+separate things therefore have to line up:</p>
+
+<pre class="vk-diagram"><code>   seed ─▶ Curve25519 node key ─▶ firmware derivation ─▶ !a1b2c3d4
+            ▲ the keypair                              ▲ what you read out of the UI
+              that matters</code></pre>
+
+<div class="vk-notes">
+  <ul>
+    <li><strong>The curve is the trap.</strong> <code>--encoding hex</code> chooses how a key is <em>printed</em>; it does not choose which key it is. On the default Ed25519 derivation you get a valid MeshCore device key and <strong>not</strong> a Meshtastic node key, and the node will simply refuse the import — which reads like a firmware bug and is not one. Node-key mining is a different algorithm, not a different encoding.</li>
+    <li><strong>The <code>!</code> ID is fixed width.</strong> <code>!a1b2c3d4</code> is four bytes of derivation and nothing truncates it away, so there is no short form to ask for.</li>
+    <li><strong>An ID pattern is not a key pattern.</strong> Constraining <code>!a1b2c3d4</code> constrains a derivation <em>of</em> the key, so the search is no cheaper than mining the key and usually dearer.</li>
+    <li><strong>Node keys are TOFU-bound.</strong> The first public key a node hears for a given node number is the one it keeps. Change a key after it has been seen and peers treat you as a stranger who replaced somebody.</li>
+  </ul>
+</div>
+
+<h3 id="what-mining-cannot-do">What mining cannot do</h3>
+
+<p>Every device in the MeshCore and Meshtastic families generates its own key on first
+boot, and <strong>nothing here changes the identity a shipped firmware hands you</strong>. Mining
+is for a node you are deliberately provisioning: a fresh key imported over USB, a
+companion client, or a factory-reset device whose identity you are re-establishing
+anyway. If a node already has an identity, mine a <em>new</em> one and swap it in
+deliberately. Never overwrite a key that peers already hold.</p>
+
+<h2 id="encodings">Encodings</h2>
+
+<table class="vk-table">
+  <thead>
+    <tr><th>Encoding</th><th>Example shape</th><th>Where it is used</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>hex</code></td><td><code>a1b2c3&hellip;</code> (64 chars)</td><td>MeshCore device import</td></tr>
+    <tr><td><code>base64</code></td><td><code>q83v&hellip;</code> (44 chars)</td><td>Meshtastic channel PSKs</td></tr>
+    <tr><td><code>base64url</code></td><td><code>q83v&hellip;</code> (43 chars)</td><td>URL-safe, no padding</td></tr>
+    <tr><td><code>base58</code></td><td><code>2gV&hellip;</code> (44 chars)</td><td>Bitcoin alphabet</td></tr>
+    <tr><td><code>bech32</code></td><td><code>mc1q&hellip;</code> (61 chars)</td><td>MeshCore node addresses</td></tr>
+  </tbody>
+</table>
+
+<p><code class="language-plaintext highlighter-rouge">hex</code> and <code class="language-plaintext highlighter-rouge">bech32</code> match case-insensitively. <code class="language-plaintext highlighter-rouge">base64</code>, <code class="language-plaintext highlighter-rouge">base64url</code> and <code class="language-plaintext highlighter-rouge">base58</code> are
+case-sensitive alphabets and are always matched exactly — returning the wrong case
+would mean handing you a key that does not match the pattern you asked for.</p>
+
+<h2 id="cost-before-you-spend-it">Cost, before you spend it</h2>
+
+<p>Each constrained hex character multiplies the search space by sixteen. The bundled
+budget estimator projects wall-clock time from measured throughput, and the CLI asks
+for confirmation before starting anything long.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pattern</th>
+      <th>Attempts</th>
+      <th>Roughly</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>3 hex characters</td>
+      <td>~4,000</td>
+      <td>instant</td>
+    </tr>
+    <tr>
+      <td>4 hex characters</td>
+      <td>~65,000</td>
+      <td>instant</td>
+    </tr>
+    <tr>
+      <td>5 hex characters</td>
+      <td>~1,000,000</td>
+      <td>seconds</td>
+    </tr>
+    <tr>
+      <td>6 hex characters</td>
+      <td>~16,000,000</td>
+      <td>minutes</td>
+    </tr>
+    <tr>
+      <td>8 hex characters</td>
+      <td>~4×10<sup>18</sup></td>
+      <td>hours to days, add workers</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Two ends cost the product, not the sum. If that is more than you need, ask for a
+prefix alone and put the effort into a suffix that only has to <em>fail</em> loudly — which
+is a much cheaper way to buy the same safety.</p>
+
+<h2 id="privacy">Privacy</h2>
+
+<ul>
+  <li>Key derivation never touches the network. Mining works with the network cable out.</li>
+  <li>The browser app keeps found keys in <code class="language-plaintext highlighter-rouge">localStorage</code>, obfuscated with an XOR keystream whose key is <code class="language-plaintext highlighter-rouge">SHA-256(secret || origin)</code>, with <code class="language-plaintext highlighter-rouge">secret</code> held in a separate storage backend (IndexedDB). Lifting one store alone yields nothing, and <code class="language-plaintext highlighter-rouge">origin</code> binds the copy to this site.</li>
+  <li>That is <strong>obfuscation, not encryption</strong>, with a deliberate scope: it stops data-at-rest theft from a copied storage blob, not script running on the origin. Clear the history when you are done.</li>
+  <li>The CLI prints the private key to <strong>stderr by default</strong>. Pass <code class="language-plaintext highlighter-rouge">--no-output-private</code> if you are capturing stderr — a CI log, a shared terminal, a piped dashboard.</li>
+</ul>
+
+<h2 id="in-the-same-family">In the same family</h2>
+
+<p>The miner is the identity layer for a set of mesh-device projects. Each of these
+runs LoRa hardware, and each links back to this page:</p>
+
+<div class="vk-related">
+  <a class="vk-related__item" href="https://github.com/neohiro/meshcore-meshtastic-heltec-v4" target="_blank" rel="noopener">
+    <strong>lora-multiboot</strong>
+    <span>Multi-slot firmware platform for single-radio LoRa boards — MeshCore and Meshtastic roles on one Heltec V4.</span>
+  </a>
+  <a class="vk-related__item" href="https://github.com/neohiro/meshcore-waveshare-usb-lora" target="_blank" rel="noopener">
+    <strong>meshcore-waveshare-usb-lora</strong>
+    <span>KISS modem firmware for the Waveshare USB-TO-LoRa SX1262 dongle, contract-tested against meshcore-go.</span>
+  </a>
+  <a class="vk-related__item" href="https://github.com/neohiro/lora-sniffer" target="_blank" rel="noopener">
+    <strong>lora-sniffer</strong>
+    <span>Receive-only Heltec V4 firmware that says what each frame is, which mesh it belongs to, and which ones nothing can explain.</span>
+  </a>
+</div>
+
+<h2 id="credits">Credits</h2>
+
+<ul>
+  <li><a href="https://meshcore.io/">MeshCore</a> — decentralized mesh networking, and the bech32 <code class="language-plaintext highlighter-rouge">mc1&amp;hellip;</code> addressing this miner targets</li>
+  <li><a href="https://meshtastic.org/">Meshtastic</a> — the PSK and node-ID formats covered above</li>
+  <li><a href="https://ed25519.cr.yp.to/">Ed25519</a> — fast, secure elliptic curve signatures</li>
+  <li><a href="https://libsodium.org/">libsodium</a> — the primitives, compiled to WebAssembly</li>
+  <li><a href="https://github.com/bitcoin/bips/blob/master/bip-0173.mediawiki">BIP-0173</a> — bech32 address format</li>
+  <li><a href="https://pynacl.readthedocs.io/">PyNaCl</a> — Python libsodium bindings for the CLI</li>
+</ul>
+
+      </div>
+
+      <div class="tool-sponsor-strip">
+        <div class="container">
+          <div class="tool-sponsor">
+            <p class="tool-sponsor-prompt">This tool is free and open source. Support the developer:</p>
+            <a href="https://github.com/sponsors/neohiro" class="sponsor-btn" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true"><path d="M12 21.35l-1.45-.13C5.4 15.36 2 12.27 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.77-3.4 6.86-8.55 12.72L12 21.35z"/></svg>
+              Sponsor neohiro on GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <footer class="tool-footer">
+        <div class="tool-nav">
+          <a href="/repositories/" class="tool-nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            All Repositories
+          </a>
+          <a href="/" class="tool-nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Home
+          </a>
+        </div>
+        <p class="tool-copyright">Part of <a href="https://github.com/neohiro" target="_blank" rel="noopener">neohiro</a> — Security hardening & privacy tools for Windows and Linux.</p>
+      </footer>
+    </article>
+  </div>
+</div>
+
+<style>
+.tool-page { padding: 60px 0 80px; }
+.tool-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.875rem; color: var(--fg-subtle); margin-bottom: 40px; flex-wrap: wrap; }
+.tool-breadcrumb a { color: var(--fg-subtle); transition: color var(--transition); }
+.tool-breadcrumb a:hover { color: var(--accent); }
+.tool-breadcrumb span[aria-current] { color: var(--fg); font-weight: 500; }
+
+.tool-detail { max-width: 800px; margin: 0 auto; }
+.tool-header { display: flex; gap: 24px; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+.tool-icon-large { display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; border-radius: var(--radius); background: var(--accent-dim); color: var(--accent); flex-shrink: 0; }
+.tool-icon-large svg { width: 40px; height: 40px; }
+.tool-header-content { flex: 1; }
+.tool-title { font-size: clamp(1.75rem, 3vw, 2.25rem); margin-bottom: 8px; }
+.tool-tagline { font-size: 1.125rem; color: var(--fg-muted); margin-bottom: 16px; line-height: 1.5; }
+.tool-meta { display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.8125rem; font-family: var(--font-mono); }
+.tool-platform, .tool-lang, .tool-category { padding: 4px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--fg-subtle); }
+
+.tool-links-row { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+.tool-link { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; font-size: 0.875rem; font-weight: 600; border-radius: var(--radius-sm); transition: all var(--transition); text-decoration: none; }
+.tool-link-primary { background: var(--accent-dim); color: var(--accent); border: 1px solid transparent; }
+.tool-link-primary:hover { background: var(--accent); color: white; }
+.tool-link-secondary { background: var(--bg-card); color: var(--fg-muted); border: 1px solid var(--border); }
+.tool-link-secondary:hover { background: var(--bg); color: var(--fg); border-color: var(--border-hover); }
+.tool-link svg { flex-shrink: 0; }
+
+.tool-content { font-size: 1rem; line-height: 1.7; color: var(--fg-muted); }
+.tool-content h2 { margin: 32px 0 16px; font-size: 1.5rem; color: var(--fg); }
+.tool-content h3 { margin: 24px 0 12px; font-size: 1.25rem; color: var(--fg); }
+.tool-content p { margin-bottom: 16px; }
+.tool-content ul, .tool-content ol { margin: 16px 0; padding-left: 24px; }
+.tool-content li { margin-bottom: 8px; }
+.tool-content code { font-family: var(--font-mono); font-size: 0.9em; background: var(--bg); padding: 2px 6px; border-radius: 4px; }
+.tool-content pre { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; overflow-x: auto; margin: 16px 0; }
+.tool-content pre code { background: none; padding: 0; }
+.tool-content a { color: var(--accent); }
+.tool-content a:hover { color: var(--accent-strong); }
+
+.tool-footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+.tool-nav { display: flex; gap: 12px; margin-bottom: 16px; }
+.tool-nav-link { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; font-size: 0.875rem; font-weight: 500; color: var(--fg-muted); border: 1px solid var(--border); border-radius: var(--radius-sm); transition: all var(--transition); }
+.tool-nav-link:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); }
+.tool-copyright { font-size: 0.875rem; color: var(--fg-subtle); text-align: center; }
+.tool-copyright a { color: var(--fg-subtle); }
+.tool-copyright a:hover { color: var(--accent); }
+
+@media (max-width: 640px) {
+  .tool-header { flex-direction: column; align-items: center; text-align: center; }
+  .tool-header-content { text-align: center; }
+  .tool-meta { justify-content: center; }
+  .tool-links-row { justify-content: center; }
+}
+
+/* ── Sponsor strip ─────────────────────────────────────────────────────── */
+.tool-sponsor-strip {
+  margin: 40px 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.tool-sponsor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.tool-sponsor-prompt {
+  font-size: 0.875rem;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.sponsor-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid var(--red);
+  color: var(--red);
+  background: transparent;
+  text-decoration: none;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.sponsor-btn:hover {
+  background: var(--red);
+  color: white;
+  transform: translateY(-1px);
+}
+.sponsor-btn svg { flex-shrink: 0; }
+
+@media (max-width: 480px) {
+  .tool-sponsor { flex-direction: column; text-align: center; gap: 12px; }
+  .tool-sponsor-prompt { font-size: 0.8125rem; }
+}
+</style>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="container">
+        <div class="footer-unified">
+  <!-- Philosophy Quote -->
+  <div class="footer-quote-wrap">
+    <blockquote class="footer-quote">
+      “Every body has organs. Every system has dependencies. We built this stack so nothing breaks quietly.”
+    </blockquote>
+  </div>
+
+  {# The Ecosystem Network grid lives in ecosystem-network.html and is included once
+     by _layouts/default.html directly after this file. It used to be duplicated in
+     both places, which rendered six ecosystem cards per page. #}
+
+  <!-- Quick Links & Legal Directory -->
+  <div class="footer-columns">
+    <div class="footer-column">
+      <h4>Tooling &amp; Systems</h4>
+      <ul>
+        <li><a href="/#featured-tools">Hardening Tools</a></li>
+        <li><a href="/#hardening-guides">Implementation Guides</a></li>
+        <li><a href="/repositories/">All Public Repositories</a></li>
+        <li><a href="/media/">Media &amp; Deep Dives</a></li>
+        <li><a href="/heartbeats/">System Heartbeats (Live SVGs)</a></li>
+        <li><a href="/onboard/">Onboarding &amp; Setup</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Trust &amp; Governance</h4>
+      <ul>
+        <li><a href="/privacy/">Privacy Policy (Zero Telemetry)</a></li>
+        <li><a href="/tos/">Terms of Service</a></li>
+        <li><a href="/LICENSE/">Open Source Licensing</a></li>
+        <li><a href="https://github.com/neohiro/windows/security" target="_blank" rel="noopener">Security Advisories</a></li>
+        <li><a href="https://github.com/neohiro/neohiro.github.io/blob/main/CODE_OF_CONDUCT.md" target="_blank" rel="noopener">Code of Conduct</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column footer-column-community">
+      <h4>Support &amp; Community</h4>
+      <p class="footer-support-text">Open-source defense engineering funded independently without telemetry, analytics, or trackers.</p>
+      <a href="https://github.com/sponsors/neohiro" class="footer-sponsor-button" target="_blank" rel="noopener">
+        <span class="heart-pulse" aria-hidden="true">♥</span> Sponsor neohiro on GitHub
+      </a>
+      <div class="footer-community-links">
+        <a href="https://github.com/neohiro/windows/issues" target="_blank" rel="noopener">Bug Reports</a> ·
+        <a href="https://github.com/neohiro/windows/discussions" target="_blank" rel="noopener">Discussions</a> ·
+        <a href="https://github.com/neohiro" target="_blank" rel="noopener">Org Overview</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Tagline & Micro-Legal -->
+  <div class="footer-bottom-bar">
+    <p class="footer-tagline">
+      Made with <span class="heart" aria-hidden="true">♥</span> by neohiro · Defense is the best defense.
+    </p>
+    <p class="footer-micro">
+      © 2026 FrenzyPenguin Media &amp; neohiro · All tools released under FOSS licenses (GPL-3.0 / MIT).
+    </p>
+  </div>
+</div>
+<!-- ecosystem-network.html — the unified Ecosystem Network frame.
+     SSOT: template-shared/_includes/ecosystem-network.html
+
+     Every *.github.io site includes this once per page, after
+     footer-button-row.html, so the frame sits at the very bottom of the
+     footer with clear space above it. It lists all four network sites in a
+     fixed order, including the one the visitor is already on.
+
+     Parameter:
+       current — the site rendering this file. One of: neohiro | fpm |
+                 transhumanists | openstageisland. Omit it and every card
+                 links out normally.
+
+     The matching card drops its links (name and host become plain text) and
+     gains .is-current, so "you are here" is conveyed by the card's shape
+     rather than by colour alone.
+
+     The frame's own heading is an <h2>, not an <h3>. The frame is a sibling of
+     the page's content sections, not a subsection of the last one, and <h3>
+     only passed the heading-order gate on pages whose content happened to end
+     in an <h2> — on a page ending in the <h1> it read as a skipped level.
+     Every page has exactly one <h1> and uses <h2> for sections, so <h2> is
+     correct everywhere.
+
+     Cross-site links are absolute on purpose: the frame is a directory of
+     other origins, so a relative_url would resolve against whichever site
+     happens to be rendering it. --><!-- Ecosystem Network -->
+<section class="footer-ecosystem" aria-labelledby="ecosystem-network-title">
+  <div class="footer-ecosystem-header">
+    <span class="footer-badge">ECOSYSTEM NETWORK</span>
+    <h2 class="footer-ecosystem-title" id="ecosystem-network-title">Interconnected Media, Research &amp; Tooling</h2>
+  </div>
+
+  <div class="footer-ecosystem-grid">
+
+    <!-- neohiro -->
+    <div class="ecosystem-card">
+      <div class="ecosystem-card-top">
+        <div class="ecosystem-icon" aria-hidden="true">👽</div>
+        <div class="ecosystem-info">
+          <div class="ecosystem-name-row"><a href="https://neohiro.github.io/" target="_blank" rel="noopener" class="ecosystem-name">neohiro</a>
+            <span class="ecosystem-pill ecosystem-pill-hub">Hardening Hub</span>
+          </div><a href="https://neohiro.github.io/" target="_blank" rel="noopener" class="ecosystem-url">neohiro.github.io</a>
+        </div>
+      </div>
+      <p class="ecosystem-desc">Production-grade security hardening for Windows &amp; Linux. STIG compliance and zero telemetry.</p>
+      <div class="ecosystem-links">
+        <a href="https://neohiro.github.io/repositories/" class="ecosystem-action-btn ecosystem-btn-main">
+          All Repositories &rarr;
+        </a>
+        <a href="https://github.com/neohiro" target="_blank" rel="noopener" class="ecosystem-action-btn ecosystem-btn-alt" title="GitHub Organization">
+          github.com/neohiro &rarr;
+        </a>
+      </div>
+    </div>
+
+    <!-- FrenzyPenguin Media -->
+    <div class="ecosystem-card">
+      <div class="ecosystem-card-top">
+        <div class="ecosystem-icon" aria-hidden="true">🎬</div>
+        <div class="ecosystem-info">
+          <div class="ecosystem-name-row"><a href="https://frenzypenguin.media" target="_blank" rel="noopener" class="ecosystem-name">FrenzyPenguin Media</a>
+            <span class="ecosystem-pill ecosystem-pill-primary">Main Domain</span>
+          </div><a href="https://frenzypenguin.media" target="_blank" rel="noopener" class="ecosystem-url">frenzypenguin.media</a>
+        </div>
+      </div>
+      <p class="ecosystem-desc">Music artist recordings, creative projects, and multimedia content from the makers of neohiro.</p>
+      <div class="ecosystem-links">
+        <a href="https://frenzypenguin.media" class="ecosystem-action-btn ecosystem-btn-main">
+          frenzypenguin.media &rarr;
+        </a>
+        <a href="https://frenzypenguin-media.github.io/" target="_blank" rel="noopener" class="ecosystem-action-btn ecosystem-btn-alt" title="GitHub Pages / Repository Source">
+          gh-pages &rarr;
+        </a>
+      </div>
+    </div>
+
+    <!-- Transhumanists (H+) -->
+    <div class="ecosystem-card">
+      <div class="ecosystem-card-top">
+        <div class="ecosystem-icon" aria-hidden="true">🧬</div>
+        <div class="ecosystem-info">
+          <div class="ecosystem-name-row"><a href="https://transhumanists.github.io/" target="_blank" rel="noopener" class="ecosystem-name">Transhumanists (H+)</a>
+            <span class="ecosystem-pill ecosystem-pill-network">Research Portal</span>
+          </div><a href="https://transhumanists.github.io/" target="_blank" rel="noopener" class="ecosystem-url">transhumanists.github.io</a>
+        </div>
+      </div>
+      <p class="ecosystem-desc">Evolutionary technology, longevity architectures, cognitive research, and transhumanism.</p>
+      <div class="ecosystem-links">
+        <a href="https://transhumanists.github.io/" class="ecosystem-action-btn ecosystem-btn-main">
+          transhumanists.github.io &rarr;
+        </a>
+        <a href="https://github.com/transhumanists" target="_blank" rel="noopener" class="ecosystem-action-btn ecosystem-btn-alt" title="GitHub Organization">
+          GitHub Org &rarr;
+        </a>
+      </div>
+    </div>
+
+    <!-- Open Stage Island -->
+    <div class="ecosystem-card">
+      <div class="ecosystem-card-top">
+        <div class="ecosystem-icon" aria-hidden="true">🏝️</div>
+        <div class="ecosystem-info">
+          <div class="ecosystem-name-row"><a href="https://openstageisland.github.io/" target="_blank" rel="noopener" class="ecosystem-name">Open Stage Island</a>
+            <span class="ecosystem-pill ecosystem-pill-stage">Second Life Venue</span>
+          </div><a href="https://openstageisland.github.io/" target="_blank" rel="noopener" class="ecosystem-url">openstageisland.github.io</a>
+        </div>
+      </div>
+      <p class="ecosystem-desc">Free 24/7 open-air electronic music stage in Second Life. Any artist can take the stage — no booking, no fee.</p>
+      <div class="ecosystem-links">
+        <a href="https://openstageisland.github.io/" class="ecosystem-action-btn ecosystem-btn-main">openstageisland.github.io &rarr;
+        </a>
+        <a href="https://github.com/openstageisland" target="_blank" rel="noopener" class="ecosystem-action-btn ecosystem-btn-alt" title="GitHub Organization">
+          GitHub Org &rarr;
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+        <div align="center">
+  <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1631173/t/1" defer></script>
+  <noscript>
+    <a href="https://www.freevisitorcounters.com/">View visitor counter</a>
+  </noscript>
+</div>
+      </div>
+    </footer>
+  </div>
+
+  {# auth-bar.html — the persistent lower bar ("dock").
+
+   CONTRACT (keep in sync across neohiro / frenzypenguin-media / openstageisland /
+   transhumanists):
+
+   1. AI and Contact are ONE thing here. There is no separate Contact tab and no
+      separate chat form. The only composer is the assistant ask bar that
+      network-ux.js mounts (#ai-bar), which talks to the real Mouth endpoint via
+      /.well-known/ask. The previous dock-local form POSTed to '/api/contact',
+      which does not exist on GitHub Pages, so every message silently failed.
+   2. Login lives in the TOP bar (see nav.html). The dock only surfaces the
+      signed-in state (Dashboard / avatar) and the sign-out control.
+   3. Selecting "Assistant" hands off to network-ux.js, which slides this dock
+      down and slides the screenwide conversation sheet up behind it. The page
+      behind stays scrollable and interactive.
+   4. THE RAIL IS THE PERSISTENT NAVBAR FOR THE MAIN PAGE. Its leftmost item is
+      the AI-bar button (#ai-dock__tab--ai) — network-ux.js routes it to the
+      mainframe bridge for an answer, and to the voicemail queue for triage that
+      reaches godadmin. To its right, every top-level section of index.md appears
+      as an in-page anchor, driven by the `main_sections` list in _config.yml so
+      this template cannot drift from the page. Anchor targets are same-document
+      on the home page; from any other page they become "/" + fragment, so the
+      rail never links to a section that is not on the document it is rendered in.
+
+   The remaining panels are kept because auth-bar.js wires them by id and the
+   top-bar Login button calls AuthBar.selectTab('login'). #}
+<div class="ai-dock" id="ai-dock" role="navigation" aria-label="Assistant and page sections">
+  <div class="ai-dock__rail">
+
+    {# ── LEFT: the AI bar. Assistant answers via the mainframe bridge
+           (/.well-known/ask) and escalates to voicemail triage
+           (/.well-known/voicemail) that reaches godadmin. #}
+    <button class="ai-dock__tab ai-dock__tab--ai"
+            role="tab"
+            aria-selected="false"
+            aria-controls="ai-dock__panel--ai"
+            id="ai-dock__tab--ai"
+            title="Talk to the assistant — questions, bug reports, access requests">
+      <span class="ai-dock__tab-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+          <path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm0 2a8 8 0 110 16 8 8 0 010-16zm-1 3v4.586l-2.707 2.707-1.414-1.414L11.293 9.88 8.586 7.172A1 1 0 009.586 6.172l3 3A1 1 0 0112 10.586V7a1 1 0 012 0v3a1 1 0 01-1 1h-3z"/>
+        </svg>
+      </span>
+      <span class="ai-dock__tab-label">Assistant</span>
+    </button>
+
+    {# ── MIDDLE: every top-level section of the main page, as anchors.
+           `on_home` is true only when the current document IS the main page, so
+           the hrefs are bare fragments here and absolute everywhere else.
+
+           There is deliberately NO hardcoded fallback list. This template is
+           shared by four sites whose home pages carry different section ids, so
+           a baked-in list would put pills in every site's bottom bar pointing
+           at fragments that do not exist there — dead links are worse than no
+           links. A site that does not declare `main_sections` gets a clean bar
+           (AI bar + account); declare the list in _config.yml to switch the
+           group on. #}<div class="ai-dock__sep" aria-hidden="true"></div>
+    <nav class="ai-dock__sections" aria-label="Main page sections">{# `sec_frag` arrives as "#home" (the config spells it as a fragment so it
+           is unambiguous there). The href needs it verbatim; the data attribute
+           needs the bare id, because that is what getElementById() takes. #}
+        <a class="ai-dock__sec"
+           href="/#home"
+           data-section-anchor="home">Home</a>{# `sec_frag` arrives as "#home" (the config spells it as a fragment so it
+           is unambiguous there). The href needs it verbatim; the data attribute
+           needs the bare id, because that is what getElementById() takes. #}
+        <a class="ai-dock__sec"
+           href="/#quotes"
+           data-section-anchor="quotes">Signal</a>{# `sec_frag` arrives as "#home" (the config spells it as a fragment so it
+           is unambiguous there). The href needs it verbatim; the data attribute
+           needs the bare id, because that is what getElementById() takes. #}
+        <a class="ai-dock__sec"
+           href="/#featured-tools"
+           data-section-anchor="featured-tools">Tools</a>{# `sec_frag` arrives as "#home" (the config spells it as a fragment so it
+           is unambiguous there). The href needs it verbatim; the data attribute
+           needs the bare id, because that is what getElementById() takes. #}
+        <a class="ai-dock__sec"
+           href="/#hardening-guides"
+           data-section-anchor="hardening-guides">Guides</a>{# `sec_frag` arrives as "#home" (the config spells it as a fragment so it
+           is unambiguous there). The href needs it verbatim; the data attribute
+           needs the bare id, because that is what getElementById() takes. #}
+        <a class="ai-dock__sec"
+           href="/#community"
+           data-section-anchor="community">Community</a></nav><a class="ai-dock__tab ai-dock__tab--dashboard hidden"
+       id="ai-dock__tab--dashboard"
+       title="Dashboard"
+       href="https://github.com/neohiro/dashboard" target="_blank" rel="noopener">
+      <span class="ai-dock__tab-icon" aria-hidden="true">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+          <path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+      </span>
+      <span class="ai-dock__tab-label">Dashboard</span>
+    </a>
+
+    <button class="ai-dock__tab ai-dock__tab--user hidden"
+            role="tab"
+            aria-selected="false"
+            aria-controls="ai-dock__panel--user"
+            id="ai-dock__tab--user">
+      <img id="ai-dock__avatar" src="" alt="" width="20" height="20" style="border-radius:50%" loading="lazy">
+      <span id="ai-dock__username"></span>
+      <span class="ai-dock__role-badge" id="ai-dock__role"></span>
+    </button>
+
+  </div>
+
+  <div class="ai-dock__panels">
+
+    {# Placeholder panel — the real conversation UI is the screenwide sheet that
+       network-ux.js mounts (#ai-conv). Kept so aria-controls resolves. #}
+    <div class="ai-dock__panel ai-dock__panel--ai"
+         id="ai-dock__panel--ai"
+         role="tabpanel"
+         aria-labelledby="ai-dock__tab--ai"
+         hidden>
+      <div class="ai-dock__ai-chat">
+        <p>The assistant opens as a full-width sheet above this bar. The site stays scrollable behind it.</p>
+      </div>
+    </div>
+
+    <div class="ai-dock__panel ai-dock__panel--login"
+         id="ai-dock__panel--login"
+         role="tabpanel"
+         aria-labelledby="nav-auth__login"
+         hidden>
+      <div class="ai-dock__login">
+        <p>Sign in with GitHub to reach the dashboard, request features, or let the assistant know who you are.</p>
+        <button id="ai-dock__gh-btn" class="ai-dock__btn ai-dock__btn--github">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+          </svg>
+          Continue with GitHub
+        </button>
+        <p class="ai-dock__login-note">Read-only access to your GitHub profile. No write permissions.</p>
+      </div>
+    </div>
+
+    <div class="ai-dock__panel ai-dock__panel--user"
+         id="ai-dock__panel--user"
+         role="tabpanel"
+         aria-labelledby="ai-dock__tab--user"
+         hidden>
+      <div class="ai-dock__user-menu">
+        <div class="ai-dock__user-info">
+          <img id="ai-dock__user-avatar-lg" src="" alt="" width="36" height="36" style="border-radius:50%">
+          <div>
+            <div id="ai-dock__user-name"></div>
+            <div class="ai-dock__user-login" id="ai-dock__user-login"></div>
+          </div>
+        </div>
+        <div class="ai-dock__user-actions">
+          <a id="ai-dock__user-dashboard-link" href="https://github.com/neohiro/dashboard" class="ai-dock__btn ai-dock__btn--ghost" target="_blank" rel="noopener">
+            Dashboard
+          </a>
+          <button id="ai-dock__user-logout" class="ai-dock__btn ai-dock__btn--ghost">
+            Sign out
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ai-dock__backdrop" id="ai-dock__backdrop" hidden></div>
+</div>
+
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/network-ux.js"></script>
+  <script src="/assets/js/auth-bar.js" defer></script>
+</body>
+</html>

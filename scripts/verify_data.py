@@ -10,32 +10,53 @@ Catches:
 - UTF-8 BOM in either source
 - mojibake (Latin-1→UTF-8 round-trip) on em-dash / middle-dot
 """
-import re
+
 import glob
-import sys
 import os
+import re
+import sys
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-REPO_ROOT  = os.path.normpath(os.path.join(SCRIPT_DIR, ".."))
-YAML_PATH  = os.path.join(REPO_ROOT, "_data", "repos.yml")
-TOOLS_DIR  = os.path.join(REPO_ROOT, "_tools")
+REPO_ROOT = os.path.normpath(os.path.join(SCRIPT_DIR, ".."))
+YAML_PATH = os.path.join(REPO_ROOT, "_data", "repos.yml")
+TOOLS_DIR = os.path.join(REPO_ROOT, "_tools")
 
 ALLOWED_KEYS = {
-    "name", "title", "tagline", "platform", "language", "category",
-    "featured", "weight", "repo_url", "demo_url", "docs_url", "icon",
-    "stars", "forks", "open_issues", "created_at", "pushed_at",
-    "deprecated", "deprecated_at", "deprecated_reason", "successor_repo"
+    "name",
+    "title",
+    "tagline",
+    "platform",
+    "language",
+    "category",
+    "featured",
+    "weight",
+    "repo_url",
+    "demo_url",
+    "docs_url",
+    "icon",
+    "stars",
+    "forks",
+    "open_issues",
+    "created_at",
+    "pushed_at",
+    "deprecated",
+    "deprecated_at",
+    "deprecated_reason",
+    "successor_repo",
 }
-DRIFT_KEYS = frozenset(ALLOWED_KEYS - {"name", "stars", "forks", "open_issues", "created_at", "pushed_at"})
+DRIFT_KEYS = frozenset(
+    ALLOWED_KEYS - {"name", "stars", "forks", "open_issues", "created_at", "pushed_at"}
+)
 
 # Byte-level signatures of "double-encoded" UTF-8 mojibake. Each entry is
 # (replacement target, replacement string). These show up when UTF-8 bytes
 # are decoded as Latin-1 and the resulting string is re-encoded as UTF-8.
 # We match the trailing bytes of that pattern so the warning is precise.
 MOJIBAKE_PATTERNS = [
-    (b"\xc3\xa2\xe2\x82\xac",       "em-dash (—)"),
-    (b"\xc3\x82\xc2\xb7",           "middle-dot (·)"),
+    (b"\xc3\xa2\xe2\x82\xac", "em-dash (—)"),
+    (b"\xc3\x82\xc2\xb7", "middle-dot (·)"),
 ]
+
 
 def parse_front_matter(path):
     with open(path, "rb") as f:
@@ -55,8 +76,9 @@ def parse_front_matter(path):
             data[mm.group(1)] = mm.group(2).strip()
     return data
 
+
 def parse_yaml_repos(path):
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         text = f.read()
     if text.startswith("\ufeff"):
         print("FATAL: _data/repos.yml has BOM")
@@ -109,7 +131,9 @@ for path in sorted(glob.glob(os.path.join(TOOLS_DIR, "*.md"))):
         continue
     name = os.path.basename(path).replace(".md", "")
     if "name" in fm and fm["name"] != name:
-        warnings.append(f"{path}: front matter name={fm['name']!r} does not match filename={name!r}")
+        warnings.append(
+            f"{path}: front matter name={fm['name']!r} does not match filename={name!r}"
+        )
     tools[name] = fm
 
 # Mojibake regression guard. Scans raw bytes (mojibake is a byte-level
@@ -141,8 +165,11 @@ for name, repo in yaml_repos.items():
 
 # Check coverage
 missing_from_yaml = tool_names - yaml_names
-extra_in_yaml = {name for name in (yaml_names - tool_names)
-                 if normalize(yaml_repos[name].get("deprecated")) != "true"}
+extra_in_yaml = {
+    name
+    for name in (yaml_names - tool_names)
+    if normalize(yaml_repos[name].get("deprecated")) != "true"
+}
 if missing_from_yaml:
     errors.append(f"_tools files missing from _data/repos.yml: {sorted(missing_from_yaml)}")
 if extra_in_yaml:
