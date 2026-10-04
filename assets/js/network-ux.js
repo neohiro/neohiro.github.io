@@ -759,7 +759,41 @@ function renderSafeHtml(html) {
     'https://neohiro.github.io/.well-known/heartbeat',
     'https://neohiro.github.io/heartbeats/health.json'
   ];
-  const MOUTH_ENDPOINT = 'https://neohiro.github.io/.well-known/ask';
+
+  /* Where the assistant's traffic actually goes.
+   *
+   * The four public sites are GitHub Pages — static files with no compute — so
+   * nothing on that origin can answer /.well-known/ask. brain-bridge is the
+   * process that does: it runs on the mainframe node, calls Brain, falls back to
+   * Mouth, and durably queues anything that is really a message to a human.
+   * See network/brain_bridge/README.md.
+   *
+   * A fork can point at its own bridge without editing this file:
+   *   <script>window.NEOHIRO_BRIDGE = 'https://brain.example.internal';</script>
+   */
+  const BRIDGE_URL = (window.NEOHIRO_BRIDGE || 'https://neohiro.github.io').replace(/\/+$/, '');
+  const MOUTH_ENDPOINT = BRIDGE_URL + '/.well-known/ask';
+  const VOICEMAIL_ENDPOINT = BRIDGE_URL + '/.well-known/voicemail';
+  const SITE_KEY = (function () {
+    var h = (location.hostname || '').toLowerCase();
+    if (h.indexOf('transhumanists') >= 0) return 'transhumanists';
+    if (h.indexOf('openstageisland') >= 0) return 'openstageisland';
+    if (h.indexOf('frenzypenguin') >= 0) return 'frenzypenguin-media';
+    return 'neohiro';
+  })();
+
+  // The GitHub session, when the visitor is signed in, so the bridge knows who
+  // is writing instead of guessing from an email-shaped string.
+  function currentAuth() {
+    try {
+      var raw = localStorage.getItem('neohiro_session_v1');
+      if (!raw) return null;
+      var s = JSON.parse(raw);
+      if (!s || !s.login || !Number.isFinite(s.expiresAt) || s.expiresAt < Date.now()) return null;
+      return { login: s.login, role: s.role || (s.login === 'neohiro' ? 'godadmin' : 'user') };
+    } catch (_) { return null; }
+  }
+
   let _heartUp = null;
   let _heartProbed = false;
 
