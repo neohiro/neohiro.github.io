@@ -1,0 +1,12 @@
+# Python bytecode from scripts/ and any tooling run locally. Running
+# `python -m py_compile scripts/verify_references.py` as a smoke test writes
+# scripts/__pycache__/, and nothing in CI produces it, so it only ever shows up
+# as an accidental commit.
+__pycache__/
+*.py[cod]
+
+# Jekyll build output and local caches.
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
