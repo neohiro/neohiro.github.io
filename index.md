@@ -154,21 +154,21 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 12h6M12 9v6"/></svg>
             {% endif %}
           </div>
-          <h3 class="tool-name" itemprop="name">{{ tool.title }}</h3>
-          <p class="tool-desc" itemprop="description">{{ tool.tagline }}</p>
+          <h3 class="tool-name" itemprop="name">{{ tool.title | escape }}</h3>
+          <p class="tool-desc" itemprop="description">{{ tool.tagline | escape }}</p>
           <div class="tool-meta">
-            <span class="tool-platform" itemprop="operatingSystem">{{ tool.platform }}</span>
+            <span class="tool-platform" itemprop="operatingSystem">{{ tool.platform | escape }}</span>
             {% if tool.language %}
-              <span class="tool-lang">{{ tool.language }}</span>
+              <span class="tool-lang">{{ tool.language | escape }}</span>
             {% endif %}
           </div>
           <div class="tool-links">
-            <a href="{{ tool.repo_url }}" class="tool-link" target="_blank" rel="noopener" itemprop="url">
+            <a href="{{ tool.repo_url | escape }}" class="tool-link" target="_blank" rel="noopener" itemprop="url">
               <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
               Repository
             </a>
             {% if tool.demo_url %}
-              <a href="{{ tool.demo_url }}" class="tool-link tool-link-secondary" target="_blank" rel="noopener">{{ tool.demo_label | default: "Demo" }}</a>
+              <a href="{{ tool.demo_url | escape }}" class="tool-link tool-link-secondary" target="_blank" rel="noopener">{{ tool.demo_label | default: "Demo" | escape }}</a>
             {% endif %}
           </div>
         </article>
@@ -176,31 +176,31 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
 
       {%- comment -%} Ecosystem entries (non-neohiro) share the grid so the row stays balanced. {%- endcomment -%}
       {% for eco in site.data.ecosystem.entries %}
-        <article class="tool-card tool-card--ecosystem card-3d accent-{{ eco.accent | default: 'purple' }}" itemscope itemtype="https://schema.org/SoftwareApplication">
+        <article class="tool-card tool-card--ecosystem card-3d accent-{{ eco.accent | default: 'purple' | strip | escape }}" itemscope itemtype="https://schema.org/SoftwareApplication">
           <div class="tool-icon" aria-hidden="true">{{ eco.icon }}</div>
-          <h3 class="tool-name" itemprop="name">{{ eco.title }}</h3>
-          <p class="tool-desc" itemprop="description">{{ eco.tagline }}</p>
+          <h3 class="tool-name" itemprop="name">{{ eco.title | escape }}</h3>
+          <p class="tool-desc" itemprop="description">{{ eco.tagline | escape }}</p>
           <div class="tool-meta">
-            {% if eco.pill %}<span class="tool-pill">{{ eco.pill }}</span>{% endif %}
-            <span class="tool-platform" itemprop="operatingSystem">{{ eco.platform }}</span>
-            {% if eco.language %}<span class="tool-lang">{{ eco.language }}</span>{% endif %}
+            {% if eco.pill %}<span class="tool-pill">{{ eco.pill | escape }}</span>{% endif %}
+            <span class="tool-platform" itemprop="operatingSystem">{{ eco.platform | escape }}</span>
+            {% if eco.language %}<span class="tool-lang">{{ eco.language | escape }}</span>{% endif %}
           </div>
           <ul class="tool-highlights">
             {% for h in eco.highlights %}<li>{{ h }}</li>{% endfor %}
           </ul>
           <div class="tool-links">
-            <a href="{{ eco.repo_url }}" class="tool-link" target="_blank" rel="noopener" itemprop="url">
+            <a href="{{ eco.repo_url | escape }}" class="tool-link" target="_blank" rel="noopener" itemprop="url">
               <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-              {{ eco.repo_label | default: "Repository" }}
+              {{ eco.repo_label | default: "Repository" | escape }}
             </a>
             {% if eco.live_url %}
-              <a href="{{ eco.live_url }}" class="tool-link tool-link-live" target="_blank" rel="noopener">
+              <a href="{{ eco.live_url | escape }}" class="tool-link tool-link-live" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                {{ eco.live_label | default: "Live data" }}
+                {{ eco.live_label | default: "Live data" | escape }}
               </a>
             {% endif %}
           </div>
-          {% if eco.repo_note %}<span class="tool-footnote">{{ eco.repo_note }}</span>{% endif %}
+          {% if eco.repo_note %}<span class="tool-footnote">{{ eco.repo_note | escape }}</span>{% endif %}
         </article>
       {% endfor %}
     </div>

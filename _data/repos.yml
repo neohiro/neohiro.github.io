@@ -1,5 +1,20 @@
-generated_at: 2026-09-30T00:00:00
+generated_at: 2026-10-04T07:25:48Z
 repos:
+  - name: lanscan
+    title: LANScan
+    tagline: "Local-only inventory of every device on your LAN, every USB device, every driver - live dashboard, zero telemetry"
+    platform: Windows / Linux / macOS
+    language: Python
+    category: Network Security
+    featured: true
+    weight: 2
+    repo_url: "https://github.com/neohiro/LANScan"
+    demo_url: "https://neohiro.github.io/lanscan/"
+    stars: 0
+    forks: 0
+    open_issues: 0
+    created_at: "2025-08-10T17:16:47Z"
+    pushed_at: "2026-09-18T05:05:33Z"
   - name: meshcore-meshtastic-vanity-key
     title: MeshCore Vanity Key Generator
     tagline: "Browser-based Ed25519 vanity key generator — GPU-powered, scalar-walk optimized, prefix/suffix matching"

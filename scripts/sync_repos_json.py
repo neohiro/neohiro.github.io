@@ -53,7 +53,12 @@ def coerce(raw: dict) -> dict:
         if key in ("featured",):
             val = bool(val)
         elif key in ("weight", "stars", "forks", "open_issues"):
-            val = int(val)
+            # A repo may legitimately omit a count, and YAML turns a bare `null`
+            # into None; int(None) would abort the whole sync.
+            try:
+                val = int(val)
+            except (TypeError, ValueError):
+                continue
         elif key == "tagline":
             val = ascii_dash(str(val))
         out[key] = val
@@ -80,16 +85,40 @@ def main() -> int:
     ap.add_argument("--check", action="store_true", help="fail instead of writing")
     args = ap.parse_args()
 
-    new = render(build())
-    old = DST.read_text(encoding="utf-8") if DST.exists() else ""
+    new_text = render(build())
 
-    if old == new:
+    if not DST.exists():
+        if args.check:
+            print("repos.json is missing — run: python scripts/sync_repos_json.py")
+            return 1
+        DST.parent.mkdir(parents=True, exist_ok=True)
+        DST.write_text(new_text, encoding="utf-8")
+        print(f"wrote {DST.relative_to(ROOT)}")
+        return 0
+
+    old_text = DST.read_text(encoding="utf-8")
+
+    # Compare parsed content, not raw bytes. Git may hand back the file with CRLF
+    # line endings on Windows, and a byte comparison would then report drift on
+    # every checkout even when the data is identical.
+    try:
+        same = json.loads(old_text) == json.loads(new_text)
+    except json.JSONDecodeError as exc:
+        print(f"{DST.relative_to(ROOT)} is not valid JSON ({exc}) — run: python scripts/sync_repos_json.py")
+        return 1 if args.check else _write(new_text, args)
+
+    if same:
         print(f"repos.json is in sync ({DST.relative_to(ROOT)})")
         return 0
+
+    return _write(new_text, args)
+
+
+def _write(text: str, args) -> int:
     if args.check:
         print("repos.json is OUT OF SYNC with _data/repos.yml — run: python scripts/sync_repos_json.py")
         return 1
-    DST.write_text(new, encoding="utf-8")
+    DST.write_text(text, encoding="utf-8")
     print(f"wrote {DST.relative_to(ROOT)}")
     return 0
 
