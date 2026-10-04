@@ -19,6 +19,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Branch protection on main requires a status check named `verify`, and until
+  # this job existed no workflow in the repository produced one. The requirement
+  # could therefore never be satisfied, so every pull request sat at BLOCKED
+  # regardless of its own state. The job name is load-bearing: renaming it
+  # re-freezes the repository.
   verify:
     runs-on: ubuntu-latest
     steps:
@@ -32,6 +37,13 @@ jobs:
         run: |
           pip install --quiet pyyaml
           python scripts/sync_repos_json.py --check
+      # Offline, stdlib only. Catches a layout or stylesheet link naming a file
+      # that is not in the repository -- which is what happened to the
+      # Ecosystem Network frame on all four sites: present in a working tree,
+      # absent from the repo, so CI either aborted on a missing include or
+      # rendered the footer unstyled with a green build.
+      - name: Verify every include and asset reference resolves
+        run: python scripts/verify_references.py
 
   build:
     needs: verify
