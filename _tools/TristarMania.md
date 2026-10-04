@@ -42,7 +42,7 @@ icon: |
 ## Ship Building
 
 ```
-Hull (frame) â†’ Engine â†’ Weapon Ã— N â†’ Shield â†’ Utility
+Hull (frame) → Engine → Weapon × N → Shield → Utility
 ```
 
 | Slot | Options |

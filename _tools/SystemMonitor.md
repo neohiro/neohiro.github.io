@@ -10,7 +10,7 @@ platform: Windows / Linux
 language: Python (PySide6/Qt) / C++
 category: System Utilities
 repo_url: https://github.com/neohiro/SystemMonitor
-featured: true
+featured: false
 weight: 7
 icon: |
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -25,7 +25,7 @@ icon: |
 - **Always-on-Top Widget** — Semi-transparent, click-through optional, multi-monitor
 - **Metric Panels** — CPU (per-core), RAM, Disk I/O, Network, GPU, Temperatures, Fans
 - **History Graphs** — 1h/6h/24h sparklines for each metric
-- **Alert Rules** — "CPU > 90% for 5m â†’ notify", "Disk < 5GB â†’ warn"
+- **Alert Rules** — "CPU > 90% for 5m → notify", "Disk < 5GB → warn"
 - **Notification Channels** — Desktop, sound, webhook, email, Matrix
 - **Remote Monitoring** — View metrics from phone via web UI (optional)
 - **Process Top** — Click panel to see top consumers for that resource
@@ -51,7 +51,7 @@ yay -S systemmonitor-git
 
 ## Configuration
 
-Right-click widget â†’ Settings, or edit `~/.config/SystemMonitor/config.yaml`:
+Right-click widget → Settings, or edit `~/.config/SystemMonitor/config.yaml`:
 
 ```yaml
 widget:

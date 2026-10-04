@@ -68,18 +68,18 @@ Create `mods/my_mod/` with:
 
 ```
 mods/my_mod/
-â”œâ”€â”€ mod.json           # Metadata, dependencies
-â”œâ”€â”€ weapons/
-â”‚   â””â”€â”€ railgun.json   # New weapon definition
-â”œâ”€â”€ enemies/
-â”‚   â””â”€â”€ boss_tyrant.json
-â”œâ”€â”€ levels/
-â”‚   â””â”€â”€ military_base.json
-â””â”€â”€ items/
-    â””â”€â”€ stimpack.json
+├── mod.json           # Metadata, dependencies
+├── weapons/
+│   └── railgun.json   # New weapon definition
+├── enemies/
+│   └── boss_tyrant.json
+├── levels/
+│   └── military_base.json
+└── items/
+    └── stimpack.json
 ```
 
-Load via Main Menu â†’ Mods â†’ Enable.
+Load via Main Menu → Mods → Enable.
 
 ## Legacy System
 

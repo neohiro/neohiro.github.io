@@ -9,8 +9,8 @@ tagline: "One-command Windows 10/11 hardening with 18 modules, 4 profiles, allow
 platform: Windows 10/11
 language: PowerShell
 repo_url: https://github.com/neohiro/windows
-featured: true
-weight: 1
+featured: false
+weight: 20
 category: System Hardening
 icon: |
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">

@@ -19,7 +19,22 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify data files match the tool docs
+        run: python scripts/verify_data.py
+      - name: Verify repos.json is in sync with _data/repos.yml
+        run: |
+          pip install --quiet pyyaml
+          python scripts/sync_repos_json.py --check
+
   build:
+    needs: verify
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

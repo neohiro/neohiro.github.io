@@ -63,7 +63,7 @@ repos:
     platform: Windows / Linux
     language: Python (PySide6/Qt) / C++
     category: System Utilities
-    featured: true
+    featured: false
     weight: 7
     repo_url: "https://github.com/neohiro/SystemMonitor"
     stars: 0
@@ -130,7 +130,7 @@ repos:
   - name: "cripple-netstrip"
     title: "Cripple-NetStrip"
     tagline: Network hardening · DNS sinkhole · Encrypted DNS · Firewall · Traffic classification
-    platform: Windows / Linux
+    platform: Windows / macOS / Linux / Android
     language: Python
     category: Network Security
     featured: true
@@ -143,12 +143,12 @@ repos:
     pushed_at: "2026-09-18T06:23:13Z"
   - name: "dnscrypt-proxy-gui"
     title: "dnscrypt-proxy-gui"
-    tagline: "Cross-platform GUI for dnscrypt-proxy — encrypted DNS management made simple"
-    platform: Windows / Linux / macOS
-    language: Python (PySide6/Qt)
+    tagline: "Cross-platform GUI for dnscrypt-proxy — encrypted DNS, anonymizing relays, exact DNS restore, tray-resident, zero telemetry"
+    platform: Windows / macOS / Linux
+    language: Python (Tkinter)
     category: Privacy Tools
-    featured: false
-    weight: 13
+    featured: true
+    weight: 1
     repo_url: "https://github.com/neohiro/dnscrypt-proxy-gui"
     stars: 29
     forks: 1
@@ -175,8 +175,8 @@ repos:
     platform: Windows 10/11
     language: PowerShell
     category: System Hardening
-    featured: true
-    weight: 1
+    featured: false
+    weight: 20
     repo_url: "https://github.com/neohiro/windows"
     stars: 1
     forks: 0

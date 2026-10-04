@@ -44,16 +44,16 @@ icon: |
 
 | Action | Points |
 |--------|--------|
-| Single | 100 Ã— level |
-| Double | 300 Ã— level |
-| Triple | 500 Ã— level |
-| Tetris | 800 Ã— level |
-| T-Spin Mini | 100 Ã— level |
-| T-Spin | 400 Ã— level |
-| T-Spin Double | 1200 Ã— level |
-| T-Spin Triple | 1600 Ã— level |
-| Back-to-Back | Ã—1.5 |
-| Perfect Clear | 2000 Ã— level (single), 3600 (Tetris) |
+| Single | 100 × level |
+| Double | 300 × level |
+| Triple | 500 × level |
+| Tetris | 800 × level |
+| T-Spin Mini | 100 × level |
+| T-Spin | 400 × level |
+| T-Spin Double | 1200 × level |
+| T-Spin Triple | 1600 × level |
+| Back-to-Back | ×1.5 |
+| Perfect Clear | 2000 × level (single), 3600 (Tetris) |
 
 ## Modes
 
@@ -70,12 +70,12 @@ icon: |
 
 | Action | Keyboard | Gamepad |
 |--------|----------|---------|
-| Move | â†/â†’ | D-Pad / Left Stick |
-| Soft Drop | â†“ | Down / A |
-| Hard Drop | Space / â†‘ | Up / Y |
+| Move | ←/→ | D-Pad / Left Stick |
+| Soft Drop | ↓ | Down / A |
+| Hard Drop | Space / ↑ | Up / Y |
 | Rotate CW | Z / X | LB / RB |
 | Rotate CCW | Shift / C | LT / RT |
-| 180Â° | A | Back / Select |
+| 180° | A | Back / Select |
 | Hold | C / Ctrl | Left Stick Press |
 
 ## Replay Format

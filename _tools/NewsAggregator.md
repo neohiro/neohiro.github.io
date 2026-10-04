@@ -55,7 +55,7 @@ brew install --cask newsaggregator
 
 ## Quick Start
 
-1. Launch â†’ "Add Source" â†’ Paste RSS/Reddit/Twitter URL
+1. Launch → "Add Source" → Paste RSS/Reddit/Twitter URL
 2. Name it, choose update interval (5m—“24h)
 3. Articles appear in unified feed
 4. Press `/` to search across all sources

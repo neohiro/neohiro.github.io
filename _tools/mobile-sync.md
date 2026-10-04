@@ -45,7 +45,7 @@ opencode plugin install neohiro/mobile-sync
 ## Architecture
 
 ```
-[Mobile Browser] â†’ [Tailscale Funnel] â†’ [Desktop: mobile-sync daemon] â†’ [OpenCode CLI]
+[Mobile Browser] → [Tailscale Funnel] → [Desktop: mobile-sync daemon] → [OpenCode CLI]
 ```
 
 The daemon exposes a local WebSocket server that OpenCode connects to, proxied through Tailscale's mesh.
