@@ -40,6 +40,14 @@ jobs:
       # rendered the footer unstyled with a green build.
       - name: Verify every include and asset reference resolves
         run: python scripts/verify_references.py
+      # Complement, not duplicate: verify_references.py resolves includes,
+      # assets and page routes. This checks the data layer -- repos.yml vs
+      # _tools front-matter drift, unknown fields, UTF-8 BOMs and mojibake.
+      # This repo has shipped BOM and mojibake defects more than once
+      # (assets/css/main.css, assets/js/network-ux.js), and this script was
+      # unwired after 61050fe, so those checks only ran if invoked by hand.
+      - name: Verify _tools <-> _data/repos.yml consistency
+        run: python scripts/verify_data.py
 
   build:
     needs: verify
