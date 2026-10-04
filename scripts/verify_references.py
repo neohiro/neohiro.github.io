@@ -3,11 +3,29 @@
 
 What it checks
 --------------
-Every reference the build resolves out of the working tree:
+Every reference the build resolves out of the working tree, in files Jekyll can
+actually render:
 
   * ``{% include foo.html %}``      -> ``_includes/foo.html`` must exist
   * ``href="/assets/x.css"``        -> that file must exist
+  * ``<img src="/images/x.png">``   -> that file must exist
   * ``<a href="/privacy/">``        -> a page must build to that path
+
+Reachability
+------------
+Only files reachable from a layout or a page are checked, following the include
+graph. A partial no layout includes never renders, so a dangling reference
+inside one is inert: openstageisland's ``theme.html`` links
+``/assets/css/main.css``, a file that site does not have, but nothing includes
+it. Failing on that would be a false positive, and a gate that cries wolf gets
+routed around.
+
+File or page
+------------
+Decided by the extension, not by the directory. ``/images/x.png`` is a file the
+deploy must serve even though it is not under ``/assets/``, and ``/privacy/`` is
+a page Jekyll generates from markdown. This distinction decides whether a miss
+fails the run or merely warns, so it has to be right in both directions.
 
 Why it exists
 -------------
@@ -71,15 +89,26 @@ INCLUDE_RE = re.compile(r"\{%-?\s*include\s+([A-Za-z0-9_.\-/]+)")
 RELATIVE_URL_RE = re.compile(
     r"""(?:href|src)\s*=\s*["']\{\{\s*['"]([^'"]+)['"]\s*\|\s*relative_url\s*\}\}"""
 )
-# Root-absolute paths written as plain strings, e.g. <img src="/assets/x.png">.
-PLAIN_ASSET_RE = re.compile(r"""(?:href|src)\s*=\s*["'](/assets/[^"'#?]+)["']""")
-# Root-absolute routes written as plain strings, e.g. href="/privacy/".
-PLAIN_ROUTE_RE = re.compile(r"""(?:href|src)\s*=\s*["'](/(?!assets/)[^"'#?]*?)["']""")
+# Root-absolute paths written as plain strings, with or without a Liquid filter:
+# <img src="/assets/x.png">, <a href="/privacy/">. Deliberately one pattern, not
+# an assets pattern and a routes pattern -- classify() decides which it is, and
+# splitting the match here is what previously misfiled /images/*.png as a route.
+PLAIN_ROOT_RE = re.compile(r"""(?:href|src)\s*=\s*["'](/[^"'#?]*)["']""")
 
 # Never treated as references to this site.
 EXTERNAL_PREFIXES = ("http://", "https://", "//", "mailto:", "tel:", "data:", "#")
 
 SOURCE_GLOBS = ("_layouts/*.html", "_includes/*.html", "*.md", "pages/**/*.md")
+
+# A root-absolute reference ending in a filename extension is a file the build
+# must be able to serve, wherever it lives. Matching only /assets/ got this
+# wrong: openstageisland links /images/destination-image.png from three places,
+# and it was being classified as a page route -- so a missing image would have
+# been reported as a content warning instead of failing the run.
+_HAS_EXTENSION = re.compile(r"\.[A-Za-z0-9]{2,5}$")
+
+# Directories Jekyll copies verbatim; a reference into one is a file, not a route.
+STATIC_DIRS = ("assets/", "images/", "img/", "files/", "static/", "data/")
 
 
 def is_external(ref: str) -> bool:
@@ -94,6 +123,53 @@ def has_fragment(ref: str) -> bool:
     patterns to exclude '#', which they do not reliably do.
     """
     return "#" in ref
+
+
+def classify(ref: str) -> str:
+    """Decide whether a root-absolute reference is a file or a page.
+
+    An extension is the signal. `/images/x.png` and `/assets/y.css` are files
+    the deploy must serve; `/privacy/` and `/tos/` are pages Jekyll generates
+    from markdown. Getting this backwards is not a cosmetic difference -- a
+    missing file has to fail the run and a stale route must not, or the gate
+    either breaks every pull request or misses the silent failures.
+    """
+    bare = ref.split("?", 1)[0].split("#", 1)[0]
+    if _HAS_EXTENSION.search(bare):
+        return "asset"
+    if any(bare.startswith("/" + d) or bare.lstrip("/").startswith(d) for d in STATIC_DIRS):
+        # An extensionless path inside a static directory is still a file
+        # reference; treat it as one so a typo there is not filed under routes.
+        return "asset"
+    return "route"
+
+
+def reachable_sources() -> set[Path]:
+    """Files Jekyll can actually render, from the include graph.
+
+    Only these are checked. A partial no layout includes never renders, so a
+    dangling reference inside one is inert -- openstageisland's theme.html links
+    /assets/css/main.css, a file that site does not have, but no layout includes
+    it and the link never reaches a browser. Failing the build on that would be
+    a false positive, and a gate that cries wolf gets ignored.
+    """
+    roots: list[Path] = []
+    for pattern in ("_layouts/*.html", "*.md", "pages/**/*.md"):
+        roots.extend(sorted(ROOT.glob(pattern)))
+
+    seen: set[Path] = set()
+    queue = list(roots)
+    while queue:
+        current = queue.pop()
+        if current in seen or not current.is_file():
+            continue
+        seen.add(current)
+        text = current.read_text(encoding="utf-8", errors="replace")
+        for target in INCLUDE_RE.findall(text):
+            if "/" in target:
+                continue
+            queue.append(ROOT / "_includes" / target)
+    return seen
 
 
 def built_paths() -> set[str]:
@@ -136,60 +212,60 @@ def check(verbose: bool) -> tuple[list[str], list[str]]:
     warnings: list[str] = []
     seen: set[tuple[str, str]] = set()
     checked = 0
+    sources = reachable_sources()
 
-    for pattern in SOURCE_GLOBS:
-        for source in sorted(ROOT.glob(pattern)):
-            if not source.is_file():
-                continue
-            text = source.read_text(encoding="utf-8", errors="replace")
-            rel_source = source.relative_to(ROOT).as_posix()
+    for source in sorted(sources):
+        text = source.read_text(encoding="utf-8", errors="replace")
+        rel_source = source.relative_to(ROOT).as_posix()
 
-            def report(ref: str, kind: str, ok: bool, detail: str = "") -> None:
-                """Record one reference.
+        def report(ref: str, kind: str, ok: bool, detail: str = "") -> None:
+            """Record one reference.
 
-                `kind` decides whether a miss is fatal. Includes and assets are;
-                routes are not -- see the module docstring for why gating on
-                routes would make this check unmergeable rather than useful.
-                """
-                nonlocal checked
-                checked += 1
-                key = (rel_source, ref)
-                if key in seen:
-                    return
-                seen.add(key)
-                if ok:
-                    if verbose:
-                        print(f"  ok   {rel_source}: {kind} {ref}")
-                    return
-                message = f"{rel_source}: {kind} {ref} {detail}".rstrip()
-                (warnings if kind == "route" else problems).append(message)
+            `kind` decides whether a miss is fatal. Includes and assets are;
+            routes are not -- see the module docstring for why gating on routes
+            would make this check unmergeable rather than useful.
+            """
+            nonlocal checked
+            checked += 1
+            key = (rel_source, ref)
+            if key in seen:
+                return
+            seen.add(key)
+            if ok:
+                if verbose:
+                    print(f"  ok   {rel_source}: {kind} {ref}")
+                return
+            message = f"{rel_source}: {kind} {ref} {detail}".rstrip()
+            (warnings if kind == "route" else problems).append(message)
 
-            for target in INCLUDE_RE.findall(text):
-                if "/" in target:
-                    # A path, not a partial name; Jekyll resolves those directly.
-                    report(target, "include-path", (ROOT / target).is_file())
-                    continue
-                partial = ROOT / "_includes" / target
-                report(target, "include", partial.is_file(), "(expected _includes/%s)" % target)
-
-            for ref in RELATIVE_URL_RE.findall(text):
-                if is_external(ref) or has_fragment(ref):
-                    continue
-                if ref.startswith("/assets/"):
-                    report(ref, "asset", asset_exists(ref))
-                else:
-                    report(ref, "route", ref in routes)
-
-            for ref in PLAIN_ASSET_RE.findall(text):
+        def report_root(ref: str) -> None:
+            """Classify and record a root-absolute reference."""
+            kind = classify(ref)
+            if kind == "asset":
                 report(ref, "asset", asset_exists(ref))
-
-            for ref in PLAIN_ROUTE_RE.findall(text):
-                if is_external(ref) or has_fragment(ref):
-                    continue
+            else:
                 report(ref, "route", ref in routes or ref.rstrip("/") + "/" in routes)
 
+        for target in INCLUDE_RE.findall(text):
+            if "/" in target:
+                # A path, not a partial name; Jekyll resolves those directly.
+                report(target, "include-path", (ROOT / target).is_file())
+                continue
+            partial = ROOT / "_includes" / target
+            report(target, "include", partial.is_file(), "(expected _includes/%s)" % target)
+
+        for ref in RELATIVE_URL_RE.findall(text):
+            if is_external(ref) or has_fragment(ref):
+                continue
+            report_root(ref)
+
+        for ref in PLAIN_ROOT_RE.findall(text):
+            if is_external(ref) or has_fragment(ref):
+                continue
+            report_root(ref)
+
     print(f"verify_references: {checked} reference(s) checked across "
-          f"{len(SOURCE_GLOBS)} source glob(s)")
+          f"{len(sources)} reachable source file(s)")
     return problems, warnings
 
 
