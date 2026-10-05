@@ -1,6 +1,10 @@
-{# svg-icon.html — inline SVG icon set. Drop-in, no external requests.
+<!-- svg-icon.html — inline SVG icon set. Drop-in, no external requests.
 
-   Usage: {% include svg-icon.html name="github" %}
+   Usage: include svg-icon.html name="github"
+   NOTE: that usage line is written WITHOUT Liquid tag braces on purpose. A <!-- -->
+   tag comment ends at the first #}, so a literal {% include %} inside it is
+   parsed as a real include and recurses forever. Same trap, same fix, as
+   counter-widget.html.
    Available: github, gitlab, youtube, mastodon, bluesky, twitter, discord,
               globe, lock, shield, heart, star, fork, eye, check, x, info,
               sponsor, login, logout, dashboard, contact, send, menu #}

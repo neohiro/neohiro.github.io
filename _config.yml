@@ -5,6 +5,12 @@ baseurl: ""
 github_username: neohiro
 github_repo: neohiro.github.io
 
+# Chrome identity for the shared chrome includes (_includes/bottom-bar.html).
+# See the note in frenzypenguin-media.github.io/_config.yml: `github_username`
+# is shared with FPM and cannot identify a site. One of:
+# fpm | neohiro | osi | transhumanists
+shell: neohiro
+
 # >>> top-bar contract (managed by template-shared/site_forge.py)
 # Top-bar contract. Rendered by _includes/nav.html — ONE template serves
 # every site in the network; only these lists differ. Format is
@@ -14,6 +20,10 @@ github_repo: neohiro.github.io
 github_username: "neohiro"
 sponsor_username: "neohiro"
 dashboard_url: "https://github.com/neohiro/dashboard"
+
+# Visitor counter (SSOT: links-secret/counter-surfaces.spec.yaml)
+# Rendered via _includes/counter-widget.html in _layouts/default.html.
+counter_path: "github.com/neohiro.github.io"
 
 nav_links:
   - "Tools|/#featured-tools"
@@ -55,3 +65,37 @@ decor: "matrix"
 decor_class: "decor-matrix decor-scanlines decor-grain"
 font_google: "JetBrains+Mono:wght@400;500;700|Space+Grotesk:wght@400;500;600;700"
 # <<< top-bar contract
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+collections:
+  tools:
+    output: true
+    permalink: /tools/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: "tools"
+    values:
+      layout: "tool"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .github
+  - README.md
+  - LICENSE
+  - scripts
+  - "*.ps1"
+  - "*.sh"

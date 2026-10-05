@@ -74,7 +74,7 @@ Not a disclaimer, an enforced property:
 
 ## Install
 
-Download a standalone build from the [Releases](../../releases) page — no Python
+Download a standalone build from the [Releases](https://github.com/neohiro/LANScan/releases) page — no Python
 needed — or run it from source:
 
 ```bash

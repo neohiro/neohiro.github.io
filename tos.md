@@ -116,7 +116,7 @@ We are not responsible for the practices of third parties.
 ## 9. Intellectual Property
 
 The **FrenzyPenguin Media / neohiro additions** to this stack are licensed
-under **GNU GPL-3.0**. See the [LICENSE](/LICENSE) for details.
+under **GNU GPL-3.0**. See the [LICENSE](https://github.com/neohiro/neohiro.github.io/blob/main/LICENSE) for details.
 
 Third-party components retain their original licenses.
 

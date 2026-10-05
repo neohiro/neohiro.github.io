@@ -914,8 +914,14 @@
       
       @keyframes neon-pulse { 0%,100% { box-shadow: 0 20px 60px rgba(124,77,255,0.25), 0 0 40px rgba(124,77,255,0.1); } 50% { box-shadow: 0 20px 80px rgba(124,77,255,0.4), 0 0 80px rgba(124,77,255,0.2); } }
       
-      .glitch-overlay { position: fixed; inset: 0; background: var(--bg); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; }
-      .glitch-overlay.active { opacity: 1; visibility: visible; }
+      /* pointer-events is the load-bearing part of the idle state: this overlay is
+         position:fixed; inset:0 at z-index 9999, above the back-to-top control
+         (940) and the bottom dock (900), and elementFromPoint at the arrow's
+         centre returned this div, swallowing every click. It is also injected at
+         runtime, so before injection it is an unstyled div with no pointer-events.
+         Fixed on frenzypenguin-media first; applied here for the same reason. */
+      .glitch-overlay { position: fixed; inset: 0; background: var(--bg); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.2s, visibility 0.2s; }
+      .glitch-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
       .glitch-text { font-family: var(--font-ui); font-size: clamp(3rem, 10vw, 8rem); font-weight: 700; color: var(--fg); letter-spacing: 0.1em; text-transform: uppercase; }
     `;
     document.head.appendChild(style);
