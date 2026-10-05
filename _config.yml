@@ -55,3 +55,54 @@ decor: "matrix"
 decor_class: "decor-matrix decor-scanlines decor-grain"
 font_google: "JetBrains+Mono:wght@400;500;700|Space+Grotesk:wght@400;500;600;700"
 # <<< top-bar contract
+
+# Jekyll plugins. Restored in bfc7cae's wake - see the commit message there for
+# why these went missing, but the short version is that the site-tokens /
+# site-forge sync rewrote this file and dropped everything below the
+# top-bar contract markers, including this block.
+#
+# `plugins:` is what registers the `{% seo %}`, `{% feed_meta %}` and
+# `{% sitemap %}` tags. Without it the gems are in the Gemfile but never
+# loaded, and Jekyll fails the whole build on the first one it meets:
+#
+#   Liquid Exception: Liquid syntax error (line 20): Unknown tag 'seo'
+#   in _layouts/default.html
+#
+# `collections` and `defaults` went the same way, and those matter too: the 17
+# files in `_tools/` are only published because of the `tools` collection and
+# the `layout: "tool"` default that points them at _layouts/tool.html. Without
+# them Jekyll silently stops publishing that directory rather than failing -
+# which is worse, because the build goes green and the tool pages vanish.
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+collections:
+  tools:
+    output: true
+    permalink: /tools/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: "tools"
+    values:
+      layout: "tool"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .github
+  - README.md
+  - LICENSE
+  - scripts
+  - "*.ps1"
+  - "*.sh"
