@@ -61,7 +61,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
       { t: "ASR, CFG, DEP, SEHOP — toggled.",      a: "ExploitProtection" },
       { t: "Firewall, DNSCrypt, Tor, AppArmor.",    a: "neohiro/linux" },
       { t: "Sees every connection. Live.",          a: "Cripple-NetStrip" },
-      { t: "Vanity Ed25519 keys. In-browser.",      a: "meshcore-vanity-key" },
+      { t: "Vanity Ed25519 keys. In-browser.",      a: "mesh-vanity-key" },
       { t: "DNS restored exactly as it was.",       a: "dnscrypt-proxy-gui" },
       { t: "110 milestones. Seven verticals.",      a: "Transhumanists (H+)" },
       { t: "Passive honeypot. Zero config.",        a: "HoneyScan" },
