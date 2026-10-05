@@ -31,7 +31,7 @@ nav_links:
   - "Repos|/repositories/"
   - "Live|/live.html|3"
   - "Beats|/heartbeats/|4"
-  - "Keys|/meshcore-vanity-key/|2"
+  - "Keys|https://neohiro.github.io/mesh-vanity-key/|2"
   - "Media|/media/|3"
   - "Setup|/onboard/|4"
 

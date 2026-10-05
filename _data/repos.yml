@@ -15,16 +15,16 @@ repos:
     open_issues: 0
     created_at: "2025-08-10T17:16:47Z"
     pushed_at: "2026-09-18T05:05:33Z"
-  - name: meshcore-meshtastic-vanity-key
-    title: MeshCore Vanity Key Generator
-    tagline: "Browser-based Ed25519 vanity key generator — GPU-powered, scalar-walk optimized, prefix/suffix matching"
+  - name: mesh-vanity-key
+    title: Mesh Vanity Key Generator
+    tagline: "Browser-based Ed25519 vanity key generator for mesh networks — MeshCore device keys, Meshtastic channel PSKs and node IDs"
     platform: Web (GitHub Pages)
     language: Python / JavaScript
     category: Cryptography
     featured: true
     weight: 5
-    repo_url: "https://github.com/neohiro/meshcore-meshtastic-vanity-key"
-    demo_url: "https://neohiro.github.io/meshcore-meshtastic-vanity-key/"
+    repo_url: "https://github.com/neohiro/mesh-vanity-key"
+    demo_url: "https://neohiro.github.io/mesh-vanity-key/"
     stars: 0
     forks: 0
     open_issues: 0

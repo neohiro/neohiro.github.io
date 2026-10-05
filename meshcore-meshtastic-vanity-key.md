@@ -1,7 +1,7 @@
 ---
 layout: default
-permalink: /meshcore-vanity-key/
-title: Moved — meshcore-vanity-key
+permalink: /meshcore-meshtastic-vanity-key/
+title: Moved — meshcore-meshtastic-vanity-key
 description: This tool was renamed to mesh-vanity-key and now lives at a new address.
 sitemap: false
 robots: noindex, follow
@@ -10,20 +10,21 @@ robots: noindex, follow
 <!--
   Permanent redirect for the project's former address.
 
-  The repository was renamed from `meshcore-vanity-key` to
-  `meshcore-meshtastic-vanity-key`, and GitHub Pages serves a project site from
-  the repository NAME. GitHub redirects the old *repository* URL on its own
-  (github.com/neohiro/meshcore-vanity-key -> .../meshcore-meshtastic-vanity-key),
+  The repository was renamed from `meshcore-meshtastic-vanity-key` to
+  `mesh-vanity-key`, because it grew past the two protocols its original name
+  implied: Meshtastic channel PSKs and `!node` IDs now sit alongside the
+  MeshCore device keys. GitHub Pages serves a project site from the repository
+  NAME. GitHub redirects the old *repository* URL on its own
+  (github.com/neohiro/meshcore-meshtastic-vanity-key -> .../mesh-vanity-key),
   but it does NOT redirect the *Pages* path: renaming the repository moves the
   site, and the old path becomes a 404 on this user site with nothing behind it.
 
   This page exists to catch that. It keeps the old URL working for bookmarks,
   inbound links and anything already indexed, instead of leaving a dead end.
 
-  It has since been renamed a second time, to `mesh-vanity-key`, so the target
-  below is the final address. meshcore-meshtastic-vanity-key.md covers the name
-  in between; all three land on the same live page, and none of them points at
-  another redirect.
+  It is the second hop for this tool. meshcore-vanity-key.md catches the name
+  before it, so both former addresses land on the live page rather than on each
+  other.
 
   Three mechanisms, in order of how quickly they fire:
     1. <meta http-equiv="refresh"> - fires with no JavaScript, which matters
@@ -46,9 +47,9 @@ robots: noindex, follow
 <div class="container" style="padding:64px 24px;max-width:640px;margin:0 auto;text-align:center">
   <h1 style="font-size:1.5rem;margin-bottom:12px">This tool has moved</h1>
   <p style="color:var(--fg-muted,#8b949e);line-height:1.6;margin-bottom:24px">
-    <strong>meshcore-vanity-key</strong> was renamed twice and is now
-    <strong>mesh-vanity-key</strong>. You should be redirected automatically. If
-    not, use the link below.
+    <strong>meshcore-meshtastic-vanity-key</strong> was renamed to
+    <strong>mesh-vanity-key</strong>, since it covers more than those two
+    protocols. You should be redirected automatically. If not, use the link below.
   </p>
   <p>
     <a href="https://neohiro.github.io/mesh-vanity-key/"
