@@ -27,11 +27,19 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
+      # Load-bearing. This job reads files out of the working tree, so without a
+      # checkout every step below runs against an empty workspace, and the first
+      # one fails with
+      #   python: can't open file '.../scripts/verify_data.py': [Errno 2]
+      # which reads like a script missing from the repository rather than a
+      # missing checkout - the script is in the repository. The step has been on
+      # this job since 47b2b99; an edit that added the data check dropped it.
+      # Removing or reordering this line reproduces the failure.
+      - uses: actions/checkout@v7
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Verify data files match the tool docs
-        run: python scripts/verify_data.py
       - name: Verify repos.json is in sync with _data/repos.yml
         run: |
           pip install --quiet pyyaml
