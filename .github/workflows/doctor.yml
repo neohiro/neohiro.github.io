@@ -54,7 +54,7 @@ jobs:
       #
       # A pin to a commit that no longer resolves is indistinguishable from a
       # broken workflow, so it is worth re-verifying whenever this is bumped.
-      - uses: dorny/paths-filter@15192bc058cc28a13dbf6cde61f19e18988b7af6
+      - uses: dorny/paths-filter@0e4a8c6effa4802afeda77dc8d303f8176d7dfad
         id: filter
         with:
           base: ${{ github.event.pull_request.base.sha || github.event.repository.default_branch }}
