@@ -49,6 +49,11 @@ assistant:
   request_access: "/request-access/"
   dashboard_url: "https://github.com/neohiro/dashboard"
 
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
 palette: "purple-matrix"
 fonts: "matrix"
 decor: "matrix"
