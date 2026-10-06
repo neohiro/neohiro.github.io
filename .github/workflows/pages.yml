@@ -74,6 +74,20 @@ jobs:
       - name: Verify _tools <-> _data/repos.yml consistency
         run: python scripts/verify_data.py
 
+      # The shared chrome has shipped broken while the build stayed green: a
+      # `display: flex` left behind after a `display: none` fix, so the retired
+      # dock kept painting over the live bar and swallowing its clicks;
+      # hardcoded #fff on text sitting on the page background, which measured
+      # 1.05:1 in light mode; and a conversation frame sized by its content rather
+      # than its container. None of those fail a Jekyll build or any of the
+      # verifiers above, so they need their own gate.
+      #
+      # Single-site mode here (a checkout has no siblings to diff against), so it
+      # checks this site's own copy of each shared file. The cross-site
+      # byte-identity comparison runs in the workspace.
+      - name: Check shared chrome contract
+        run: python scripts/check_chrome_contract.py
+
   build:
     needs: verify
     runs-on: ubuntu-latest
