@@ -31,7 +31,7 @@ nav_links:
   - "Repos|/repositories/"
   - "Live|/live.html|3"
   - "Beats|/heartbeats/|4"
-  - "Keys|/meshcore-vanity-key/|2"
+  - "Keys|https://neohiro.github.io/mesh-vanity-key/|2"
   - "Media|/media/|3"
   - "Setup|/onboard/|4"
 
@@ -59,17 +59,17 @@ assistant:
   request_access: "/request-access/"
   dashboard_url: "https://github.com/neohiro/dashboard"
 
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
 palette: "purple-matrix"
 fonts: "matrix"
 decor: "matrix"
 decor_class: "decor-matrix decor-scanlines decor-grain"
 font_google: "JetBrains+Mono:wght@400;500;700|Space+Grotesk:wght@400;500;600;700"
 # <<< top-bar contract
-
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-sitemap
 
 markdown: kramdown
 kramdown:
