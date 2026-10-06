@@ -9,6 +9,15 @@ on:
       main
   workflow_dispatch:
 
+# The LANScan dashboard is a self-contained app inside this site, checked by its
+# own Node tests. They run as a separate required job rather than as steps on
+# `verify` for two reasons: it needs setup-node, and a failure in a 45 KB
+# vanilla-JS app should name that app rather than surface as a data-layer error
+# on the Jekyll build.
+# Branch protection must require `lanscan` by name. Renaming this job re-freezes
+# every pull request, which is the failure mode documented on the verify job
+# below.
+
 permissions:
   contents: read
   pages: write
@@ -75,9 +84,46 @@ jobs:
         with:
           path: ./_site
 
+  # The LANScan dashboard's own gate: it must make no third-party request on
+  # load. Wired here rather than left to the retired lanscan.github.io repo,
+  # which is where this check used to live -- it stopped running when the
+  # dashboard moved onto this site and the stub took its workflow with it, so
+  # for a while nothing was enforcing the privacy property the page advertises.
+  lanscan:
+    name: LANScan self-contained
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Self-containment gate
+        # Privacy is the product. The page must render with the network off.
+        run: node lanscan/scripts/check-selfcontained.mjs lanscan
+
+      - name: Self-containment gate tests
+        # The gate has one exemption -- an anchor href the visitor chooses to
+        # follow. That is the kind of exemption that widens unnoticed, so it is
+        # tested rather than trusted.
+        run: node lanscan/scripts/test-selfcontained.mjs
+
+      - name: Syntax-check the dashboard
+        run: node --check lanscan/assets/js/lanscan.js
+
+      - name: Validate JSON
+        run: |
+          set -euo pipefail
+          for f in $(find lanscan -name '*.json' -not -path '*/.git/*'); do
+            node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" \
+              || { echo "::error::invalid JSON: $f"; exit 1; }
+          done
+          echo "all JSON valid"
+
   deploy:
     if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
-    needs: build
+    needs: [build, lanscan]
     runs-on: ubuntu-latest
     environment:
       name: github-pages
