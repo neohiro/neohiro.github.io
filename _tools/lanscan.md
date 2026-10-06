@@ -26,7 +26,19 @@ it as one live dashboard that never leaves your machine.
 
 <div class="tool-links">
   <a href="https://neohiro.github.io/lanscan/" class="tool-link tool-link-secondary" target="_blank" rel="noopener">Open the live dashboard</a>
+  <a href="https://github.com/neohiro/LANScan/releases/latest" class="tool-link tool-link-secondary" target="_blank" rel="noopener">Download the app</a>
 </div>
+
+The dashboard is a browser view; the scanner is a native service. The page cannot
+send ARP or ICMP itself, so it needs the standalone build running on the host
+you want to inspect. **Releases:** Windows · macOS · Linux, no Python needed.
+
+This is also the canonical home of the dashboard's source. It used to live in a
+separate `neohiro/lanscan.github.io` repository, which existed only to hold it
+before the path `/lanscan/` was available on this site; that repository is
+retired. GitHub serves a repo named `<name>.github.io` from
+`<owner>.github.io/<name>.github.io/`, so it could never have served `/lanscan/`
+in the first place — and two copies of a live dashboard is two that drift.
 
 ## The dashboard
 

@@ -294,6 +294,31 @@ td.empty, tr.empty td { padding: 1.5rem .8rem; text-align: center; color: var(--
 .src-body { padding: .85rem 1rem 1rem; display: grid; gap: .7rem; }
 .hint { margin: 0; font-size: .775rem; color: var(--fg-muted); }
 .hint-dim { color: var(--fg-subtle); font-family: var(--font-mono); font-size: .68rem; }
+.hint a { color: var(--accent-strong); text-decoration: none; border-bottom: 1px solid var(--accent-dim); }
+.hint a:hover { border-bottom-color: var(--accent-strong); }
+
+/* Per-platform download links.
+   auto-fit + minmax rather than a fixed three-column grid: the three are
+   identical in weight, so a fixed grid leaves a ragged gap on a phone while a
+   fixed single column makes three full-width bars on a desktop. minmax(0,1fr)
+   with auto-fit lets them be one, two or three across depending on what fits,
+   and they stay the same width in every case. */
+.dl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); gap: .55rem; }
+.dl {
+  display: flex; align-items: center; gap: .55rem;
+  background: var(--bg-elevated); border: 1px solid var(--border-hover);
+  border-radius: var(--radius-sm); padding: .55rem .7rem; text-decoration: none;
+  color: var(--fg); min-width: 0;
+  transition: background var(--transition), border-color var(--transition);
+}
+.dl:hover { background: var(--accent-dim); border-color: var(--accent); }
+.dl:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 2px; }
+.dl svg { width: 18px; height: 18px; flex: none; color: var(--accent-strong); }
+.dl-t { font-family: var(--font-mono); font-size: .78rem; font-weight: 500; }
+.dl-s {
+  font-family: var(--font-mono); font-size: .62rem; color: var(--fg-subtle);
+  margin-left: auto; padding-left: .3rem;
+}
 .src-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) auto; gap: .6rem; align-items: end; }
 .fld { display: grid; gap: .22rem; min-width: 0; }
 .fld > span { font-family: var(--font-mono); font-size: .655rem; text-transform: uppercase; letter-spacing: .07em; color: var(--fg-subtle); }
