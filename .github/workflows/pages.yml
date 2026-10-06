@@ -28,14 +28,27 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Branch protection on main requires a status check named `verify`, and until
-  # this job existed no workflow in the repository produced one. The requirement
-  # could therefore never be satisfied, so every pull request sat at BLOCKED
-  # regardless of its own state. The job name is load-bearing: renaming it
-  # re-freezes the repository.
+  # Branch protection on main requires status checks named `verify` and
+  # `LANScan self-contained`. The job names are load-bearing: a required
+  # context no workflow can produce makes every pull request permanently
+  # unmergeable while the branch looks green. Renaming or removing either job
+  # re-freezes the repository. neohiro/doctor documents this failure mode and
+  # the required-check table under knowledge/cross-repo-invariants.md.
   verify:
     runs-on: ubuntu-latest
     steps:
+      # Load-bearing. This job reads files out of the working tree, so without a
+      # checkout every step below runs against an empty workspace and the first
+      # one fails with
+      #   python: can't open file '.../scripts/verify_data.py': [Errno 2]
+      # which reads like a script missing from the repository rather than a
+      # missing checkout -- the script is in the repository. Removing or
+      # reordering this line reproduces the failure. It was lost once already
+      # and re-added by #24; the comment on the build job below used to carry
+      # this warning, and a merge that took the older copy of the file dropped
+      # the step again. Do not remove this line.
+      - uses: actions/checkout@v7
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
