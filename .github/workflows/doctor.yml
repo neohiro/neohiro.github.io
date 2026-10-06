@@ -42,9 +42,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 50
-      # Pinned to the current v3 tag commit, and VERIFIED to exist before being
+      # Pinned to the current v3 tag commit, and VERIFIED to resolve before being
       # written here. The previous pin, de90cc6fb38fc0963ad72b210f1b284cd68cea36,
-      # does not exist in dorny/paths-filter, so GitHub could not resolve the
+      # did not exist in dorny/paths-filter, so GitHub could not resolve the
       # action and rejected the ENTIRE workflow at validation time. That is not a
       # job-level failure: no jobs were created at all, the run ended in 0s with
       # "This run likely failed because of a workflow file issue", and it
@@ -52,9 +52,13 @@ jobs:
       # check named "verify" that this workflow can never emit, left the
       # repository permanently unmergeable.
       #
-      # A pin to a commit that no longer resolves is indistinguishable from a
-      # broken workflow, so it is worth re-verifying whenever this is bumped.
-      - uses: dorny/paths-filter@15192bc058cc28a13dbf6cde61f19e18988b7af6
+      # The same thing happened again with pin 15192bc058cc28a13dbf6cde61f19e18988b7af6,
+      # which had been written here as "the current v3 tag commit" and had already
+      # gone stale. A pin to a commit that no longer resolves is indistinguishable
+      # from a broken workflow, so verify it resolves -- not just that it is 40 hex
+      # characters -- whenever this is bumped:
+      #     gh api repos/dorny/paths-filter/commits/<sha>
+      - uses: dorny/paths-filter@0e4a8c6effa4802afeda77dc8d303f8176d7dfad
         id: filter
         with:
           base: ${{ github.event.pull_request.base.sha || github.event.repository.default_branch }}
