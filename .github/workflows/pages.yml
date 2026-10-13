@@ -47,7 +47,7 @@ jobs:
       # and re-added by #24; the comment on the build job below used to carry
       # this warning, and a merge that took the older copy of the file dropped
       # the step again. Do not remove this line.
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
         with:
@@ -99,7 +99,7 @@ jobs:
     needs: verify
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v4
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -127,7 +127,7 @@ jobs:
     name: LANScan self-contained
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:

@@ -30,13 +30,12 @@ nav_links:
   - "Guides|/#hardening-guides"
   - "Repos|/repositories/"
   - "Live|/live.html|3"
-  - "Beats|/heartbeats/|4"
-  - "Keys|https://neohiro.github.io/mesh-vanity-key/|2"
+  - "Keys|/tools/mesh-vanity-key/|2"
   - "Media|/media/|3"
   - "Setup|/onboard/|4"
 
 community_links:
-  - "Org Overview|https://github.com/neohiro"
+  - "Org|https://github.com/neohiro"
   - "Bluesky|https://bsky.app/profile/neohiro.bsky.social"
   - "Bug Reports|https://github.com/neohiro/windows/issues"
   - "Security|https://github.com/neohiro/windows/security"

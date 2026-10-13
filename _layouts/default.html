@@ -61,12 +61,9 @@
     </footer>
   </div>
 
-  <!-- Persistent curved dock + central AI button. Homepage only: the section
-       chips it renders are in-page anchors, and a subpage without those
-       sections would ship a bar full of dead fragment links. -->
-  {%- if page.url == '/' -%}
-  {% include bottom-bar.html %}
-  {%- endif -%}
+    <!-- Persistent curved dock + central AI button. Always present so the
+         AI assistant and primary CTA are accessible from every page. -->
+    {% include bottom-bar.html %}
 
   {% include auth-bar.html %}
 
