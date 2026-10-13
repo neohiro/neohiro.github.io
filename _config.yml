@@ -29,10 +29,7 @@ nav_links:
   - "Tools|/#featured-tools"
   - "Guides|/#hardening-guides"
   - "Repos|/repositories/"
-  - "Live|/live.html|3"
-  - "Keys|/tools/mesh-vanity-key/|2"
-  - "Media|/media/|3"
-  - "Setup|/onboard/|4"
+  - "Live|/live.html"
 
 community_links:
   - "Org|https://github.com/neohiro"
