@@ -15,7 +15,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
            fetchpriority="high">
       <div class="hero-badges" aria-label="Affiliations">
         <span class="badge badge-metapod">METAPOD</span>
-        <span class="badge badge-fpm">FrenzyPenguin Media</span>
+        <a href="https://frenzypenguin.media/" class="badge badge-fpm" target="_blank" rel="noopener">FrenzyPenguin Media</a>
       </div>
 
       <h1 class="hero-title">Defense is the best defense.</h1>
