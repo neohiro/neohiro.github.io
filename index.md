@@ -215,10 +215,6 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
 <section class="section" id="os-selector-section">
   <div class="container">
     <div class="os-app-selector" id="os-app-selector">
-      <div class="os-app-header">
-        <h2>OS App Selector</h2>
-        <p>Vicinity-blooming interactive tool launcher — hover near any symbol to magnify</p>
-      </div>
       <div class="os-grid">
         {% assign all_tools = site.data.repos.repos | sort: "weight" %}
         {% for tool in all_tools %}

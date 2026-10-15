@@ -6,17 +6,8 @@ permalink: /tools/
 ---
 
 <div class="container" style="padding: 60px 24px;">
-  <header class="section-header" style="text-align: center; margin-bottom: 40px;">
-    <h1>OS App Selector</h1>
-    <p class="section-subtitle">Futuristic tool index — hover near any icon to trigger vicinity blooming magnification</p>
-  </header>
-
   <!-- OS App Selector Grid Div -->
   <div class="os-app-selector" id="os-app-selector">
-    <div class="os-app-header">
-      <h2>Neohiro Ecosystem HUD</h2>
-      <p>Select any tool to inspect or launch repository page</p>
-    </div>
     <div class="os-grid">
       {% assign all_tools = site.data.repos.repos | sort: "weight" %}
       {% for tool in all_tools %}
