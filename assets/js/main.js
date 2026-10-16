@@ -4,6 +4,12 @@
 (function() {
   'use strict';
 
+  // Module-scoped reference to the GlitchTransition instance, so the
+  // visibility-reset helper (registered before DOMContentLoaded) can clear its
+  // internal `active` latch after a bfcache restore. Without this, the restored
+  // page keeps active === true and silently stops animating page transitions.
+  let glitchInstance = null;
+
   // ============================================
   // MATRIX RAIN BACKGROUND (constrained to hero area)
   // ============================================
@@ -124,17 +130,18 @@
               this.active = false;
             }, 150);
           } else {
-            // Anchor element doesn't exist on this page, navigate to root with hash
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 300ms ease';
+            // Anchor element doesn't exist on this page, navigate to root with hash.
+            // No body fade - see the note in the internal-link branch above.
             setTimeout(() => {
               window.location.href = '/' + (targetId ? '#' + targetId : '');
             }, 150);
           }
         } else if (isInternal) {
-          // Smooth transition for internal links
-          document.body.style.opacity = '0';
-          document.body.style.transition = 'opacity 300ms ease';
+          // Navigate behind the opaque overlay. We deliberately do NOT fade
+          // document.body here: that inline `opacity: 0` is captured by the
+          // bfcache entry for this page and is exactly what left the page blank
+          // on Back/Forward until a manual refresh. The full-screen overlay is
+          // the transition, so the body fade added nothing but the bug.
           setTimeout(() => {
             window.location.href = targetUrl;
           }, 150);
@@ -836,6 +843,7 @@
     // Initialize all components
     new MatrixRain();
     const glitch = new GlitchTransition();
+    glitchInstance = glitch;
     new ParallaxBackground();
     new CardEffects();
     new ScrollAnimations();
@@ -844,14 +852,11 @@
     new VideoEmbedManager();
     new LinkGuard();
 
-    // BFCache restoration: ensure page is visible on back/forward navigation
-    window.addEventListener('pageshow', () => {
-      document.body.style.opacity = '1';
-      const overlay = document.getElementById('glitch-overlay');
-      if (overlay) overlay.classList.remove('active');
-      glitch.active = false;
-    });
-    
+    // BFCache restoration: ensure page is visible on back/forward navigation.
+    // resetVisibility() is defined at module scope (see bottom of file) so it is
+    // registered even if this init() throws before reaching this line.
+    window.addEventListener('pageshow', resetVisibility);
+
     // Bind glitch transitions to internal links
     document.querySelectorAll('a[href^="/"], a[href^="#"], a[href^="./"]').forEach(link => {
       if (link.hostname === window.location.hostname || link.href.startsWith('/') || link.href.startsWith('#')) {
@@ -926,6 +931,27 @@
     `;
     document.head.appendChild(style);
   }
+
+  // Defensive visibility reset. Registered at module scope so it is guaranteed
+  // to exist even if init() throws, and wired to both 'pageshow' (covers bfcache
+  // restores, where event.persisted === true) and 'visibilitychange'. Clears any
+  // stale inline opacity/transition a previous navigation may have left on
+  // <body> and deactivates the full-screen glitch overlay. Idempotent.
+  function resetVisibility() {
+    try {
+      if (document.body) {
+        document.body.style.opacity = '1';
+        document.body.style.transition = '';
+      }
+      const overlay = document.getElementById('glitch-overlay');
+      if (overlay) overlay.classList.remove('active');
+      if (glitchInstance) glitchInstance.active = false;
+    } catch (e) {}
+  }
+  window.addEventListener('pageshow', resetVisibility);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') resetVisibility();
+  });
 
   // Start when DOM is ready
   if (document.readyState === 'loading') {
