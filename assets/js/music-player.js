@@ -142,7 +142,7 @@
         // we fall back to synth rather than leaving a dead, silent "playing" HUD.
         const onStreamError = () => {
           audioElement.removeEventListener('error', onStreamError);
-          if (isPlaying) startSynthFallback(track);
+          if (isPlaying) stopAudio();
         };
         audioElement.addEventListener('error', onStreamError);
 
@@ -158,7 +158,7 @@
           drawVisualizer();
         }).catch(() => {
           playPromise = null;
-          startSynthFallback(track);
+          stopAudio();
         });
       } else {
         startSynthFallback(track);
