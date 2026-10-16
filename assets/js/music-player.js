@@ -133,7 +133,8 @@
         // immediate. The visualizer below is synthetic (HUD ambience), so we do not
         // need - and deliberately do not build - a Web Audio graph for the element.
         audioElement = new Audio();
-        audioElement.preload = 'auto';
+        audioElement.preload = 'none';
+        audioElement.crossOrigin = 'anonymous';
         audioElement.loop = true;
         audioElement.volume = Math.min(1, Math.max(0, parseFloat(volInput.value)));
         audioElement.src = track.streamUrl;
