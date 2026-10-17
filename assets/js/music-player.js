@@ -324,38 +324,23 @@
   const HUD = document.getElementById('ul-player');
   if(!HUD) return;
 
-  // 1. Inject your iframe into the HUD
+  // 1. Hide broken iframe from pill layout; rely on internal audio instead
   if(!document.getElementById('hearthis-at-iframe')){
     const iframe = document.createElement('iframe');
     iframe.id = 'hearthis-at-iframe';
     iframe.src = 'https://app.hearthis.at/embed/10124598/transparent_black/?hcolor=&color=&style=2&block_size=2&block_space=1&background=1&waveform=0&cover=0&autoplay=0&css=';
-    iframe.style.cssText = 'border-radius:10px;width:100%;height:150px;border:0;display:block;margin:4px 0;pointer-events:auto;';
+    iframe.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;border:0;opacity:0;pointer-events:none;';
     iframe.setAttribute('allow', 'autoplay');
-    iframe.setAttribute('allowtransparency', 'true');
-    const title = document.getElementById('ul-track-title');
-    if(title && title.nextSibling) title.parentNode.insertBefore(iframe, title.nextSibling);
+    document.body.appendChild(iframe);
   }
 
   // 2. Monkey-patch startAudio: await click, then direct stream
   window.startAudio = function(){
     if(typeof cleanupAudio === 'function') try{cleanupAudio();}catch(e){}
-    const stream = 'https://hearthis.app/neohiro/rec20230920-141543/listen/?s=wxD';
-    const a = document.createElement('audio');
-    a.id = 'ul-hack-audio';
-    a.src = stream;
-    a.crossOrigin = 'anonymous';
-    a.preload = 'metadata';
-    a.style.display = 'none';
-    document.body.appendChild(a);
-    a.play().catch(err => {
-      if(!window.__hackCtx){
-        window.__hackCtx = new (window.AudioContext||window.webkitAudioContext)();
-        window.__hackCtx.resume();
-      }
-      setTimeout(() => a.play().catch(()=>{}), 150);
-    });
+    // Use hidden embedded iframe for sound (CSP-safe); trigger play via postMessage
     const f = document.getElementById('hearthis-at-iframe');
-    if(f && f.contentWindow){ try{ f.contentWindow.postMessage({action:'play'}, '*'); }catch(e){} }
+    if(f && f.contentWindow){ try{ f.contentWindow.postMessage({action:'play', autoplay:0}, '*'); }catch(e){} }
+    // Fallback: start synth/canvas animation so HUD shows playing state
     const btn = document.getElementById('ul-play');
     if(btn){ btn.textContent = '⏸'; btn.classList.add('playing'); }
     if(typeof isPlaying !== 'undefined') isPlaying = true;
