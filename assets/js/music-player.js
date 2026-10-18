@@ -119,7 +119,7 @@
       a.crossOrigin = 'anonymous';
       a.preload = 'auto'; a.title = 'Neohiro DJ Mix';
       a.style.display = 'none';
-      a.src = 'https://github.com/neohiro/dj/releases/download/v1.0/Whats%20in%20the%20box%20%5BBurn2%5D%20-%20rec_20230920-141543%20(hearthis.at).mp3';
+      a.src = 'https://hearthis.at/neohiro/rec20230920-141543/listen/?s=wxD';
       document.body.appendChild(a);
     }
     try{ a.play(); }catch(e){}
@@ -238,6 +238,10 @@
     else startAudio();
   });
   playBtn.setAttribute('tabindex','0');
+  playBtn.addEventListener('click', () => {
+    if (isPlaying) stopAudio();
+    else startAudio();
+  });
   playBtn.addEventListener('keydown', (e) => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); if (isPlaying) stopAudio(); else startAudio(); } });
 
   prevBtn.addEventListener('click', () => {
@@ -267,6 +271,10 @@
     else startAudio();
   });
   playBtn.setAttribute('tabindex','0');
+  playBtn.addEventListener('click', () => {
+    if (isPlaying) stopAudio();
+    else startAudio();
+  });
   playBtn.addEventListener('keydown', (e) => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); if (isPlaying) stopAudio(); else startAudio(); } });
 
   // Collapse HUD when not playing on load
