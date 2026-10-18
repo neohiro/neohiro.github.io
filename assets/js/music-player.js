@@ -121,26 +121,29 @@
 
     try {
       const track = tracks[currentTrack];
+      // Portfolio mix from podcast feed: try feed, fall back to curated track
+      fetch('https://hearthis.at/neohiro/podcast.xml', {signal: fetchController?.signal}).then(r => r.text()).then(str => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(str, 'application/xml');
+        const enclosures = Array.from(doc.querySelectorAll('enclosure[url]'));
+        if (enclosures.length) {
+          // Pick first / most popular available from feed for portfolio effect
+          const best = enclosures[0].getAttribute('url');
+          if (best && best.includes('.mp3')) {
+            track.streamUrl = best;
+            track.name = 'Neohiro Mix — Portfolio';
+            trackTitle.textContent = track.name;
+          }
+        }
+      }).catch(() => {});
       
       if (track.streamUrl) {
-        // Play the stream DIRECTLY through a plain <audio> element. Routing a
-        // cross-origin element through createMediaElementSource() silently yields
-        // silence if the CDN's CORS headers are missing or a redirect hop drops
-        // them - the play() promise still resolves, so no fallback ever fires and
-        // the visitor hears nothing. hearthis.at's listen URLs redirect to a
-        // stream*.hearthis.at host that serves audio/mpeg with
-        // Access-Control-Allow-Origin: *, so direct playback is both reliable and
-        // immediate. The visualizer below is synthetic (HUD ambience), so we do not
-        // need - and deliberately do not build - a Web Audio graph for the element.
         audioElement = new Audio();
         audioElement.preload = 'none';
         audioElement.loop = true;
         audioElement.volume = Math.min(1, Math.max(0, parseFloat(volInput.value)));
         audioElement.src = track.streamUrl;
         audioElement.load();
-
-        // If the URL 404s or the network drops, surface it via the error event so
-        // we leave a dead, silent "playing" HUD.
         const onStreamError = () => {
           audioElement.removeEventListener('error', onStreamError);
           if (isPlaying) stopAudio();
