@@ -929,7 +929,7 @@ p { color: var(--fg-muted); }
 
 /* Project Selector */
 .project-selector {
-  margin: 24px 0 32px;
+  margin: 24px auto 32px;
   max-width: 480px;
 }
 

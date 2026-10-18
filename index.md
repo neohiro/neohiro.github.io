@@ -126,6 +126,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
 </script>
 
 <!-- Production-Grade Tools -->
+<style>.tool-stars{font-size:12px;color:#ffd54f;margin-left:8px;font-weight:600}</style>
 <section class="section" id="featured-tools">
   <div class="container">
     <header class="section-header">
@@ -154,7 +155,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 12h6M12 9v6"/></svg>
             {% endif %}
           </div>
-          <h3 class="tool-name" itemprop="name">{{ tool.title | escape }}</h3>
+          <h3 class="tool-name" itemprop="name">{{ tool.title | escape }}{% if tool.stars %}<span class="tool-stars">★ {{ tool.stars }}</span>{% endif %}</h3>
           <p class="tool-desc" itemprop="description">{{ tool.tagline | escape }}</p>
           <div class="tool-meta">
             <span class="tool-platform" itemprop="operatingSystem">{{ tool.platform | escape }}</span>
@@ -220,14 +221,20 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
         {% for tool in all_tools %}
           <a href="{{ tool.repo_url }}" class="os-app-tile" target="_blank" rel="noopener" aria-label="{{ tool.title }}">
             <div class="os-app-icon" aria-hidden="true">
-              {% if tool.category contains 'Network' or tool.category contains 'Security' %}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-              {% elsif tool.category contains 'Games' %}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M7 12h.01M12 12h.01M17 12h.01"/></svg>
-              {% elsif tool.category contains 'Developer' %}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+              {% if tool.category contains 'Network' or tool.category contains 'Security' or tool.category contains 'Hardening' %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/><path d="M12 6v6m-3 3h6"/></svg>
               {% elsif tool.category contains 'Cryptography' %}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.778-7.778zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1.5" fill="currentColor"/></svg>
+              {% elsif tool.category contains 'Games' %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M7 12h.01M12 12h.01M17 12h.01"/><path d="M6 9l2 2 4-4"/></svg>
+              {% elsif tool.category contains 'Developer' or tool.category contains 'Utilities' or tool.category contains 'System Utilities' %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              {% elsif tool.category contains 'Communication' or tool.category contains 'Media' %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="12" r="1" fill="currentColor"/><circle cx="13" cy="12" r="1" fill="currentColor"/><circle cx="17" cy="12" r="1" fill="currentColor"/></svg>
+              {% elsif tool.category contains 'Information' or tool.category contains 'Health' %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor"/></svg>
+              {% elsif tool.category contains 'Privacy' %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
               {% else %}
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 12h6M12 9v6"/></svg>
               {% endif %}
@@ -359,7 +366,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
     </div>
 
     <!-- Action Cards (shown after project selection) -->
-    <div class="community-grid" id="community-actions" style="display: none;">
+    <div class="community-grid" id="community-actions">
       <a class="community-card card-3d" id="action-bugs" href="#" role="button" tabindex="0" aria-label="Open bug reports for selected project">
         <h3>Bug Reports</h3>
         <p>Structured issue templates with required diagnostics.</p>
@@ -593,10 +600,8 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
         const selected = this.options[this.selectedIndex];
         if (selected && selected.value) {
           updateActionLinks(selected.dataset.repoUrl);
-          communityActions.style.display = "grid";
-        } else {
-          communityActions.style.display = "none";
         }
+        communityActions.style.display = "grid";
       });
 
       // Keyboard support for action cards (Enter/Space to follow link)
@@ -612,6 +617,12 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
           if (this.href && this.href !== "#") {
             e.preventDefault();
             window.open(this.href, "_blank", "noopener");
+          } else {
+            e.preventDefault();
+            const sel = document.getElementById("project-select");
+            const selWrap = document.getElementById("project-selector");
+            if (sel) sel.focus();
+            if (selWrap) selWrap.scrollIntoView({ behavior: "smooth", block: "center" });
           }
         });
       });
