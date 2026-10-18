@@ -111,70 +111,31 @@
   }
 
   function startAudio() {
-    // Cancel any in-flight play
-    if (playPromise) {
-      playPromise.catch(() => {});
-      playPromise = null;
+    if(typeof cleanupAudio === 'function') try{cleanupAudio();}catch(e){}
+    let f = document.getElementById('ht-player-iframe');
+    if(!f){
+      f = document.createElement('iframe');
+      f.id = 'ht-player-iframe';
+      f.src = 'https://app.hearthis.at/embed/10124598/transparent_black/?autoplay=1';
+      f.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;border:0;opacity:0;pointer-events:none;';
+      f.setAttribute('allow','autoplay');
+      document.body.appendChild(f);
+    } else {
+      f.src = f.src.replace(/autoplay=\d/, 'autoplay=1');
     }
-
-    cleanupAudio();
-
-    try {
-      const track = tracks[currentTrack];
-      // Portfolio mix from podcast feed: try feed, fall back to curated track
-      fetch('https://hearthis.at/neohiro/podcast.xml', {signal: fetchController?.signal}).then(r => r.text()).then(str => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(str, 'application/xml');
-        const items = Array.from(doc.querySelectorAll('item'));
-        for (const item of items) {
-          const enc = item.querySelector('enclosure[url]');
-          if (enc) {
-            const url = enc.getAttribute('url');
-            if (url && url.includes('.mp3')) {
-              track.streamUrl = url;
-              const titleEl = item.querySelector('title');
-              const realName = titleEl ? titleEl.textContent.trim() : 'Neohiro Mix';
-              track.name = realName;
-              trackTitle.textContent = realName;
-              break;
-            }
-          }
-        }
-      }).catch(() => {});
-      
-      if (track.streamUrl) {
-        audioElement = new Audio();
-        audioElement.preload = 'none';
-        audioElement.loop = true;
-        audioElement.volume = Math.min(1, Math.max(0, parseFloat(volInput.value)));
-        audioElement.src = track.streamUrl;
-        audioElement.load();
-        const onStreamError = () => {
-          audioElement.removeEventListener('error', onStreamError);
-          if (isPlaying) stopAudio();
-        };
-        audioElement.addEventListener('error', onStreamError);
-
-        playPromise = audioElement.play();
-        playPromise.then(() => {
-          playPromise = null;
-          usingSynth = false;
-          isPlaying = true;
-          playBtn.textContent = '‖';
-          playBtn.setAttribute('aria-label', 'Pause music');
-          statusDot.classList.add('playing');
-          try { localStorage.setItem(STORAGE_PREFIX + 'playing', 'true'); } catch(e){}
-          drawVisualizer();
-        }).catch(() => {
-          playPromise = null;
-          stopAudio();
-        });
-      } else {
-        startSynthFallback(track);
-      }
-    } catch(e) {
-      startSynthFallback(tracks[currentTrack]);
-    }
+    isPlaying = true;
+    playBtn.textContent = '‖';
+    statusDot.classList.add('playing');
+    drawVisualizer();
+  }
+  function stopAudio() {
+    if(typeof cleanupAudio === 'function') try{cleanupAudio();}catch(e){}
+    const f = document.getElementById('ht-player-iframe');
+    if(f) f.src = f.src.replace(/autoplay=\d/, 'autoplay=0');
+    isPlaying = false;
+    playBtn.textContent = '▶';
+    statusDot.classList.remove('playing');
+    if(typeof animationId !== 'undefined' && animationId) cancelAnimationFrame(animationId);
   }
 
   function startSynthFallback(track) {
@@ -283,11 +244,8 @@
   }
 
   playBtn.addEventListener('click', () => {
-    if (typeof isPlaying !== 'undefined' && isPlaying) {
-      if (typeof window.stopAudio === 'function') window.stopAudio();
-    } else {
-      if (typeof window.startAudio === 'function') window.startAudio();
-    }
+    if (isPlaying) stopAudio();
+    else startAudio();
   });
 
   prevBtn.addEventListener('click', () => {
@@ -311,57 +269,21 @@
     }
   });
 
+  // Play button toggle
+  playBtn.addEventListener('click', () => {
+    if (isPlaying) stopAudio();
+    else startAudio();
+  });
+
+  // Collapse HUD when not playing on load
+  const hud = document.getElementById('ul-player');
+  if (hud && !isPlaying) {
+    hud.classList.add('collapsed');
+    hud.style.transform = 'translateY(-100%)';
+  }
+
   if (autoPlay) {
     const resumeOnInteract = () => {
       startAudio();
       window.removeEventListener('pointerdown', resumeOnInteract);
       window.removeEventListener('keydown', resumeOnInteract);
-    };
-    window.addEventListener('pointerdown', resumeOnInteract);
-    window.addEventListener('keydown', resumeOnInteract);
-  }
-
-  clearCanvas();
-
-  // Cleanup on page unload
-  window.addEventListener('beforeunload', () => {
-    fetchController.abort();
-    stopAudio();
-  });
-})();
-
-  const HUD = document.getElementById('ul-player');
-  if(!HUD) return;
-
-  if(!document.getElementById('hearthis-at-iframe')){
-    const iframe = document.createElement('iframe');
-    iframe.id = 'hearthis-at-iframe';
-    iframe.src = 'https://app.hearthis.at/embed/10124598/transparent_black/?hcolor=&color=&style=2&block_size=2&block_space=1&background=1&waveform=0&cover=0&autoplay=0&css=';
-    iframe.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;border:0;opacity:0;pointer-events:none;';
-    iframe.setAttribute('allow','autoplay');
-    document.body.appendChild(iframe);
-  }
-  window.startAudio = function(){
-    if(typeof cleanupAudio === 'function') try{cleanupAudio();}catch(e){}
-    const f = document.getElementById('hearthis-at-iframe');
-    if(f) f.src = f.src.replace(/autoplay=\d/, 'autoplay=1');
-    const btn = document.getElementById('ul-play');
-    if(btn){ btn.textContent = '⏸'; btn.classList.add('playing'); }
-    if(typeof isPlaying !== 'undefined') isPlaying = true;
-    if(typeof animationId !== 'undefined' && animationId) cancelAnimationFrame(animationId);
-    if(typeof drawWaveform === 'function') animationId = requestAnimationFrame(drawWaveform);
-  };
-  window.stopAudio = function(){
-    if(typeof cleanupAudio === 'function') try{cleanupAudio();}catch(e){}
-    const f = document.getElementById('hearthis-at-iframe');
-    if(f) f.src = f.src.replace(/autoplay=\d/, 'autoplay=0');
-    const btn = document.getElementById('ul-play');
-    if(btn){ btn.textContent = '▶'; btn.classList.remove('playing'); }
-    if(typeof isPlaying !== 'undefined') isPlaying = false;
-    if(typeof animationId !== 'undefined' && animationId) cancelAnimationFrame(animationId);
-    if(typeof clearCanvas === 'function') clearCanvas();
-  };
-  if(HUD){ HUD.style.pointerEvents = 'auto'; HUD.style.zIndex = 9999; }
-})();
-w i n d o w . s t a r t A u d i o   =   s t a r t A u d i o ;   w i n d o w . s t o p A u d i o   =   s t o p A u d i o ;  
- 
