@@ -128,6 +128,7 @@
     playBtn.textContent = '⏸';
     playBtn.setAttribute('aria-label', 'Pause music');
     statusDot.classList.add('playing');
+    document.getElementById('ul-player').setAttribute('aria-live', 'polite');
     if(typeof animationId !== 'undefined' && animationId) cancelAnimationFrame(animationId);
     if(typeof drawWaveform === 'function') animationId = requestAnimationFrame(drawWaveform);
   }
@@ -168,6 +169,7 @@
     playBtn.textContent = '‖';
     playBtn.setAttribute('aria-label', 'Pause music');
     statusDot.classList.add('playing');
+    document.getElementById('ul-player').setAttribute('aria-live', 'polite');
     try { localStorage.setItem(STORAGE_PREFIX + 'playing', 'true'); } catch(e){}
     drawVisualizer();
   }
