@@ -67,7 +67,7 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
       { t: "Passive honeypot. Zero config.",        a: "HoneyScan" },
       { t: "Sessions heal themselves.",             a: "auto-resume" },
       { t: "Audit it, then fix it.",                a: "neohiro-doctor" },
-      { t: "Hardening as a checklist.",             a: "neohiro/ubuntu" },
+      { t: "Hardening as a checklist.",             a: "neohiro/linux" },
       { t: "Zero telemetry. No accounts.",          a: "neohiro" },
       { t: "Windows, macOS, Linux. One app.",       a: "dnscrypt-proxy-gui" },
       { t: "Every packet, accounted for.",          a: "Cripple-NetStrip" },
@@ -252,6 +252,8 @@ description: "Security hardening & privacy tools for Windows and Linux. Defense 
   (function() {
     const selector = document.getElementById('os-app-selector');
     if (!selector) return;
+    // Accessibility: respect reduced-motion preference
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const grid = selector.querySelector('.os-grid');
     const tiles = Array.from(grid.querySelectorAll('.os-app-tile'));
 

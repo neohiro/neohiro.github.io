@@ -41,6 +41,8 @@ permalink: /tools/
   (function() {
     const selector = document.getElementById('os-app-selector');
     if (!selector) return;
+    // Accessibility: respect reduced-motion preference
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const grid = selector.querySelector('.os-grid');
     const tiles = Array.from(grid.querySelectorAll('.os-app-tile'));
 

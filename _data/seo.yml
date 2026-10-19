@@ -388,36 +388,7 @@ tools:
       - "second life im"
       - "virtual world chat"
       - "second life group chat"
-  mobile-sync:
-    keywords:
-      - "tailscale funnel"
-      - "expose cli to mobile"
-      - "sync from phone"
-      - "remote cli access"
-      - "tailscale self-hosted"
-  Tetris:
-    keywords:
-      - "tetris"
-      - "tetris t-spin"
-      - "guideline tetris"
-      - "tetris vs ai"
-  TristarMania:
-    keywords:
-      - "space shooter"
-      - "procedural shooter"
-      - "browser game"
-      - "rust game"
-  ZombieShoot:
-    keywords:
-      - "zombie shooter"
-      - "top down shooter"
-      - "permadeath game"
-      - "python game"
-
-# Ecosystem projects that are NOT neohiro repositories. They render in the same
-# Featured Tools grid, so they belong in the graph too -- as `isRelatedTo`
-# targets, not as neohiro products. `_data/ecosystem.yml` is their SSOT; this is
-# only the description each needs for the graph and for llms.txt.
+  
 ecosystem:
   transhumanists:
     description: >-
